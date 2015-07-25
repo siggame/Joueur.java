@@ -77,7 +77,7 @@ public class AI extends BaseAI {
     }
 
 
-    /** <summary>
+    /**
      * This is called every time the AI is asked to respond with a command during their turn
      *
      * @return represents if you want to end your turn. true means end the turn, false means to keep your turn going and re-call runTurn()

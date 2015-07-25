@@ -68,7 +68,7 @@ ${merge("        // ", "ended", '        super.ended(won, reason);')}
 <% function_parms = ai["functions"][function_name];
 arg_strings = []
 %>
-    /** <summary>
+    /**
      * ${function_parms['description']}<% a = "*/ this is to appease the syntax highlighter\"" %>
 % if 'arguments' in function_parms:
      *
