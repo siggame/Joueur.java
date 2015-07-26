@@ -249,7 +249,11 @@ public class Client {
         this.send("run", data);
 
         Object runData = this.waitForEvent("ran");
-
+        
+        if (runData != null) {
+            runData = this.gameManager.unserialize(runData);
+        }
+        
         return runData;
     }
 }

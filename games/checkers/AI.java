@@ -30,7 +30,20 @@ public class AI extends BaseAI {
     public Player player;
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add additional fields here for your AI to use
+    private class Point {
+        int x = -1;
+        int y = -1;
+        boolean requiresJump = false;
+    }
+    
+    private class MoveData {
+        Checker checker = null;
+        Point point = null;
+    }
+    
+    private boolean cantMove = false;
+    private Checker forceChecker = null;
+    private Checker[][] checkersMap;
     // <<-- /Creer-Merge: fields -->>
 
 
@@ -50,7 +63,9 @@ public class AI extends BaseAI {
      */
     public void start() {
         // <<-- Creer-Merge: start -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-        super.start();
+        this.checkersMap = new Checker[this.game.boardWidth][this.game.boardHeight];
+        
+        this.clearCheckersMap();
         // <<-- /Creer-Merge: start -->>
     }
 
@@ -60,7 +75,24 @@ public class AI extends BaseAI {
      */
     public void gameUpdated() {
         // <<-- Creer-Merge: game-updated -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-        super.gameUpdated();
+        this.clearCheckersMap();
+        
+        this.forceChecker = null;
+        this.cantMove = false;
+        
+        for(int i = 0; i < this.game.checkers.size(); i++) {
+            Checker checker = this.game.checkers.get(i);
+            this.checkersMap[checker.x][checker.y] = checker;
+            
+            if(checker.owner == this.player && checker == this.game.checkerMoved) {
+                if(this.game.checkerMovedJumped) {
+                    this.forceChecker = checker;
+                }
+                else {
+                    this.cantMove = true;
+                }
+            }
+        }
         // <<-- /Creer-Merge: game-updated -->>
     }
 
@@ -84,13 +116,103 @@ public class AI extends BaseAI {
      */
     public boolean runTurn() {
         // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-        // Put your game logic here for runTurn
+        while(true) {
+            MoveData moveData = this.findMove();
+            
+            if (moveData != null) {
+                if(moveData.point.x == 1 && moveData.point.y == 1) {
+                    int i = 0;
+                }
+                moveData.checker.move(moveData.point.x, moveData.point.y);
+            }
+            else {
+                break;
+            }
+        }
+        
         return true;
         // <<-- /Creer-Merge: runTurn -->>
     }
 
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add additional methods here for your AI to call
+    
+    private MoveData findMove() {
+        if (this.cantMove) {
+            return null;
+        }
+        
+        List<Checker> checkers = new ArrayList<Checker>();
+        
+        if (this.forceChecker != null) {
+            checkers.add(this.forceChecker);
+        }
+        else {
+            checkers.addAll(0, this.player.checkers);
+        }
+        
+        int yDirection = this.player.yDirection;
+        
+        java.util.Collections.shuffle(checkers);
+        
+        for(int i = 0; i < checkers.size(); i++) {
+            Checker checker = checkers.get(i);
+            MoveData moveData = new MoveData();
+            List<Point> neighbors = new ArrayList<Point>();
+            neighbors.add(new Point() { { x = checker.x + 1; y = checker.y + yDirection; } });
+            neighbors.add(new Point() { { x = checker.x - 1; y = checker.y + yDirection; } });
+            
+            if(checker.kinged) {
+                neighbors.add(new Point() { { x = checker.x + 1; y = checker.y - yDirection; } });
+                neighbors.add(new Point() { { x = checker.x - 1; y = checker.y - yDirection; } });
+            }
+            
+            java.util.Collections.shuffle(neighbors);
+            
+            while(neighbors.size() > 0) {
+                Point neighbor = neighbors.get(0);
+                neighbors.remove(0);
+                
+                if (neighbor.x >= this.game.boardWidth || neighbor.x < 0 || neighbor.y >= this.game.boardHeight || neighbor.y < 0) {
+                    continue;
+                }
+                
+                if (this.forceChecker != null) { // then we MUST jump
+                    if (neighbor.requiresJump) { // and we can!
+                        moveData.checker = checker;
+                        moveData.point = neighbor;
+                        return moveData;
+                    }
+                }
+                else {
+                    Checker jumping = this.checkersMap[neighbor.x][neighbor.y];
+                    if (jumping == null) { // then the space is empty, and safe!
+                        moveData.checker = checker;
+                        moveData.point = neighbor;
+                        return moveData;
+                    }
+                    else if (jumping.owner != checker.owner) { // there is one to jump, so let's try to jump it
+                        if (!neighbor.requiresJump) {
+                            int dx = neighbor.x - checker.x;
+                            int dy = neighbor.y - checker.y;
+                            
+                            neighbors.add(new Point() {{ x = neighbor.x + dx; y = neighbor.y + dy; requiresJump = true; }});
+                        }
+                    }
+                }
+            }
+        }
+        
+        return null; // because a checker was not found that can move :(
+    }
+    
+    private void clearCheckersMap() {
+        for(int x = 0; x < this.game.boardWidth; x++) {
+            for(int y = 0; y < this.game.boardHeight; y++) {
+                this.checkersMap[x][y] = null;
+            }
+        }
+    }
+    
     // <<-- /Creer-Merge: methods -->>
 }
