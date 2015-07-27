@@ -45,8 +45,7 @@ public abstract class BaseAI {
             return returned;
             
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Client.getInstance().handleError(e, ErrorCode.REFLECTION_FAILED, "Could not find method '" + order + "' in AI to do order.");
         }
         
         return null;

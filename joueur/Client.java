@@ -8,9 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 import java.util.Stack;
-
 import org.json.*;
 
 public class Client {
@@ -31,14 +29,14 @@ public class Client {
 
     // endregion
 
-    public final static int ERROR_CODE_SOCKET_READ = 18;
-    public final static int ERROR_CODE_DELTA_MERGE = 19;
-    
+
     private String server = null;
     private int port = 0;
     private boolean printIO = false;
-    private final String EOT_CHAR = "" + (char) 4;
-    private final int BUFFER_SIZE = 1024;
+    private boolean started = false;
+    private static final String EOT_CHAR = "" + (char) 4;
+    private static final int BUFFER_SIZE = 1024;
+    private static final int SERVER_TIMEOUT = 30000;
     private BaseAI ai = null;
     private BaseGameObject aisPlayer = null;
     public GameManager gameManager;
@@ -72,16 +70,16 @@ public class Client {
 
         try {
             this.socket = new Socket(this.server, this.port);
-            this.socket.setSoTimeout(1000); // 1 sec timeout
+            this.socket.setSoTimeout(Client.SERVER_TIMEOUT); // 1 sec timeout
             this.socketOut = new PrintWriter(this.socket.getOutputStream(), true);
             this.socketIn = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-        } catch (UnknownHostException e) {
-            System.err.println("Don't know about host: " + server + ":" + port);
-            System.exit(1);
         } catch (IOException e) {
-            System.err.println("Couldn't get I/O for " + "the connection to: " + server + ":" + port);
-            System.exit(1);
+            this.handleError(e, ErrorCode.COULD_NOT_CONNECT, "Couldn't get I/O for " + "the connection to: " + server + ":" + port);
         }
+    }
+    
+    public void start() {
+        this.started = true;
     }
 
     public String lowercaseFirst(String str) {
@@ -97,7 +95,7 @@ public class Client {
 
         send.put("sentTime", System.currentTimeMillis());
         
-        String str = send.toString() + this.EOT_CHAR;
+        String str = send.toString() + Client.EOT_CHAR;
         
         if (this.printIO) {
             System.out.println("TO SERVER <-- " + str);
@@ -107,11 +105,11 @@ public class Client {
         //this.socketOut.flush();
     }
 
-    public void disconnect(int errorCode, String errorMessage) {
-        if (errorMessage != null) {
-            System.err.println(errorMessage);
-        }
-        
+    public void disconnect() {
+        this.handleError(null, ErrorCode.NONE, null);
+    }
+    
+    public void handleError(Exception e, ErrorCode errorCode, String errorMessage) {
         try {
             this.socketOut.close();
             this.socketIn.close();
@@ -120,7 +118,7 @@ public class Client {
             // whatever, we are disconnecting anyways
         }
 
-        System.exit(errorCode);
+        ErrorCode.handleError(e, errorCode, errorMessage);
     }
 
     public Object waitForEvent(String eventName) {
@@ -147,19 +145,23 @@ public class Client {
             char[] chars = null;
             int charsRead = -2;
             try {
-                chars = new char[this.BUFFER_SIZE];
+                chars = new char[Client.BUFFER_SIZE];
                 charsRead = this.socketIn.read(chars);
             } catch (SocketTimeoutException e) {
-                continue;
+                if (this.started) { // then the server is probably frozen :(
+                    this.handleError(e, ErrorCode.SERVER_TIMEOUT, "Timed out from server, it probably froze.");
+                }
+                else {
+                    continue; // because we should be lobbied and will wait for it to start
+                }
             } catch (IOException e) {
-                e.printStackTrace();
-                this.disconnect(Client.ERROR_CODE_SOCKET_READ, "Error with reading socket: " + e.getMessage());
+                this.handleError(e, ErrorCode.CANNOT_READ_SOCKET, "Error with reading socket: " + e.getMessage());
             }
             
             String responseData = null;
             if(charsRead != -2) {
                 if (charsRead == -1) { // then there was still more to read, so it filled the whole buffer
-                    charsRead = this.BUFFER_SIZE;
+                    charsRead = Client.BUFFER_SIZE;
                 }
                 
                 if (chars != null) {
@@ -175,7 +177,7 @@ public class Client {
             }
             
             String total = this.receivedBuffer + responseData;
-            String[] split = total.split("[" + this.EOT_CHAR + "]", -1);
+            String[] split = total.split("[" + Client.EOT_CHAR + "]", -1);
 
             this.receivedBuffer = split[split.length - 1]; // this is either an empty string because of the EOT_CHAR split, or an incomplete json string so store it in the buffer
 
@@ -196,16 +198,9 @@ public class Client {
         try {
             Method method = this.getClass().getDeclaredMethod("autoHandle" + eventName.substring(0, 1).toUpperCase() + eventName.substring(1), Object.class);
             method.setAccessible(true);
-
-            try {
-                method.invoke(this, data);
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        } catch (NoSuchMethodException | SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            method.invoke(this, data);
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            this.handleError(e, ErrorCode.REFLECTION_FAILED, "could not auto handle event '" + eventName + "'");
         }
     }
 
@@ -215,10 +210,9 @@ public class Client {
 
         if (this.aisPlayer == null) {
             try {
-                this.aisPlayer = (BaseGameObject) this.ai.getClass().getField("player").get(this.ai);
+                this.aisPlayer = (BaseGameObject)this.ai.getClass().getField("player").get(this.ai);
             } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                this.handleError(e, ErrorCode.REFLECTION_FAILED, "Could not get the AI's Player");
             }
         }
 
@@ -229,13 +223,25 @@ public class Client {
 
     @SuppressWarnings("unused") // because it can be invoked via reflection
     private void autoHandleInvalid(Object data) throws Exception {
-        throw new Exception("Sent invalid command data!");
+        this.handleError(null, ErrorCode.INVALID_EVENT, "Sent invalid command data!");
     }
 
     @SuppressWarnings("unused") // because it can be invoked via reflection
     private void autoHandleOver(Object data) {
-        this.ai.ended(true, "");
-        this.disconnect(0, null);
+        boolean won = false;
+        String reason = "";
+        
+        if(this.aisPlayer != null) {
+            try {
+                won = this.aisPlayer.getClass().getField("won").getBoolean(this.aisPlayer);
+                reason = (String)this.aisPlayer.getClass().getField(won ? "reasonWon" : "reasonLost").get(this.aisPlayer);
+            } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+                this.handleError(e, ErrorCode.REFLECTION_FAILED, "Cannot get if play won or lost when game is over");
+            }
+        }
+        
+        this.ai.ended(won, reason);
+        this.disconnect();
     }
 
     public Object runOnServer(BaseGameObject caller, String functionName, JSONObject args) {

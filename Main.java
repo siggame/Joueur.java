@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import joueur.BaseAI;
 import joueur.BaseGame;
 import joueur.Client;
+import joueur.ErrorCode;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
@@ -54,8 +55,7 @@ class JoueurJava {
             port = parsedArgs.getInt("port");
             printIO = parsedArgs.getBoolean("printIO");
         } catch (ArgumentParserException e) {
-            parser.handleError(e);
-            System.exit(21);
+            ErrorCode.handleError(e, ErrorCode.INVALID_ARGS, "Invalid Args");
         }
         
         if (server.contains(":")) {
@@ -77,9 +77,7 @@ class JoueurJava {
             Constructor<?> aiConstructor = aiClass.getConstructor(new Class[0]);
             ai = (BaseAI)aiConstructor.newInstance(new Object[0]);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
-            System.err.println("Error: could not create game or ai via reflection for game '" + gameName + "'");
-            e.printStackTrace();
-            System.exit(17);
+            client.handleError(e, ErrorCode.GAME_NOT_FOUND, "Could not create game or ai via reflection for game '" + gameName + "'");
         }
         
         client.connectTo(game, ai, server, port, printIO);
@@ -115,11 +113,10 @@ class JoueurJava {
             ai.getClass().getField("game").set(ai, game);
             ai.getClass().getField("player").set(ai, game.gameObjects.get(startData.getString("playerID")));
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-            System.err.println("Error: could not set reflected game and player for ai.");
-            e.printStackTrace();
-            System.exit(17);
+            client.handleError(e, ErrorCode.REFLECTION_FAILED, "Could not set reflected Game and Player for AI.");
         }
         
+        client.start();
         ai.start();
         ai.gameUpdated();
         

@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GameManager {
@@ -50,18 +48,19 @@ public class GameManager {
         }
     }
     
+    @SuppressWarnings("rawtypes")
     private BaseGameObject createGameObject(String className) {
         try {
             Class gameObjectClass = Class.forName("games." + this.gameFolder + "." + className);
             return (BaseGameObject)gameObjectClass.newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-            this.client.disconnect(Client.ERROR_CODE_DELTA_MERGE, "Error: could not create base game object of Class '" + className + "'");
+            this.client.handleError(e, ErrorCode.DELTA_MERGE_FAILURE, "Error: could not create base game object of Class '" + className + "'");
         }
         
         return null;
     }
     
+    @SuppressWarnings("rawtypes")
     private Object deltaMerge(Object delta, Object state) {
         if (delta instanceof JSONObject) {
             JSONObject jsonObject = (JSONObject)delta;
@@ -99,14 +98,14 @@ public class GameManager {
                 Object value = this.deltaMerge(delta.get(key), field.get(state));
                 field.set(state, value);
             } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-                e.printStackTrace();
-                this.client.disconnect(Client.ERROR_CODE_DELTA_MERGE, "Error: could not merge field '" + key + "'");
+                this.client.handleError(e, ErrorCode.DELTA_MERGE_FAILURE, "Error: could not merge field '" + key + "'");
             }
         }
         
         return state;
     }
     
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private List deltaMergeList(List list, JSONObject delta) {
         int listLength = delta.getInt(this.DELTA_LIST_LENGTH);
         
@@ -133,6 +132,7 @@ public class GameManager {
         return list;
     }
     
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private Map deltaMergeMap(Map map, JSONObject delta) {
         Iterator<?> keys = delta.keys();
         while (keys.hasNext()) {
@@ -151,28 +151,22 @@ public class GameManager {
     }
     
     private boolean isGameObjectReference(JSONObject jsonObject) {
-        if (jsonObject != null && jsonObject.length() == 1) {
-            try {
-                String id = jsonObject.getString("id");
-                if (!id.isEmpty()) {
-                    return true;
-                }
+        if (jsonObject != null && jsonObject.length() == 1 && jsonObject.has("id")) {
+            String id = jsonObject.optString("id");
+            if (id != null && !id.isEmpty()) {
+                return true;
             }
-            catch(JSONException e) {}
         }
         
         return false;
     }
     
     private boolean isDeltaList(JSONObject jsonObject) {
-        if (jsonObject != null) {
-            try {
-                int deltaLength = jsonObject.getInt(this.DELTA_LIST_LENGTH);
-                if (deltaLength >= 0) {
-                    return true;
-                }
+        if (jsonObject != null && jsonObject.has(this.DELTA_LIST_LENGTH)) {
+            int deltaLength = jsonObject.optInt(this.DELTA_LIST_LENGTH);
+            if (deltaLength >= 0) {
+                return true;
             }
-            catch (JSONException e) {}
         }
         return false;
     }
