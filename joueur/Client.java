@@ -245,21 +245,21 @@ public class Client {
     }
 
     public Object runOnServer(BaseGameObject caller, String functionName, JSONObject args) {
-        JSONObject data = new JSONObject();
-        data.put("caller", this.gameManager.serializeGameObject(caller));
-        data.put("functionName", functionName);
+        JSONObject runData = new JSONObject();
+        runData.put("caller", this.gameManager.serializeGameObject(caller));
+        runData.put("functionName", functionName);
         if (args != null) {
-            data.put("args", args);
+            runData.put("args", args);
         }
 
-        this.send("run", data);
+        this.send("run", runData);
 
-        Object runData = this.waitForEvent("ran");
+        Object ranData = this.waitForEvent("ran");
         
-        if (runData != null) {
-            runData = this.gameManager.unserialize(runData);
+        if (ranData != null) {
+            ranData = this.gameManager.unserialize(ranData);
         }
         
-        return runData;
+        return ranData;
     }
 }

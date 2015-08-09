@@ -11,7 +11,9 @@ public enum ErrorCode {
     UNKNOWN_EVENT_FROM_SERVER(26),
     SERVER_TIMEOUT(27),
     INVALID_EVENT(28),
-    GAME_NOT_FOUND(29);
+    GAME_NOT_FOUND(29),
+    
+    AI_ERRORED(42);
     
     private int returnNumber;
     

@@ -4,14 +4,13 @@
  */
 package games.checkers;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
 
 import joueur.BaseAI;
+
 // <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// you can add addtional import(s) here
+import java.util.List;
 // <<-- /Creer-Merge: imports -->>
 @SuppressWarnings("unused")
 
@@ -120,9 +119,6 @@ public class AI extends BaseAI {
             MoveData moveData = this.findMove();
             
             if (moveData != null) {
-                if(moveData.point.x == 1 && moveData.point.y == 1) {
-                    int i = 0;
-                }
                 moveData.checker.move(moveData.point.x, moveData.point.y);
             }
             else {
