@@ -117,19 +117,14 @@ class JoueurJava {
         }
         
         client.start();
-        ai.start();
-        ai.gameUpdated();
-        
-        while (true) {
-            JSONObject orderData = (JSONObject)client.waitForEvent("order");
-            
-            String order = orderData.getString("order");
-            Object returned = ai.doOrder(order, orderData.optJSONArray("args"));
-            
-            JSONObject finishedData = new JSONObject();
-            finishedData.put("finished", order);
-            finishedData.put("returned", returned);
-            client.send("finished", finishedData);
+        try {
+            ai.start();
+            ai.gameUpdated();
         }
+        catch(Exception e) {
+            client.handleError(e, ErrorCode.REFLECTION_FAILED, "AI threw exception during initial start");
+        }
+        
+        client.play();
     }
 }

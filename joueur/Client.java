@@ -121,13 +121,17 @@ public class Client {
         ErrorCode.handleError(e, errorCode, errorMessage);
     }
 
+    public void play() {
+        this.waitForEvent(null);
+    }
+
     public Object waitForEvent(String eventName) {
         while (true) {
             this.waitForEvents();
 
             while (!this.eventsStack.isEmpty()) {
                 ServerEvent serverEvent = this.eventsStack.pop();
-                if (serverEvent.event.equals(eventName)) {
+                if (eventName != null && serverEvent.event.equals(eventName)) {
                     return serverEvent.data;
                 } else {
                     this.autoHandle(serverEvent.event, serverEvent.data);
@@ -217,7 +221,12 @@ public class Client {
         }
 
         if (this.aisPlayer != null) {
-            this.ai.gameUpdated();
+            try {
+                this.ai.gameUpdated();
+            }
+            catch(Exception e) {
+                this.handleError(e, ErrorCode.AI_ERRORED, "AI.gameUpdated() errored");
+            }
         }
     }
 
@@ -240,8 +249,37 @@ public class Client {
             }
         }
         
-        this.ai.ended(won, reason);
+        try {
+            try {
+                this.ai.ended(won, reason);
+            }
+            catch(Exception e) {
+                this.handleError(e, ErrorCode.AI_ERRORED, "AI threw exception during AI.ended()");
+            }
+        }
+        catch(Exception e) {
+            this.handleError(e, ErrorCode.AI_ERRORED, "AI errored in AI.ended(won, reason)");
+        }
         this.disconnect();
+    }
+    
+    @SuppressWarnings("unused") // because it can be invoked via reflection
+    private void autoHandleOrder(Object data) {
+        JSONObject orderData = (JSONObject)data;
+        
+        String order = orderData.getString("order");
+        Object returned = null;
+        try {
+            returned = ai.doOrder(order, orderData.optJSONArray("args"));
+        }
+        catch(Exception e) {
+            this.handleError(e, ErrorCode.AI_ERRORED, "AI threw exception when executing order '" + order + "'.");
+        }
+        
+        JSONObject finishedData = new JSONObject();
+        finishedData.put("finished", order);
+        finishedData.put("returned", returned);
+        this.send("finished", finishedData);
     }
 
     public Object runOnServer(BaseGameObject caller, String functionName, JSONObject args) {
