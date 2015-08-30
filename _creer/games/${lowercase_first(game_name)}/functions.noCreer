@@ -18,11 +18,22 @@ if not 'java' in shared:
             else: # should be null and GameObjects
                 return "null"
         else:
-            if base_type == "string":
-                return '"' + default + '"'
-            elif base_type == "boolean":
-                return str(default).lower()
+            return java_value(type_obj, default)
     shared['java']['default'] = java_default
+
+    def java_value(type_obj, default):
+        base_type = type_obj['name']
+        if base_type == "string":
+            return '"' + default + '"'
+        elif base_type == "boolean":
+            return str(default).lower()
+        elif base_type == "int":
+            return str(default)
+        elif base_type == "float":
+            return str(default) + "f"
+        else: # should be dict, list, or gameobject
+            return "null"
+    shared['java']['value'] = java_value
 
     def java_type(type_obj):
         base_type = type_obj['name']

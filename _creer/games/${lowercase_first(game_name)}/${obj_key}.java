@@ -63,26 +63,59 @@ ${merge("    // ", "fields", "    // you can add addtional field(s) here. None o
 % endif
 % endfor
     }
-
 % for function_name in obj['function_names']:
-<% function_parms = obj['functions'][function_name]
+<%
+function_parms = obj['functions'][function_name]
 arg_strings = []
+arg_names = []
+all_types = []
 return_type = None
+if function_parms['returns']:
+    shared['java']['type'](function_parms['returns']['type'])
+
+if 'arguments' in function_parms:
+    for i, arg_parms in enumerate(function_parms['arguments']):
+        ty = shared['java']['type'](arg_parms['type'])
+        all_types.append(ty)
+        if arg_parms['optional']:
+            continue
+        else:
+            arg_strings.append(ty + " " + arg_parms['name'])
+            arg_names.append(arg_parms['name'])
+%>
+% if "optionals" in function_parms: # then we need to make some overloaded function with optional args omitted
+% for optional_arg_parms in function_parms['arguments'][function_parms['optionals_start_index']:]:
+<%
+    optional_arg_names = list(arg_names)
+    def_val = shared['java']['value'](optional_arg_parms['type'], optional_arg_parms['default'])
+    optional_arg_names.append(def_val)
 %>    /**
+     * Defaults the value for the optional arg '${optional_arg_parms['name']}' to '${def_val}'
+     *
+     * @see ${obj_key}#${function_name}(${", ".join(all_types)})
+     */
+    public ${return_type or 'void'} ${function_name}(${", ".join(arg_strings)}) {
+        ${"return " if function_parms['returns'] else ""}this.${function_name}(${", ".join(optional_arg_names)});
+    }
+<%
+    arg_strings.append(shared['java']['type'](optional_arg_parms['type']) + " " + optional_arg_parms['name'])
+    arg_names.append(optional_arg_parms['name'])
+%>
+% endfor
+% endif
+    /**
      * ${function_parms['description']}<% a = "*/ this is to appease the syntax highlighter\"" %>
 % if 'arguments' in function_parms:
      *
 % for arg_parms in function_parms['arguments']:
-<% arg_strings.append(shared['java']['type'](arg_parms['type']) + " " + arg_parms['name'])
-%>     * @param   ${arg_parms['name']}  ${arg_parms['description']}
+     * @param   ${arg_parms['name']}  ${arg_parms['description']}
 % endfor
 % endif
 % if function_parms['returns']:
 % if 'arguments' not in function_parms:
      *
 % endif
-<% return_type = shared['java']['type'](function_parms['returns']['type'])
-%>     * @return ${function_parms['returns']['description']}
+     * @return ${function_parms['returns']['description']}
 % endif
      */
     public ${return_type or 'void'} ${function_name}(${", ".join(arg_strings)}) {
