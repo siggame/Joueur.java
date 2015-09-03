@@ -1,0 +1,14 @@
+{
+    "requirements": [ "javadoc" ],
+    "command": [
+        "javadoc",
+        {
+            "input_files": true,
+            "extension": "java",
+            "path": "./"
+        },
+        "-d", {
+            "output_path": true
+        }
+    ]
+}
