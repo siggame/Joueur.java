@@ -2,6 +2,7 @@
 
 # Eclipse
 bin/
+.settings/
 *.class
 
 # Mobile Tools for Java (J2ME)
