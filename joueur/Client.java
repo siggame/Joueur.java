@@ -232,7 +232,12 @@ public class Client {
 
     @SuppressWarnings("unused") // because it can be invoked via reflection
     private void autoHandleInvalid(Object data) throws Exception {
-        this.handleError(null, ErrorCode.INVALID_EVENT, "Sent invalid command data!");
+        this.handleError(null, ErrorCode.INVALID_EVENT, "Sent invalid command data.");
+    }
+    
+    @SuppressWarnings("unused") // because it can be invoked via reflection
+    private void autoHandleUnauthenticated(Object data) throws Exception {
+        this.handleError(null, ErrorCode.UNAUTHENTICATED, "Could not log into server.");
     }
 
     @SuppressWarnings("unused") // because it can be invoked via reflection

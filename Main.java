@@ -33,6 +33,9 @@ class JoueurJava {
         parser.addArgument("-n", "--name")
             .dest("playerName")
             .help("the name you want to use as your AI\'s player name. This over-rides the name you set in your code");
+        parser.addArgument("-w", "--password")
+            .dest("password")
+            .help("the password required for authentication on official servers");
         parser.addArgument("-r", "--session")
             .dest("session")
             .setDefault("*")
@@ -42,7 +45,7 @@ class JoueurJava {
             .action(Arguments.storeTrue())
             .help("(debugging) print IO through the TCP socket to the terminal");
         
-        String gameName = "", server = "localhost", requestedSession = "*", playerName = "Java Player";
+        String gameName = "", server = "localhost", requestedSession = "*", playerName = "Java Player", password = null;
         int port = 3000;
         boolean printIO = false;
         
@@ -52,6 +55,7 @@ class JoueurJava {
             server = parsedArgs.getString("server");
             requestedSession = parsedArgs.getString("session");
             playerName = parsedArgs.getString("name");
+            password = parsedArgs.getString("password");
             port = parsedArgs.getInt("port");
             printIO = parsedArgs.getBoolean("printIO");
         } catch (ArgumentParserException e) {
@@ -91,6 +95,7 @@ class JoueurJava {
         
         JSONObject playData = new JSONObject();
         playData.put("gameName", gameName);
+        playData.put("password", password);
         playData.put("playerName", playerName);
         playData.put("requestedSession", requestedSession);
         playData.put("clientType", "Java");
