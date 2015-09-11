@@ -272,7 +272,16 @@ public class Client {
     private void autoHandleOrder(Object data) {
         JSONObject orderData = (JSONObject)data;
         
-        String order = orderData.getString("order");
+        String order = null;
+        int index = -1;
+        try {
+            order = orderData.getString("name");
+            index = orderData.getInt("index");
+        }
+        catch(Exception e) {
+            this.handleError(e, ErrorCode.REFLECTION_FAILED, "Order data malformed, missing name or index: ");
+        }
+        
         Object returned = null;
         try {
             returned = ai.doOrder(order, orderData.optJSONArray("args"));
@@ -282,7 +291,7 @@ public class Client {
         }
         
         JSONObject finishedData = new JSONObject();
-        finishedData.put("finished", order);
+        finishedData.put("orderIndex", index);
         finishedData.put("returned", returned);
         this.send("finished", finishedData);
     }
