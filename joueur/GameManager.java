@@ -22,7 +22,7 @@ public class GameManager {
     }
     
     public void setConstants(JSONObject constants) {
-        this.DELTA_LIST_LENGTH = constants.getString("DELTA_ARRAY_LENGTH");
+        this.DELTA_LIST_LENGTH = constants.getString("DELTA_LIST_LENGTH");
         this.DELTA_REMOVED = constants.getString("DELTA_REMOVED");
     }
     
