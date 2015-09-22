@@ -84,12 +84,12 @@ arg_strings = []
      * @return ${function_parms['returns']['description']}
 % endif
      */
-    public ${shared['java']['type'](function_parms['returns']['type'])} ${function_name}(${", ".join(arg_strings)}) {
+    public ${shared['java']['type'](function_parms['returns']['type']) if function_parms['returns'] else "void"} ${function_name}(${", ".join(arg_strings)}) {
 ${merge("        // ", function_name,
 """        // Put your game logic here for {0}
         return {1};
-""".format(function_name, shared['java']['default'](function_parms['returns']['type'], function_parms['returns']['default'])))
-}
+""".format(function_name, shared['java']['default'](function_parms['returns']['type'], function_parms['returns']['default']) if function_parms['returns'] else "")
+)}
     }
 % endfor
 
