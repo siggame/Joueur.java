@@ -40,12 +40,15 @@ class JoueurJava {
             .dest("session")
             .setDefault("*")
             .help("the requested game session you want to play on the server");
+        parser.addArgument("--gameSettings")
+            .dest("gameSettings")
+            .help("Any settings for the game server to force. Must be url parms formatted (key=value&otherKey=otherValue)");
         parser.addArgument("--printIO")
             .dest("printIO")
             .action(Arguments.storeTrue())
             .help("(debugging) print IO through the TCP socket to the terminal");
         
-        String gameName = "", server = "localhost", requestedSession = "*", playerName = "Java Player", password = null;
+        String gameName = "", server = "localhost", requestedSession = "*", playerName = "Java Player", password = null, gameSettings = null;
         int port = 3000;
         boolean printIO = false;
         
@@ -58,6 +61,7 @@ class JoueurJava {
             password = parsedArgs.getString("password");
             port = parsedArgs.getInt("port");
             printIO = parsedArgs.getBoolean("printIO");
+            gameSettings = parsedArgs.getString("gameSettings");
         } catch (ArgumentParserException e) {
             ErrorCode.handleError(e, ErrorCode.INVALID_ARGS, "Invalid Args");
         }
@@ -98,6 +102,7 @@ class JoueurJava {
         playData.put("password", password);
         playData.put("playerName", playerName);
         playData.put("requestedSession", requestedSession);
+        playData.put("gameSettings", gameSettings);
         playData.put("clientType", "Java");
         client.send("play", playData);
         
