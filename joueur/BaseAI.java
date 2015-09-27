@@ -19,6 +19,11 @@ public abstract class BaseAI {
      // the inheriting AI can add code to this inherited function
     }
     
+    public void invalid(String message) {
+        // the inheriting AI can add code to this inherited function
+        System.err.println("INVALID: " + message);
+    }
+    
     public void gameUpdated() {
      // the inheriting AI can add code to this inherited function
     }

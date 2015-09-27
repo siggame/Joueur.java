@@ -232,11 +232,17 @@ public class Client {
 
     @SuppressWarnings("unused") // because it can be invoked via reflection
     private void autoHandleInvalid(Object data) throws Exception {
-        this.handleError(null, ErrorCode.INVALID_EVENT, "Sent invalid command data.");
+        JSONObject jsonObject = (JSONObject)data;
+        try {
+            this.ai.invalid(jsonObject.getString("message"));
+        }
+        catch(Exception e) {
+            this.handleError(e, ErrorCode.AI_ERRORED, "AI.invalid() errored");
+        }
     }
     
     @SuppressWarnings("unused") // because it can be invoked via reflection
-    private void autoHandleUnauthenticated(Object data) throws Exception {
+    private void autoHandleFatal(Object data) throws Exception {
         this.handleError(null, ErrorCode.UNAUTHENTICATED, "Could not log into server.");
     }
 
