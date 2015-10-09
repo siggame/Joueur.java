@@ -14,7 +14,7 @@ import joueur.BaseGame;
 import joueur.BaseGameObject;
 ${merge("// ", "imports", "// you can add addtional import(s) here")}
 @SuppressWarnings("unused")
-<%parent_classes = obj['parentClasses']
+<%parent_classes = list(obj['parentClasses'])
 
 if not parent_classes:
     if obj_key == "Game":
