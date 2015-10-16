@@ -147,12 +147,12 @@ public class AI extends BaseAI {
             checkers.addAll(0, this.player.checkers);
         }
         
-        int yDirection = this.player.yDirection;
+        final int yDirection = this.player.yDirection;
         
         java.util.Collections.shuffle(checkers);
         
         for(int i = 0; i < checkers.size(); i++) {
-            Checker checker = checkers.get(i);
+            final Checker checker = checkers.get(i);
             MoveData moveData = new MoveData();
             List<Point> neighbors = new ArrayList<Point>();
             neighbors.add(new Point() { { x = checker.x + 1; y = checker.y + yDirection; } });
@@ -166,7 +166,7 @@ public class AI extends BaseAI {
             java.util.Collections.shuffle(neighbors);
             
             while(neighbors.size() > 0) {
-                Point neighbor = neighbors.get(0);
+                final Point neighbor = neighbors.get(0);
                 neighbors.remove(0);
                 
                 if (neighbor.x >= this.game.boardWidth || neighbor.x < 0 || neighbor.y >= this.game.boardHeight || neighbor.y < 0) {
@@ -189,8 +189,8 @@ public class AI extends BaseAI {
                     }
                     else if (jumping.owner != checker.owner) { // there is one to jump, so let's try to jump it
                         if (!neighbor.requiresJump) {
-                            int dx = neighbor.x - checker.x;
-                            int dy = neighbor.y - checker.y;
+                            final int dx = neighbor.x - checker.x;
+                            final int dy = neighbor.y - checker.y;
                             
                             neighbors.add(new Point() {{ x = neighbor.x + dx; y = neighbor.y + dy; requiresJump = true; }});
                         }

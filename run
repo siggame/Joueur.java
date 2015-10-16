@@ -1,5 +1,3 @@
 #!/bin/bash
 
-mvn package
-
-java -cp ./.classpath ./Main.java "$@"
+java -cp target/joueur-1.0-jar-with-dependencies.jar:bin JoueurJava "$@"

@@ -18,8 +18,19 @@ All inspiration taken from [MST's SIG-GAME framework](https://github.com/siggame
 
 ## How to Run
 
+### Windows
+
+On Windows it is probably best to use [Eclipse](http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/mars1) and just create a new project from existing code, pointing to this repo. It should read the .classfile and setup the rest. Note you'll need the Maven plugin too.
+
+### Linux
+
+JRE7 and Maven 3 are the only required packages. Note that Ubuntu's default version of Maven is 2. You can get 3.3.3 on Ubuntu easily [here](https://launchpad.net/~andrei-pozolotin/+archive/ubuntu/maven3).
+
+Once those are installed you can make and run the project as normal:
+
 ```
-javac JoueurJava GAME_NAME -s SERVER -p PORT -n PLAYER_NAME
+make
+./run GAME_NAME -s SERVER -p PORT -n PLAYER_NAME
 ```
 
 Only `GAME_NAME` is required to run this client.
