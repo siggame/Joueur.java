@@ -69,7 +69,7 @@ function_parms = obj['functions'][function_name]
 arg_strings = []
 arg_names = []
 all_types = []
-return_type = None
+return_type = shared['java']['type'](function_parms['returns']['type']) if function_parms['returns'] else None
 if function_parms['returns']:
     shared['java']['type'](function_parms['returns']['type'])
 
