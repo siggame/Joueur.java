@@ -248,6 +248,7 @@ public class Client {
 
     @SuppressWarnings("unused") // because it can be invoked via reflection
     private void autoHandleOver(Object data) {
+        JSONObject overData = (JSONObject)data;
         boolean won = false;
         String reason = "";
         
@@ -271,6 +272,12 @@ public class Client {
         catch(Exception e) {
             this.handleError(e, ErrorCode.AI_ERRORED, "AI errored in AI.ended(won, reason)");
         }
+
+        String message = overData.optString("message");
+        if(message != null && message != "") {
+            System.out.println(message);
+        }
+
         this.disconnect();
     }
     
