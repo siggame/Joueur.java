@@ -59,9 +59,9 @@ public class Checker extends GameObject {
      *
      * @return true if it is yours, false if it is not yours
      */
-    public void isMine() {
+    public boolean isMine() {
         JSONObject args = new JSONObject();
-        return this.runOnServer("isMine", args);
+        return (boolean)this.runOnServer("isMine", args);
     }
 
     /**
@@ -71,11 +71,11 @@ public class Checker extends GameObject {
      * @param   y  The y coordinate to move to.
      * @return Returns the same checker that moved if the move was successful. null otherwise.
      */
-    public void move(int x, int y) {
+    public Checker move(int x, int y) {
         JSONObject args = new JSONObject();
         args.put("x", x);
         args.put("y", y);
-        return this.runOnServer("move", args);
+        return(Checker) this.runOnServer("move", args);
     }
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
