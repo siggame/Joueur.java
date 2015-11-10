@@ -54,7 +54,7 @@ public class Client {
         if (port <= 0) {
             port = 3000;
         }
-        
+
         this.server = server;
         this.port = port;
         this.printIO = printIO;
@@ -94,13 +94,13 @@ public class Client {
         }
 
         send.put("sentTime", System.currentTimeMillis());
-        
+
         String str = send.toString() + Client.EOT_CHAR;
-        
+
         if (this.printIO) {
             System.out.println("TO SERVER <-- " + str);
         }
-        
+
         this.socketOut.println(str);
         //this.socketOut.flush();
     }
@@ -108,7 +108,7 @@ public class Client {
     public void disconnect() {
         this.handleError(null, ErrorCode.NONE, null);
     }
-    
+
     public void handleError(Exception e, ErrorCode errorCode, String errorMessage) {
         try {
             this.socketOut.close();
@@ -122,6 +122,7 @@ public class Client {
     }
 
     public void play() {
+        System.out.println("Game is starting.");
         this.waitForEvent(null);
     }
 
@@ -161,13 +162,13 @@ public class Client {
             } catch (IOException e) {
                 this.handleError(e, ErrorCode.CANNOT_READ_SOCKET, "Error with reading socket: " + e.getMessage());
             }
-            
+
             String responseData = null;
             if(charsRead != -2) {
                 if (charsRead == -1) { // then there was still more to read, so it filled the whole buffer
                     charsRead = Client.BUFFER_SIZE;
                 }
-                
+
                 if (chars != null) {
                     responseData = new String(chars, 0, charsRead);
                 }
@@ -179,7 +180,7 @@ public class Client {
             if (this.printIO) {
                 System.out.println("FROM SERVER -->" + responseData);
             }
-            
+
             String total = this.receivedBuffer + responseData;
             String[] split = total.split("[" + Client.EOT_CHAR + "]", -1);
 
@@ -240,7 +241,7 @@ public class Client {
             this.handleError(e, ErrorCode.AI_ERRORED, "AI.invalid() errored");
         }
     }
-    
+
     @SuppressWarnings("unused") // because it can be invoked via reflection
     private void autoHandleFatal(Object data) throws Exception {
         this.handleError(null, ErrorCode.UNAUTHENTICATED, "Could not log into server.");
@@ -251,7 +252,7 @@ public class Client {
         JSONObject overData = (JSONObject)data;
         boolean won = false;
         String reason = "";
-        
+
         if(this.aisPlayer != null) {
             try {
                 won = this.aisPlayer.getClass().getField("won").getBoolean(this.aisPlayer);
@@ -260,7 +261,7 @@ public class Client {
                 this.handleError(e, ErrorCode.REFLECTION_FAILED, "Cannot get if play won or lost when game is over");
             }
         }
-        
+
         try {
             try {
                 this.ai.ended(won, reason);
@@ -273,6 +274,8 @@ public class Client {
             this.handleError(e, ErrorCode.AI_ERRORED, "AI errored in AI.ended(won, reason)");
         }
 
+        System.out.println((won ? "I Won!" : "I Lost :(") + " because " + reason);
+
         String message = overData.optString("message");
         if(message != null && message != "") {
             System.out.println(message);
@@ -280,11 +283,11 @@ public class Client {
 
         this.disconnect();
     }
-    
+
     @SuppressWarnings("unused") // because it can be invoked via reflection
     private void autoHandleOrder(Object data) {
         JSONObject orderData = (JSONObject)data;
-        
+
         String order = null;
         int index = -1;
         try {
@@ -294,7 +297,7 @@ public class Client {
         catch(Exception e) {
             this.handleError(e, ErrorCode.REFLECTION_FAILED, "Order data malformed, missing name or index: ");
         }
-        
+
         Object returned = null;
         try {
             returned = ai.doOrder(order, orderData.optJSONArray("args"));
@@ -302,7 +305,7 @@ public class Client {
         catch(Exception e) {
             this.handleError(e, ErrorCode.AI_ERRORED, "AI threw exception when executing order '" + order + "'.");
         }
-        
+
         JSONObject finishedData = new JSONObject();
         finishedData.put("orderIndex", index);
         finishedData.put("returned", returned);
@@ -320,11 +323,11 @@ public class Client {
         this.send("run", runData);
 
         Object ranData = this.waitForEvent("ran");
-        
+
         if (ranData != null) {
             ranData = this.gameManager.unserialize(ranData);
         }
-        
+
         return ranData;
     }
 }

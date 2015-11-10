@@ -14,20 +14,20 @@ public enum ErrorCode {
     GAME_NOT_FOUND(29),
     MALFORMED_JSON(30),
     UNAUTHENTICATED(31),
-    
+
     AI_ERRORED(42);
-    
+
     private int returnNumber;
-    
+
     private ErrorCode(int returnNumber) {
         this.returnNumber = returnNumber;
     }
-    
+
     public static void handleError(Exception e, ErrorCode errorCode, String errorMessage) {
         if (errorMessage != null) {
             System.err.println("ERROR: " + errorMessage);
         }
-        
+
         if(e != null) {
             e.printStackTrace();
         }
