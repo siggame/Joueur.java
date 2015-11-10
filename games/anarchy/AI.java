@@ -85,6 +85,15 @@ public class AI extends BaseAI {
     public boolean runTurn() {
         // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // Put your game logic here for runTurn
+
+        //Grab a building of each type!
+        Warehouse warehouse = player.warehouses.get(0);
+        FireDepartment fireDept = player.fireDepartments.get(0);
+        PoliceDepartment police = player.policeDepartments.get(0);
+        //get two weather stations for intensifying and rotating the weather
+        WeatherStation intensifier = player.weatherStations.get(0);
+        WeatherStation rotater = player.weatherStations.get(1);
+
         return true;
         // <<-- /Creer-Merge: runTurn -->>
     }
