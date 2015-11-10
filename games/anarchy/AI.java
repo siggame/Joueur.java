@@ -94,6 +94,46 @@ public class AI extends BaseAI {
         WeatherStation intensifier = player.weatherStations.get(0);
         WeatherStation rotater = player.weatherStations.get(1);
 
+        //get the enemy
+        Player enemy = player.otherPlayer;
+
+        //Set an enemy building on fire
+        if(canBeBribed(warehouse)) {
+            //access a building the enemy (other player) has
+            Building target = enemy.buildings.get(0);
+
+            //and set it on fire
+            warehouse.ignite(target);
+        }
+
+        if(canBeBribed(fireDept)) {
+            //pick a warehouse and douse it
+            Building target = player.warehouses.get(0);
+            fireDept.extinguish(target);
+        }
+
+        if(canBeBribed(police)) {
+            //pick an enemy warehouse and raid it
+            Warehouse target = enemy.warehouses.get(0);
+            police.raid(target);
+        }
+
+        if(canBeBribed(intensifier)) {
+            if(game.currentForecast.intensity == game.maxForecastIntensity) {
+                //only increase if intensity of weather is currently less than max
+                intensifier.intensify();
+            }
+            else {
+                //otherwise pass false to decrease
+                intensifier.intensify(false);
+            }
+        }
+
+        if(canBeBribed(rotater)) {
+            //rotate weather clockwise (pass false to go counterclockwise)
+            rotater.rotate();
+        }
+
         return true;
         // <<-- /Creer-Merge: runTurn -->>
     }
