@@ -92,5 +92,22 @@ public class AI extends BaseAI {
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional methods here for your AI to call
+
+    //add your own methods to the ai!
+    public boolean canBeBribed(Building building) {
+        //make sure building has health
+        if(building.health <= 0) 
+            return false;
+
+        //make sure building has not been bribed
+        if(building.bribed) 
+            return false;
+
+        //make sure it is your own building
+        if(building.owner != player) 
+            return false;
+
+        return true;
+    }
     // <<-- /Creer-Merge: methods -->>
 }
