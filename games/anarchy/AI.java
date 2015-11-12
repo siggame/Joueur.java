@@ -129,13 +129,14 @@ public class AI extends BaseAI {
         }
 
         if(canBeBribed(intensifier)) {
-            if(game.currentForecast.intensity == game.maxForecastIntensity) {
+
+            if(game.nextForecast.intensity < game.maxForecastIntensity) {
                 //only increase if intensity of weather is currently less than max
                 intensifier.intensify();
             }
             else {
-                //otherwise pass false to decrease
-                intensifier.intensify(false);
+                //otherwise pass true to decrease
+                intensifier.intensify(true);
             }
         }
 
