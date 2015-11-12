@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.HashMap;
 import org.json.JSONObject;
 
+import joueur.Client;
 import joueur.BaseGame;
 import joueur.BaseGameObject;
 ${merge("// ", "imports", "// you can add addtional import(s) here")}
@@ -121,7 +122,7 @@ if 'arguments' in function_parms:
     public ${return_type or 'void'} ${function_name}(${", ".join(arg_strings)}) {
         JSONObject args = new JSONObject();
 % for i, arg_parms in enumerate(function_parms['arguments']):
-        args.put("${arg_parms['name']}", ${arg_parms['name']});
+        args.put("${arg_parms['name']}", Client.getInstance().gameManager.serializeSafe(${arg_parms['name']}));
 % endfor
         ${"return " if function_parms['returns'] else ""}${('(' + return_type + ')') if return_type else ''}this.runOnServer("${function_name}", args);
     }

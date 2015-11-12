@@ -6,28 +6,28 @@ import org.json.JSONArray;
 
 public abstract class BaseAI {
     public BaseAI() {}
-    
+
     public String getName() {
         return "Java Player";
     }
-    
+
     public void start() {
      // the inheriting AI can add code to this inherited function
     }
-    
+
     public void ended(boolean won, String reason) {
      // the inheriting AI can add code to this inherited function
     }
-    
+
     public void invalid(String message) {
         // the inheriting AI can add code to this inherited function
         System.err.println("INVALID: " + message);
     }
-    
+
     public void gameUpdated() {
      // the inheriting AI can add code to this inherited function
     }
-    
+
     public Object doOrder(String order, JSONArray jsonArray) {
         GameManager gameManager = Client.getInstance().gameManager;
         try {
@@ -39,7 +39,7 @@ public abstract class BaseAI {
                     break;
                 }
             }
-            
+
             int len = jsonArray.length();
             Object[] unserializedArgs = new Object[len];
             for (int i = 0; i < len; i++) {
@@ -48,11 +48,11 @@ public abstract class BaseAI {
 
             Object returned = method.invoke(this, unserializedArgs);
             return returned;
-            
+
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
             Client.getInstance().handleError(e, ErrorCode.REFLECTION_FAILED, "Could not find method '" + order + "' in AI to do order.");
         }
-        
+
         return null;
     }
 }
