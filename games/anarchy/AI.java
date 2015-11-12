@@ -100,15 +100,25 @@ public class AI extends BaseAI {
         //Set an enemy building on fire
         if(canBeBribed(warehouse)) {
             //access a building the enemy (other player) has
-            Building target = enemy.buildings.get(0);
+            //make sure this building is not headquarters
+            int i = 0;
+            Building target;
+            do target = enemy.warehouses.get(i++);
+            while(target.isHeadquarters);
 
             //and set it on fire
             warehouse.ignite(target);
         }
 
         if(canBeBribed(fireDept)) {
-            //pick a warehouse and douse it
-            Building target = player.warehouses.get(0);
+            //pick a warehouse
+            //make sure it is not headquarters
+            int i = 0;
+            Building target;
+            do target = enemy.warehouses.get(i++);
+            while(target.isHeadquarters);
+
+            //douse it
             fireDept.extinguish(target);
         }
 
