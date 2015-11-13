@@ -24,7 +24,7 @@ On Windows it is probably best to use [Eclipse](http://www.eclipse.org/downloads
 
 ### Linux
 
-JRE7 and Maven 3 are the only required packages. Note that Ubuntu's default version of Maven is 2. You can get 3.3.3 on Ubuntu easily [here](https://launchpad.net/~andrei-pozolotin/+archive/ubuntu/maven3).
+JDK7 and Maven 3 are the only required packages. Note that Ubuntu's default version of Maven is 2. You can get 3.3.3 on Ubuntu easily [here](https://launchpad.net/~andrei-pozolotin/+archive/ubuntu/maven3).
 
 Once those are installed you can make and run the project as normal:
 
