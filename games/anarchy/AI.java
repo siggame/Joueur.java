@@ -86,60 +86,51 @@ public class AI extends BaseAI {
         // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // Put your game logic here for runTurn
 
-        //Grab a building of each type!
+        //Get my first warehouse
         Warehouse warehouse = player.warehouses.get(0);
-        FireDepartment fireDept = player.fireDepartments.get(0);
-        PoliceDepartment police = player.policeDepartments.get(0);
-        //get two weather stations for intensifying and rotating the weather
-        WeatherStation intensifier = player.weatherStations.get(0);
-        WeatherStation rotater = player.weatherStations.get(1);
-
-        //get the enemy
-        Player enemy = player.otherPlayer;
-
-        //Set an enemy building on fire
         if(canBeBribed(warehouse)) {
-            //access a building the enemy (other player) has
-            //make sure this building is not headquarters
-            int i = 0;
-            Building target;
-            do target = enemy.warehouses.get(i++);
-            while(target.isHeadquarters);
-
-            //and set it on fire
-            warehouse.ignite(target);
+            //ignite the first enemy building unless it's a headquarters 
+            Building target = player.otherPlayer.buildings.get(0);
+            if(!target.isHeadquarters) {
+                warehouse.ignite(target);
+            }
         }
 
+        //Get my frst fire department
+        FireDepartment fireDept = player.fireDepartments.get(0);
         if(canBeBribed(fireDept)) {
-            //pick a warehouse
-            //make sure it is not headquarters
-            int i = 0;
-            Building target;
-            do target = enemy.warehouses.get(i++);
-            while(target.isHeadquarters);
-
-            //douse it
-            fireDept.extinguish(target);
+            Building target = player.otherPlayer.buildings.get(0);
+            if(!target.isHeadquarters) {
+                fireDept.extinguish(target);
+            }
         }
 
+        //Get my first police station
+        PoliceDepartment police = player.policeDepartments.get(0);
         if(canBeBribed(police)) {
             //pick an enemy warehouse and raid it
-            Warehouse target = enemy.warehouses.get(0);
-            police.raid(target);
+            Warehouse target = player.otherPlayer.warehouses.get(0);
+            //only raid if it is alive
+            if(target.health > 0) {
+                police.raid(target);
+            }
         }
 
+        //get first weather station
+        WeatherStation intensifier = player.weatherStations.get(0);
         if(canBeBribed(intensifier)) {
 
             if(game.nextForecast.intensity < game.maxForecastIntensity) {
                 //only increase if intensity of weather is currently less than max
                 intensifier.intensify();
-            }
-            else {
+            } else {
                 //otherwise pass true to decrease
                 intensifier.intensify(true);
             }
         }
-
+        
+        //get second weather station
+        WeatherStation rotater = player.weatherStations.get(1);
         if(canBeBribed(rotater)) {
             //rotate weather clockwise (pass false to go counterclockwise)
             rotater.rotate();
@@ -155,19 +146,7 @@ public class AI extends BaseAI {
 
     //add your own methods to the ai!
     public boolean canBeBribed(Building building) {
-        //make sure building has health
-        if(building.health <= 0) 
-            return false;
-
-        //make sure building has not been bribed
-        if(building.bribed) 
-            return false;
-
-        //make sure it is your own building
-        if(building.owner != player) 
-            return false;
-
-        return true;
+        return (building.health > 0) && !building.bribed && (building.owner == player);
     }
     // <<-- /Creer-Merge: methods -->>
 }
