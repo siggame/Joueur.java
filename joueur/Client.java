@@ -62,7 +62,7 @@ public class Client {
         this.gameManager = new GameManager(game);
         this.eventsStack = new Stack<ServerEvent>();
 
-        System.out.println("Attemping to connect to host " + server + ":" + port);
+        System.out.println(ANSIColorCoder.FG_CYAN.apply() + "Connecting to: " + server + ":" + port + ANSIColorCoder.reset());
 
         this.socket = null;
         this.socketIn = null;
@@ -74,10 +74,10 @@ public class Client {
             this.socketOut = new PrintWriter(this.socket.getOutputStream(), true);
             this.socketIn = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
         } catch (IOException e) {
-            this.handleError(e, ErrorCode.COULD_NOT_CONNECT, "Couldn't get I/O for " + "the connection to: " + server + ":" + port);
+            this.handleError(e, ErrorCode.COULD_NOT_CONNECT, "Couldn't create the socket for the connection to: " + server + ":" + port);
         }
     }
-    
+
     public void start() {
         this.started = true;
     }
@@ -114,7 +114,7 @@ public class Client {
             this.socketOut.close();
             this.socketIn.close();
             this.socket.close();
-        } catch (IOException ioexception) {
+        } catch (Exception err) {
             // whatever, we are disconnecting anyways
         }
 
@@ -122,7 +122,7 @@ public class Client {
     }
 
     public void play() {
-        System.out.println("Game is starting.");
+        System.out.println(ANSIColorCoder.FG_GREEN.apply() + "Game is starting." + ANSIColorCoder.reset());
         this.waitForEvent(null);
     }
 
@@ -274,11 +274,11 @@ public class Client {
             this.handleError(e, ErrorCode.AI_ERRORED, "AI errored in AI.ended(won, reason)");
         }
 
-        System.out.println((won ? "I Won!" : "I Lost :(") + " because " + reason);
+        System.out.println(ANSIColorCoder.FG_GREEN.apply() + "Game is over. " + (won ? "I Won!" : "I Lost :(") + " because " + reason + ANSIColorCoder.reset());
 
         String message = overData.optString("message");
         if(message != null && message != "") {
-            System.out.println(message);
+            System.out.println(ANSIColorCoder.FG_CYAN.apply() + message + ANSIColorCoder.reset());
         }
 
         this.disconnect();

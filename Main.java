@@ -7,6 +7,7 @@ import joueur.BaseAI;
 import joueur.BaseGame;
 import joueur.Client;
 import joueur.ErrorCode;
+import joueur.ANSIColorCoder;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
@@ -47,11 +48,11 @@ class JoueurJava {
             .dest("printIO")
             .action(Arguments.storeTrue())
             .help("(debugging) print IO through the TCP socket to the terminal");
-        
+
         String gameName = "", server = "localhost", requestedSession = "*", playerName = "Java Player", password = null, gameSettings = null;
         int port = 3000;
         boolean printIO = false;
-        
+
         try {
             Namespace parsedArgs = parser.parseArgs(args);
             gameName = parsedArgs.getString("gameName");
@@ -65,38 +66,43 @@ class JoueurJava {
         } catch (ArgumentParserException e) {
             ErrorCode.handleError(e, ErrorCode.INVALID_ARGS, "Invalid Args");
         }
-        
+
         if (server.contains(":")) {
             String[] split = server.split(":");
             server = split[0];
             port = Integer.parseInt(split[1]);
         }
-        
+
         BaseGame game = null;
         BaseAI ai = null;
         Client client = Client.getInstance();
-        
+
         try {
             Class<?> gameClass = Class.forName("games." + client.lowercaseFirst(gameName) + ".Game");
             Constructor<?> gameConstructor = gameClass.getConstructor(new Class[0]);
             game = (BaseGame)gameConstructor.newInstance(new Object[0]);
-            
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
+            client.handleError(e, ErrorCode.GAME_NOT_FOUND, "Could not create Game via reflection for game '" + gameName + "'");
+        }
+
+        try {
             Class<?> aiClass = Class.forName("games." + client.lowercaseFirst(gameName) + ".AI");
             Constructor<?> aiConstructor = aiClass.getConstructor(new Class[0]);
             ai = (BaseAI)aiConstructor.newInstance(new Object[0]);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
-            client.handleError(e, ErrorCode.GAME_NOT_FOUND, "Could not create game or ai via reflection for game '" + gameName + "'");
         }
-        
+        catch(Exception e) {
+            client.handleError(e, ErrorCode.AI_ERRORED, "Could not create AI via reflection for game '" + gameName + "'");
+        }
+
         client.connectTo(game, ai, server, port, printIO);
-        
+
         if (playerName == null || playerName.isEmpty()) {
             playerName = ai.getName();
             if (playerName == null || playerName.isEmpty()) {
                 playerName = "Java Player"; // to make sure they have a name
             }
         }
-        
+
         JSONObject playData = new JSONObject();
         playData.put("gameName", gameName);
         playData.put("password", password);
@@ -105,19 +111,19 @@ class JoueurJava {
         playData.put("gameSettings", gameSettings);
         playData.put("clientType", "Java");
         client.send("play", playData);
-        
+
         JSONObject lobbiedData = (JSONObject)client.waitForEvent("lobbied");
-        
+
         gameName = lobbiedData.getString("gameName");
         String gameSession = lobbiedData.getString("gameSession");
-        
-        System.out.println("In Lobby for game '" + gameName + "' in session '" + gameSession + "'.");
-        
+
+        System.out.println(ANSIColorCoder.FG_CYAN.apply() + "In lobby for game '" + gameName + "' in session '" + gameSession + "'." + ANSIColorCoder.reset());
+
         JSONObject constants = lobbiedData.getJSONObject("constants");
-        
+
         client.gameManager.setConstants(constants);
         JSONObject startData = (JSONObject)client.waitForEvent("start");
-        
+
         // set the AI's game and player via reflection
         try {
             ai.getClass().getField("game").set(ai, game);
@@ -125,7 +131,7 @@ class JoueurJava {
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             client.handleError(e, ErrorCode.REFLECTION_FAILED, "Could not set reflected Game and Player for AI.");
         }
-        
+
         client.start();
         try {
             ai.start();
@@ -134,7 +140,7 @@ class JoueurJava {
         catch(Exception e) {
             client.handleError(e, ErrorCode.REFLECTION_FAILED, "AI threw exception during initial start");
         }
-        
+
         client.play();
     }
 }

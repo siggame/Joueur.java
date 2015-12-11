@@ -24,12 +24,19 @@ public enum ErrorCode {
     }
 
     public static void handleError(Exception e, ErrorCode errorCode, String errorMessage) {
-        if (errorMessage != null) {
-            System.err.println("ERROR: " + errorMessage);
-        }
+        if(errorCode != NONE) {
+            System.err.println(ANSIColorCoder.FG_RED.apply() + "---\nError: " + errorCode.name());
 
-        if(e != null) {
-            e.printStackTrace();
+            if (errorMessage != null) {
+                System.err.println("\n" + errorMessage);
+            }
+
+            if(e != null) {
+                System.err.println("---\n" + e.getMessage() + "\n---");
+                e.printStackTrace();
+            }
+
+            System.err.println("---" + ANSIColorCoder.reset());
         }
 
         System.exit(errorCode.returnNumber);

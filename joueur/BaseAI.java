@@ -21,7 +21,7 @@ public abstract class BaseAI {
 
     public void invalid(String message) {
         // the inheriting AI can add code to this inherited function
-        System.err.println("INVALID: " + message);
+        System.err.println(ANSIColorCoder.FG_YELLOW.apply() + "Invalid: " + message + ANSIColorCoder.reset());
     }
 
     public void gameUpdated() {
