@@ -1,4 +1,4 @@
-/** 
+/**
  * ${header}
  * This is where you build your AI for the ${game_name} game.
  */
