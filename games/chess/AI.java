@@ -10,9 +10,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import joueur.BaseAI;
-// <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// you can add addtional import(s) here
-// <<-- /Creer-Merge: imports -->>
+
 @SuppressWarnings("unused")
 
 /**
@@ -29,19 +27,12 @@ public class AI extends BaseAI {
      */
     public Player player;
 
-    // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add additional fields here for your AI to use
-    // <<-- /Creer-Merge: fields -->>
-
-
     /**
      * This returns your AI's name to the game server. Just replace the string.
      * @return string of you AI's name
      */
     public String getName() {
-        // <<-- Creer-Merge: get-name -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         return "Chess Java Player"; // REPLACE THIS WITH YOUR TEAM NAME!
-        // <<-- /Creer-Merge: get-name -->>
     }
 
     /**
@@ -49,9 +40,7 @@ public class AI extends BaseAI {
      * This is a good place to initialize any variables you add to your AI, or start tracking game objects.
      */
     public void start() {
-        // <<-- Creer-Merge: start -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         super.start();
-        // <<-- /Creer-Merge: start -->>
     }
 
     /**
@@ -59,9 +48,7 @@ public class AI extends BaseAI {
      * If a function you call triggers an update this will be called before that function returns.
      */
     public void gameUpdated() {
-        // <<-- Creer-Merge: game-updated -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         super.gameUpdated();
-        // <<-- /Creer-Merge: game-updated -->>
     }
 
     /**
@@ -71,9 +58,7 @@ public class AI extends BaseAI {
      * @param  name  reason">a string explaining why you won or lost
      */
     public void ended(boolean won, String reason) {
-        // <<-- Creer-Merge: ended -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         super.ended(won, reason);
-        // <<-- /Creer-Merge: ended -->>
     }
 
 
@@ -83,14 +68,74 @@ public class AI extends BaseAI {
      * @return represents if you want to end your turn. true means end the turn, false means to keep your turn going and re-call runTurn()
      */
     public boolean runTurn() {
-        // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-        // Put your game logic here for runTurn
-        return true;
-        // <<-- /Creer-Merge: runTurn -->>
+        // Here is where you'll want to code your AI.
+
+        // We've provided sample code that:
+        //    1) prints the board to the console
+        //    2) prints the opponent's last move to the console
+        //    3) prints how much time remaining this AI has to calculate moves
+        //    4) makes a random (and probably invalid) move.
+
+        // 1) print the board to the console
+        for(int file = 9; file >= -1; file--) {
+            String str = "";
+            if(file == 9 || file == 0) { // then the top or bottom of the board
+                str = "   +------------------------+";
+            }
+            else if(file == -1) { // then show the ranks
+                str = "     a  b  c  d  e  f  g  h";
+            }
+            else { // board
+                str += " " + file + " |";
+                // fill in all the ranks with pieces at the current rank
+                for(int rankOffset = 0; rankOffset < 8; rankOffset++) {
+                    String rank = "" + (char)(((int)"a".charAt(0)) + rankOffset); // start at a, with with rank offset increasing the char;
+                    Piece currentPiece = null;
+                    for(int i = 0; i < this.game.pieces.size(); i++) {
+                        Piece piece = this.game.pieces.get(i);
+                        if(piece.rank.equals(rank) && piece.file == file) { // then we found the piece at (rank, file)
+                            currentPiece = piece;
+                            break;
+                        }
+                    }
+
+                    char code = '.'; // default "no piece";
+                    if(currentPiece != null) {
+                        code = currentPiece.type.charAt(0);
+
+                        if(currentPiece.type == "Knight") { // 'K' is for "King", we use 'N' for "Knights"
+                            code = 'N';
+                        }
+
+                        if(currentPiece.owner.id == "1") { // the second player (black) is lower case. Otherwise it's upppercase already
+                            code = Character.toLowerCase(code);
+                        }
+                    }
+
+                    str += " " + code + " ";
+                }
+
+                str += "|";
+            }
+
+            System.out.println(str);
+        }
+
+        // 2) print the opponent's last move to the console
+        if(this.game.moves.size() > 0) {
+            System.out.println("Opponent's Last Move: '" + this.game.moves.get(this.game.moves.size() - 1) + "'");
+        }
+
+        // 3) print how much time remaining this AI has to calculate moves
+        System.out.println("Time Remaining: " + this.player.timeRemaining + " ns");
+
+        // 4) make a random (and probably invalid) move.
+        java.util.Random rand = new java.util.Random();
+        Piece randomPiece = this.player.pieces.get(rand.nextInt(this.player.pieces.size()));
+        String randomRank = "" + (char)(((int)"a".charAt(0)) + rand.nextInt(8));
+        int randomFile = rand.nextInt(8) + 1;
+        randomPiece.move(randomRank, randomFile);
+
+        return true; // to signify we are done with our turn.
     }
-
-
-    // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add additional methods here for your AI to call
-    // <<-- /Creer-Merge: methods -->>
 }
