@@ -34,6 +34,11 @@ class JoueurJava {
         parser.addArgument("-n", "--name")
             .dest("playerName")
             .help("the name you want to use as your AI\'s player name. This over-rides the name you set in your code");
+        parser.addArgument("-i", "--index")
+            .dest("index")
+            .type(Integer.class)
+            .setDefault(-1)
+            .help("the player number you want to be, with 1 being the first player");
         parser.addArgument("-w", "--password")
             .dest("password")
             .help("the password required for authentication on official servers");
@@ -50,7 +55,7 @@ class JoueurJava {
             .help("(debugging) print IO through the TCP socket to the terminal");
 
         String gameName = "", server = "localhost", requestedSession = "*", playerName = "Java Player", password = null, gameSettings = null;
-        int port = 3000;
+        int port = 3000, playerIndex = -1;
         boolean printIO = false;
 
         try {
@@ -59,6 +64,7 @@ class JoueurJava {
             server = parsedArgs.getString("server");
             requestedSession = parsedArgs.getString("session");
             playerName = parsedArgs.getString("name");
+            playerIndex = parsedArgs.getInt("index");
             password = parsedArgs.getString("password");
             port = parsedArgs.getInt("port");
             printIO = parsedArgs.getBoolean("printIO");
@@ -107,6 +113,9 @@ class JoueurJava {
         playData.put("gameName", gameName);
         playData.put("password", password);
         playData.put("playerName", playerName);
+        if(playerIndex > -1) {
+            playData.put("playerIndex", playerIndex);
+        }
         playData.put("requestedSession", requestedSession);
         playData.put("gameSettings", gameSettings);
         playData.put("clientType", "Java");
