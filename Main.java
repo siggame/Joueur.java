@@ -38,7 +38,7 @@ class JoueurJava {
             .dest("index")
             .type(Integer.class)
             .setDefault(-1)
-            .help("the player number you want to be, with 1 being the first player");
+            .help("the player number you want to be, with 0 being the first player");
         parser.addArgument("-w", "--password")
             .dest("password")
             .help("the password required for authentication on official servers");
