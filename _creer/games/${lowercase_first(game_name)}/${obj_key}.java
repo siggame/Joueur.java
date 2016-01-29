@@ -9,12 +9,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import org.json.JSONObject;
-
 import joueur.Client;
 import joueur.BaseGame;
 import joueur.BaseGameObject;
+
 ${merge("// ", "imports", "// you can add addtional import(s) here")}
-@SuppressWarnings("unused")
 <%parent_classes = list(obj['parentClasses'])
 
 if not parent_classes:

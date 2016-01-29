@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-
 import joueur.BaseAI;
+
 // <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
 // you can add addtional import(s) here
 // <<-- /Creer-Merge: imports -->>
-@SuppressWarnings("unused")
 
 /**
  * This is where you build your AI for the Chess game.
