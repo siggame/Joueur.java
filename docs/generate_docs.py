@@ -3,6 +3,7 @@ import os.path
 import subprocess
 import argparse
 import shutil
+import markdown # this is a pip package you'll need
 from datetime import date
 
 parser = argparse.ArgumentParser(description='Runs the java client doc generation script.')
@@ -17,9 +18,19 @@ output_path = "./output"
 if os.path.isdir(output_path):
     shutil.rmtree(output_path)
 
-subprocess.call(["javadoc -d {output_path} -windowtitle \"{game_name} Java Client Documentation\" -header \"<h1>{game_name} Java Client Documentation</h1>\" -bottom \"&copy; {year} MST ACM SIG-GAME\" -sourcepath .. games.{lower_game_name}".format(
+with open('../README.md', 'r') as readme_file:
+    readme_md = readme_file.read()
+
+temp_readme_html_path = os.path.join("..", "games", lower_game_name, "package.html")
+
+with open(temp_readme_html_path, "w+") as readme_html:
+    readme_html.write("<html><head></head><body>" + markdown.markdown(readme_md) + "</body></html>")
+
+subprocess.call(["javadoc -d {output_path} -use -windowtitle \"{game_name} Java Client Documentation\" -header \"<h1>{game_name} Java Client Documentation</h1>\" -bottom \"&copy; {year} MST ACM SIG-GAME\" -sourcepath .. games.{lower_game_name}".format(
     output_path=output_path,
     game_name=game_name,
     lower_game_name=lower_game_name,
-    year=date.today().year
+    year=date.today().year,
 )], shell=True)
+
+os.remove(temp_readme_html_path)
