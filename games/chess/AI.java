@@ -7,10 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-
 import joueur.BaseAI;
-
-@SuppressWarnings("unused")
 
 /**
  * This is where you build your AI for the Chess game.
