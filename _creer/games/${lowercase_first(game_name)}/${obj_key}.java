@@ -47,7 +47,7 @@ ${merge("    // ", "fields", "    // you can add addtional field(s) here. None o
 
 
     /**
-     * Creates a new instance of ${obj_key}. Used during game initialization, do not call directly.
+     * Creates a new instance of a ${obj_key}. Used during game initialization, do not call directly.
      */
     public ${obj_key}() {
         super();
