@@ -1,4 +1,4 @@
-/**
+/*
  * This is where you build your AI for the Chess game.
  */
 package games.chess;
@@ -7,10 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-
 import joueur.BaseAI;
-
-@SuppressWarnings("unused")
 
 /**
  * This is where you build your AI for the Chess game.
@@ -62,9 +59,9 @@ public class AI extends BaseAI {
 
 
     /**
-     * This is called every time the AI is asked to respond with a command during their turn
+     * This is called every time it is this AI.player's turn.
      *
-     * @return represents if you want to end your turn. true means end the turn, false means to keep your turn going and re-call runTurn()
+     * @return Represents if you want to end your turn. True means end your turn, False means to keep your turn going and re-call this function.
      */
     public boolean runTurn() {
         // Here is where you'll want to code your AI.
@@ -122,7 +119,7 @@ public class AI extends BaseAI {
 
         // 2) print the opponent's last move to the console
         if(this.game.moves.size() > 0) {
-            System.out.println("Opponent's Last Move: '" + this.game.moves.get(this.game.moves.size() - 1) + "'");
+            System.out.println("Opponent's Last Move: '" + this.game.moves.get(this.game.moves.size() - 1).san + "'");
         }
 
         // 3) print how much time remaining this AI has to calculate moves

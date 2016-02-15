@@ -22,3 +22,7 @@ In addition, after you `make` once, you can do `make core` to just rebuild, and 
 On Windows it is probably best to use [Eclipse](http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/mars1) and just create a new project from existing code, pointing to this repo. It should read the `.classfile` and setup the rest. Note you'll need the Maven plugin too.
 
 Alternatively you can install JRE7 and Maven 3 just like the bash script does, and run it from the command line using the same commands as in the `Makefile`.
+
+## Other Notes
+
+It is possible that on your Missouri S&T S-Drive this client will not run properly. This is not a fault with the client, but rather the school's S-Drive implimentation changing some file permissions during run time. We cannot control this. Instead, we recommend cloning your repo outside the S-Drive and use an SCP program like [WinSCP](https://winscp.net/eng/download.php) to edit the files in Windows using whatever IDE you want if you want to code in Windows, but compile in Linux.
