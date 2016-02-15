@@ -1,3 +1,6 @@
+// Please do not modify this file.
+// Instead have a look at `README.md` for how to start writing you AI.
+
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
