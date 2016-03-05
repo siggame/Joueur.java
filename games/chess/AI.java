@@ -1,4 +1,4 @@
-/*
+/**
  * This is where you build your AI for the Chess game.
  */
 package games.chess;
@@ -73,23 +73,23 @@ public class AI extends BaseAI {
         //    4) makes a random (and probably invalid) move.
 
         // 1) print the board to the console
-        for(int file = 9; file >= -1; file--) {
+        for(int rank = 9; rank >= -1; rank--) {
             String str = "";
-            if(file == 9 || file == 0) { // then the top or bottom of the board
+            if(rank == 9 || rank == 0) { // then the top or bottom of the board
                 str = "   +------------------------+";
             }
-            else if(file == -1) { // then show the ranks
+            else if(rank == -1) { // then show the ranks
                 str = "     a  b  c  d  e  f  g  h";
             }
             else { // board
-                str += " " + file + " |";
-                // fill in all the ranks with pieces at the current rank
-                for(int rankOffset = 0; rankOffset < 8; rankOffset++) {
-                    String rank = "" + (char)(((int)"a".charAt(0)) + rankOffset); // start at a, with with rank offset increasing the char;
+                str += " " + rank + " |";
+                // fill in all the files with pieces at the current rank
+                for(int fileOffset = 0; fileOffset < 8; fileOffset++) {
+                    String file = "" + (char)(((int)"a".charAt(0)) + fileOffset); // start at a, with with file offset increasing the char;
                     Piece currentPiece = null;
                     for(int i = 0; i < this.game.pieces.size(); i++) {
                         Piece piece = this.game.pieces.get(i);
-                        if(piece.rank.equals(rank) && piece.file == file) { // then we found the piece at (rank, file)
+                        if(piece.file.equals(file) && piece.rank == rank) { // then we found the piece at (file, rank)
                             currentPiece = piece;
                             break;
                         }
@@ -128,9 +128,9 @@ public class AI extends BaseAI {
         // 4) make a random (and probably invalid) move.
         java.util.Random rand = new java.util.Random();
         Piece randomPiece = this.player.pieces.get(rand.nextInt(this.player.pieces.size()));
-        String randomRank = "" + (char)(((int)"a".charAt(0)) + rand.nextInt(8));
-        int randomFile = rand.nextInt(8) + 1;
-        randomPiece.move(randomRank, randomFile);
+        String randomFile = "" + (char)(((int)"a".charAt(0)) + rand.nextInt(8));
+        int randomRank = rand.nextInt(8) + 1;
+        randomPiece.move(randomFile, randomRank);
 
         return true; // to signify we are done with our turn.
     }
