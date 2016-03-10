@@ -21,8 +21,8 @@ class JoueurJava {
     public static void main(String[] args) throws IOException {
         ArgumentParser parser = ArgumentParsers.newArgumentParser("Joueur.Java")
             .description("Runs the Java client with options. Must a provide a game name to play on the server.");
-        parser.addArgument("gameName")
-            .dest("gameName")
+        parser.addArgument("game")
+            .dest("game")
             .required(true)
             .help("the name of the game you want to play on the server");
         parser.addArgument("-s", "--server")
@@ -57,13 +57,13 @@ class JoueurJava {
             .action(Arguments.storeTrue())
             .help("(debugging) print IO through the TCP socket to the terminal");
 
-        String gameName = "", server = "localhost", requestedSession = "*", playerName = "Java Player", password = null, gameSettings = null;
+        String gameAlias = "", server = "localhost", requestedSession = "*", playerName = "Java Player", password = null, gameSettings = null;
         int port = 3000, playerIndex = -1;
         boolean printIO = false;
 
         try {
             Namespace parsedArgs = parser.parseArgs(args);
-            gameName = parsedArgs.getString("gameName");
+            gameAlias = parsedArgs.getString("game");
             server = parsedArgs.getString("server");
             requestedSession = parsedArgs.getString("session");
             playerName = parsedArgs.getString("name");
@@ -82,10 +82,13 @@ class JoueurJava {
             port = Integer.parseInt(split[1]);
         }
 
-        BaseGame game = null;
-        BaseAI ai = null;
+        System.out.println("poopy!");
         Client client = Client.getInstance();
+        client.connect(server, port, printIO);
+        client.send("alias", gameAlias);
+        String gameName = (String)client.waitForEvent("named");
 
+        BaseGame game = null;
         try {
             Class<?> gameClass = Class.forName("games." + client.lowercaseFirst(gameName) + ".Game");
             Constructor<?> gameConstructor = gameClass.getConstructor(new Class[0]);
@@ -94,6 +97,7 @@ class JoueurJava {
             client.handleError(e, ErrorCode.GAME_NOT_FOUND, "Could not create Game via reflection for game '" + gameName + "'");
         }
 
+        BaseAI ai = null;
         try {
             Class<?> aiClass = Class.forName("games." + client.lowercaseFirst(gameName) + ".AI");
             Constructor<?> aiConstructor = aiClass.getConstructor(new Class[0]);
@@ -103,7 +107,7 @@ class JoueurJava {
             client.handleError(e, ErrorCode.AI_ERRORED, "Could not create AI via reflection for game '" + gameName + "'");
         }
 
-        client.connectTo(game, ai, server, port, printIO);
+        client.setup(game, ai);
 
         if (playerName == null || playerName.isEmpty()) {
             playerName = ai.getName();
@@ -145,6 +149,7 @@ class JoueurJava {
         }
 
         client.start();
+
         try {
             ai.start();
             ai.gameUpdated();
