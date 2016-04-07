@@ -30,7 +30,7 @@ if not 'java' in shared:
         elif base_type == "int":
             return str(default)
         elif base_type == "float":
-            return str(default) + "f"
+            return str(default) + "d"
         else: # should be dict, list, or gameobject
             return "null"
     shared['java']['value'] = java_value
@@ -45,6 +45,8 @@ if not 'java' in shared:
             return "boolean"
         elif base_type == "string":
             return "String"
+        elif base_type == "float":
+            return "double"
         else: # should be int, float, or the GameObject class name
             return base_type
     shared['java']['type'] = java_type
