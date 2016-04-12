@@ -67,7 +67,7 @@ public class Client {
 
         try {
             this.socket = new Socket(this.server, this.port);
-            this.socket.setSoTimeout(Client.SERVER_TIMEOUT); // 1 sec timeout
+            //this.socket.setSoTimeout(Client.SERVER_TIMEOUT); // 1 sec timeout
             this.socketOut = new PrintWriter(this.socket.getOutputStream(), true);
             this.socketIn = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
         } catch (IOException e) {
