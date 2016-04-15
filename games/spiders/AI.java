@@ -129,7 +129,7 @@ public class AI extends BaseAI {
 
               System.out.println("Spiderling " + spiderling.gameObjectName +
                                  " #" + spiderling.id + " moving on Web #" + web.id);
-              // spiderling.move(web); // FIXME currently exploding
+              spiderling.move(web);
             }
           }
           else if (choice == 1) { // attack
