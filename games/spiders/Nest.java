@@ -14,7 +14,10 @@ import joueur.BaseGame;
 import joueur.BaseGameObject;
 
 // <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// you can add addtional import(s) here
+
+import static java.lang.Math.sqrt;
+import static java.lang.Math.pow;
+
 // <<-- /Creer-Merge: imports -->>
 
 /**
@@ -57,6 +60,16 @@ public class Nest extends GameObject {
     }
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add addtional method(s) here.
+
+    /**
+     * Calculates the distance from this Nest to another Nest
+     *
+     * @param   neset  The nest to calculate the distance to
+     * @return The euclidean distance between the two Nests
+     */
+    public double distanceTo(Nest nest) {
+        return sqrt( pow(nest.x - this.x, 2) + pow(nest.y - this.y, 2) );
+    }
+
     // <<-- /Creer-Merge: methods -->>
 }
