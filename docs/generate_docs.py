@@ -21,6 +21,8 @@ if os.path.isdir(output_path):
 with open('../README.md', 'r') as readme_file:
     readme_md = readme_file.read()
 
+readme_md = readme_md.replace("GAME_NAME", game_name).replace("game_name", lower_game_name)
+
 temp_readme_html_path = os.path.join("..", "games", lower_game_name, "package.html")
 
 with open(temp_readme_html_path, "w+") as readme_html:
