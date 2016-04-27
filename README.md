@@ -1,4 +1,4 @@
-# GAME_NAME Java Client
+# Spiders Java Client
 
 This is the root of you AI. Stay out of the joueur/ folder, it does most of the heavy lifting to play on our game servers. Your AI, and the game objects it manipulates are all in `games/game_name/`, with your very own AI living in `games/game_name/AI.java` for you to make smarter.
 
