@@ -1,5 +1,4 @@
 /**
- * ${header}
  * ${obj['description']}
  */
 package games.${lowercase_first(game_name)};
