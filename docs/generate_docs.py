@@ -5,6 +5,12 @@ import argparse
 import shutil
 import markdown # this is a pip package you'll need
 from datetime import date
+import sys
+
+def run(*args, **kwargs):
+    error_code = subprocess.call(*args, **kwargs)
+    if error_code != 0: # an error happened
+        sys.exit(error_code)
 
 parser = argparse.ArgumentParser(description='Runs the java client doc generation script.')
 parser.add_argument('game', action='store', help='the name of the game you want to document. Must exist in ../games/')
@@ -28,7 +34,7 @@ temp_readme_html_path = os.path.join("..", "games", lower_game_name, "package.ht
 with open(temp_readme_html_path, "w+") as readme_html:
     readme_html.write("<html><head></head><body>" + markdown.markdown(readme_md) + "</body></html>")
 
-subprocess.call(["javadoc -d {output_path} -use -windowtitle \"{game_name} Java Client Documentation\" -header \"<h1>{game_name} Java Client Documentation</h1>\" -bottom \"&copy; {year} MST ACM SIG-GAME\" -sourcepath .. games.{lower_game_name}".format(
+run(["javadoc -d {output_path} -use -windowtitle \"{game_name} Java Client Documentation\" -header \"<h1>{game_name} Java Client Documentation</h1>\" -bottom \"&copy; {year} MST ACM SIG-GAME\" -sourcepath .. games.{lower_game_name}".format(
     output_path=output_path,
     game_name=game_name,
     lower_game_name=lower_game_name,
