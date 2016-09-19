@@ -29,7 +29,6 @@ public class Client {
 
     // endregion
 
-
     private String server = null;
     private int port = 0;
     private boolean printIO = false;
@@ -46,7 +45,7 @@ public class Client {
     private Stack<ServerEvent> eventsStack;
     private String receivedBuffer = "";
 
-    public void connectTo(BaseGame game, BaseAI ai, String server, int port, boolean printIO) {
+    public void connect(String server, int port, boolean printIO) {
         if (server.isEmpty()) {
             server = "localhost";
         }
@@ -58,8 +57,6 @@ public class Client {
         this.server = server;
         this.port = port;
         this.printIO = printIO;
-        this.ai = ai;
-        this.gameManager = new GameManager(game);
         this.eventsStack = new Stack<ServerEvent>();
 
         System.out.println(ANSIColorCoder.FG_CYAN.apply() + "Connecting to: " + server + ":" + port + ANSIColorCoder.reset());
@@ -70,12 +67,17 @@ public class Client {
 
         try {
             this.socket = new Socket(this.server, this.port);
-            this.socket.setSoTimeout(Client.SERVER_TIMEOUT); // 1 sec timeout
+            //this.socket.setSoTimeout(Client.SERVER_TIMEOUT); // 1 sec timeout
             this.socketOut = new PrintWriter(this.socket.getOutputStream(), true);
             this.socketIn = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
         } catch (IOException e) {
             this.handleError(e, ErrorCode.COULD_NOT_CONNECT, "Couldn't create the socket for the connection to: " + server + ":" + port);
         }
+    }
+
+    public void setup(BaseGame game, BaseAI ai) {
+        this.ai = ai;
+        this.gameManager = new GameManager(game);
     }
 
     public void start() {
@@ -98,7 +100,7 @@ public class Client {
         String str = send.toString() + Client.EOT_CHAR;
 
         if (this.printIO) {
-            System.out.println("TO SERVER <-- " + str);
+            System.out.println(ANSIColorCoder.FG_MAGENTA.apply() + "TO SERVER <-- " + str + ANSIColorCoder.reset());
         }
 
         this.socketOut.println(str);
@@ -178,7 +180,7 @@ public class Client {
             }
 
             if (this.printIO) {
-                System.out.println("FROM SERVER -->" + responseData);
+                System.out.println(ANSIColorCoder.FG_MAGENTA.apply() + "FROM SERVER -->" + responseData + ANSIColorCoder.reset());
             }
 
             String total = this.receivedBuffer + responseData;
