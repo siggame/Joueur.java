@@ -21,7 +21,7 @@ import joueur.BaseGameObject;
  */
 public class Bottle extends GameObject {
     /**
-     * The direction any Cowboys hit by this will move, can be 'North', 'East', 'South', 'West'.
+     * The direction any Cowboys hit by this will move, can be 'North', 'East', 'South', or 'West'.
      */
     public String drunkDirection;
 
@@ -36,7 +36,7 @@ public class Bottle extends GameObject {
     public Tile location;
 
     /**
-     * The Tile this Bottle will fly to next turn, if it does not impact anything on it's path.
+     * The Tile this Bottle will fly to next turn, if it does not impact anything on its path between the two.
      */
     public Tile nextLocation;
 

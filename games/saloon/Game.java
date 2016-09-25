@@ -51,6 +51,16 @@ public class Game extends BaseGame {
     public List<String> jobs;
 
     /**
+     * The number of Tiles in the map along the y (vertical) axis.
+     */
+    public int mapHeight;
+
+    /**
+     * The number of Tiles in the map along the x (horizontal) axis.
+     */
+    public int mapWidth;
+
+    /**
      * The maximum number of Cowboys a Player can bring into the saloon.
      */
     public int maxCowboys;
@@ -75,6 +85,11 @@ public class Game extends BaseGame {
      */
     public String session;
 
+    /**
+     * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
+     */
+    public List<Tile> tiles;
+
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add addtional field(s) here. None of them will be tracked or updated by the server.
@@ -93,6 +108,7 @@ public class Game extends BaseGame {
         this.furnishings = new ArrayList<Furnishing>();
         this.jobs = new ArrayList<String>();
         this.players = new ArrayList<Player>();
+        this.tiles = new ArrayList<Tile>();
     }
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
