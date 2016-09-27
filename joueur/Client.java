@@ -246,7 +246,8 @@ public class Client {
 
     @SuppressWarnings("unused") // because it can be invoked via reflection
     private void autoHandleFatal(Object data) throws Exception {
-        this.handleError(null, ErrorCode.UNAUTHENTICATED, "Could not log into server.");
+        JSONObject jsonObject = (JSONObject)data;
+        this.handleError(null, ErrorCode.FATAL_EVENT, "Got fatal error: " + jsonObject.getString("message"));
     }
 
     @SuppressWarnings("unused") // because it can be invoked via reflection
