@@ -99,11 +99,11 @@ public class AI extends BaseAI {
                     if(currentPiece != null) {
                         code = currentPiece.type.charAt(0);
 
-                        if(currentPiece.type == "Knight") { // 'K' is for "King", we use 'N' for "Knights"
+                        if(currentPiece.type.equals("Knight")) { // 'K' is for "King", we use 'N' for "Knights"
                             code = 'N';
                         }
 
-                        if(currentPiece.owner.id == "1") { // the second player (black) is lower case. Otherwise it's upppercase already
+                        if(currentPiece.owner.id.equals("1")) { // the second player (black) is lower case. Otherwise it's upppercase already
                             code = Character.toLowerCase(code);
                         }
                     }
