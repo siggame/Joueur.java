@@ -1,6 +1,6 @@
 # GAME_NAME Java Client
 
-This is the root of you AI. Stay out of the joueur/ folder, it does most of the heavy lifting to play on our game servers. Your AI, and the game objects it manipulates are all in `games/game_name/`, with your very own AI living in `games/game_name/AI.java` for you to make smarter.
+This is the root of you AI. Stay out of the `joueur/` folder, it does most of the heavy lifting to play on our game servers. Your AI, and the game objects it manipulates are all in `games/game_name/`, with your very own AI living in `games/game_name/AI.java` for you to make smarter.
 
 ## How to Run
 
@@ -13,9 +13,9 @@ make
 ./testRun MyOwnGameSession
 ```
 
-JRE7 and Maven 3 are the only required packages, and can be found in `java-common` and 'mvn' respectively.
+JRE7 and Maven 3 are the only required packages, and can be found in `java-common` and `mvn` respectively.
 
-In addition, after you `make` once, you can do `make core` to just rebuild, and not fetch the dependencies again.
+In addition, after you `make` once, you can do `make core` instead to just rebuild, and not fetch the dependencies again.
 
 ### Windows
 
