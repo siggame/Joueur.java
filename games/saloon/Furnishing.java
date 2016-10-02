@@ -26,6 +26,11 @@ public class Furnishing extends GameObject {
     public int health;
 
     /**
+     * If this Furnishing has been destroyed, and has been removed from the game.
+     */
+    public boolean isDestroyed;
+
+    /**
      * True if this Furnishing is a piano and can be played, False otherwise.
      */
     public boolean isPiano;

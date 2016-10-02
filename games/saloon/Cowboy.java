@@ -61,11 +61,6 @@ public class Cowboy extends GameObject {
     public Player owner;
 
     /**
-     * How many turns this unit has remaining for their siesta. 0 means they are awake, and can act.
-     */
-    public int siesta;
-
-    /**
      * The Tile that this Cowboy is located on.
      */
     public Tile tile;
@@ -74,6 +69,11 @@ public class Cowboy extends GameObject {
      * How many times this unit has been drunk before taking their siesta and reseting this to 0.
      */
     public int tolerance;
+
+    /**
+     * How many turns this unit has remaining before it is no longer busy and can `act()` or `play()` again.
+     */
+    public int turnsBusy;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

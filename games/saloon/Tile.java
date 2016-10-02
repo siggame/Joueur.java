@@ -21,9 +21,9 @@ import joueur.BaseGameObject;
  */
 public class Tile extends GameObject {
     /**
-     * All the beer Bottles currently flying over this Tile.
+     * The beer Bottle currently flying over this Tile.
      */
-    public List<Bottle> bottles;
+    public Bottle bottle;
 
     /**
      * The Cowboy that is on this Tile, or null if empty.
@@ -46,24 +46,24 @@ public class Tile extends GameObject {
     public boolean isWall;
 
     /**
-     * The Tile above this one (x, y-1). Null if out of bounds of the map.
+     * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
      */
-    public Tile tileAbove;
+    public Tile tileEast;
 
     /**
-     * The Tile below this one (x, y+1). Null if out of bounds of the map.
+     * The Tile to the 'North' of this one (x, y-1). Null if out of bounds of the map.
      */
-    public Tile tileBelow;
+    public Tile tileNorth;
 
     /**
-     * The Tile to the left of this one (x-1, y). Null if out of bounds of the map.
+     * The Tile to the 'South' of this one (x, y+1). Null if out of bounds of the map.
      */
-    public Tile tileLeft;
+    public Tile tileSouth;
 
     /**
-     * The Tile to the right of this one (x+1, y). Null if out of bounds of the map.
+     * The Tile to the 'West' of this one (x-1, y). Null if out of bounds of the map.
      */
-    public Tile tileRight;
+    public Tile tileWest;
 
     /**
      * The x (horizontal) position of this Tile.
@@ -86,7 +86,6 @@ public class Tile extends GameObject {
      */
     public Tile() {
         super();
-        this.bottles = new ArrayList<Bottle>();
     }
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

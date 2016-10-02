@@ -86,6 +86,11 @@ public class Game extends BaseGame {
     public String session;
 
     /**
+     * How long siestas are for a player's team.
+     */
+    public int siestaLength;
+
+    /**
      * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
      */
     public List<Tile> tiles;

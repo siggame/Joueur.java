@@ -71,6 +71,11 @@ public class Player extends GameObject {
     public int score;
 
     /**
+     * 0 when not having a team siesta. When greater than 0 represents how many turns left for the team siesta to complete.
+     */
+    public int siesta;
+
+    /**
      * The amount of time (in ns) remaining for this AI to send commands.
      */
     public double timeRemaining;
@@ -79,6 +84,11 @@ public class Player extends GameObject {
      * If the player won the game or not.
      */
     public boolean won;
+
+    /**
+     * The only 'Yong Gun' Cowboy this player owns, or null if they called in their young gun during their turn.
+     */
+    public Cowboy youngGun;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
