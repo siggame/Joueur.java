@@ -1,6 +1,11 @@
 /**
  * A Tile in the game that makes up the 2D map grid.
  */
+
+// DO NOT MODIFY THIS FILE
+// Never try to directly create an instance of this class, or modify its member variables.
+// Instead, you should only be reading its variables and calling its functions.
+
 package games.saloon;
 
 import java.util.List;
@@ -26,12 +31,12 @@ public class Tile extends GameObject {
     public Bottle bottle;
 
     /**
-     * The Cowboy that is on this Tile, or null if empty.
+     * The Cowboy that is on this Tile, null otherwise.
      */
     public Cowboy cowboy;
 
     /**
-     * The furnishing that is on this Tile, or null if empty.
+     * The furnishing that is on this Tile, null otherwise.
      */
     public Furnishing furnishing;
 
@@ -41,9 +46,9 @@ public class Tile extends GameObject {
     public boolean hasHazard;
 
     /**
-     * If this Tile is a wall of the Saloon, and can never be pathed through.
+     * If this Tile is a balcony of the Saloon that YoungGuns walk around on, and can never be pathed through by Cowboys.
      */
-    public boolean isWall;
+    public boolean isBalcony;
 
     /**
      * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
@@ -74,6 +79,11 @@ public class Tile extends GameObject {
      * The y (vertical) position of this Tile.
      */
     public int y;
+
+    /**
+     * The YoungGun on this tile, null otherwise.
+     */
+    public YoungGun youngGun;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

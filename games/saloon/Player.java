@@ -1,6 +1,11 @@
 /**
  * A player in this game. Every AI controls one player.
  */
+
+// DO NOT MODIFY THIS FILE
+// Never try to directly create an instance of this class, or modify its member variables.
+// Instead, you should only be reading its variables and calling its functions.
+
 package games.saloon;
 
 import java.util.List;
@@ -86,9 +91,9 @@ public class Player extends GameObject {
     public boolean won;
 
     /**
-     * The only 'Yong Gun' Cowboy this player owns, or null if they called in their young gun during their turn.
+     * The YoungGun this Player uses to call in new Cowboys.
      */
-    public Cowboy youngGun;
+    public YoungGun youngGun;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -102,18 +107,6 @@ public class Player extends GameObject {
     public Player() {
         super();
         this.cowboys = new ArrayList<Cowboy>();
-    }
-
-    /**
-     * Sends in the Young Gun to the nearest Tile into the Saloon, and promotes them to a new job.
-     *
-     * @param   job  The job you want the Young Gun being brought in to be called in to do, changing their job to it.
-     * @return The Cowboy that was previously a 'Young Gun', and has now been promoted to a different job if successful, null otherwise.
-     */
-    public Cowboy sendIn(String job) {
-        JSONObject args = new JSONObject();
-        args.put("job", Client.getInstance().gameManager.serializeSafe(job));
-        return (Cowboy)this.runOnServer("sendIn", args);
     }
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

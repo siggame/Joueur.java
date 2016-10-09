@@ -1,6 +1,11 @@
 /**
  * Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Coyboys.
  */
+
+// DO NOT MODIFY THIS FILE
+// Never try to directly create an instance of this class, or modify its member variables.
+// Instead, you should only be reading its variables and calling its functions.
+
 package games.saloon;
 
 import java.util.List;
@@ -46,7 +51,7 @@ public class Game extends BaseGame {
     public List<Furnishing> furnishings;
 
     /**
-     * All the jobs that Cowboys can be assigned within the saloon.
+     * All the jobs that Cowboys can be called in with.
      */
     public List<String> jobs;
 
@@ -61,9 +66,9 @@ public class Game extends BaseGame {
     public int mapWidth;
 
     /**
-     * The maximum number of Cowboys a Player can bring into the saloon.
+     * The maximum number of Cowboys a Player can bring into the saloon of each specific job.
      */
-    public int maxCowboys;
+    public int maxCowboysPerJob;
 
     /**
      * The maximum number of turns before the game will automatically end.

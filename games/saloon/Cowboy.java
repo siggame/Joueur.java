@@ -1,6 +1,11 @@
 /**
  * A person on the map that can move around and interact within the saloon.
  */
+
+// DO NOT MODIFY THIS FILE
+// Never try to directly create an instance of this class, or modify its member variables.
+// Instead, you should only be reading its variables and calling its functions.
+
 package games.saloon;
 
 import java.util.List;

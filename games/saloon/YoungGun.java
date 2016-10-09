@@ -1,5 +1,5 @@
 /**
- * An object in the game. The most basic class that all game classes should inherit from automatically.
+ * An eager young person that wants to join your gang, and will call in the veteran Cowboys you need to win the brawl in the saloon.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,18 +22,23 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * An object in the game. The most basic class that all game classes should inherit from automatically.
+ * An eager young person that wants to join your gang, and will call in the veteran Cowboys you need to win the brawl in the saloon.
  */
-public class GameObject extends BaseGameObject {
+public class YoungGun extends GameObject {
     /**
-     * String representing the top level Class that this game object is an instance of. Used for reflection to create new instances on clients, but exposed for convenience should AIs want this data.
+     * True if the YoungGun can call in a Cowboy, false otherwise.
      */
-    public String gameObjectName;
+    public boolean canCallIn;
 
     /**
-     * Any strings logged will be stored here. Intended for debugging.
+     * The Player that owns and can control this YoungGun.
      */
-    public List<String> logs;
+    public Player owner;
+
+    /**
+     * The Tile this YoungGun is currently on. Cowboys they send in will be on the nearest non-balcony Tile.
+     */
+    public Tile tile;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -42,22 +47,22 @@ public class GameObject extends BaseGameObject {
 
 
     /**
-     * Creates a new instance of a GameObject. Used during game initialization, do not call directly.
+     * Creates a new instance of a YoungGun. Used during game initialization, do not call directly.
      */
-    public GameObject() {
+    public YoungGun() {
         super();
-        this.logs = new ArrayList<String>();
     }
 
     /**
-     * Adds a message to this GameObject's logs. Intended for your own debugging purposes, as strings stored here are saved in the gamelog.
+     * Tells the YoungGun to call in a new Cowbow of the given job to the open Tile nearest to them.
      *
-     * @param   message  A string to add to this GameObject's log. Intended for debugging.
+     * @param   job  The job you want the Cowboy being brought to have.
+     * @return The new Cowboy that was called in if valid. They will not be added to any `cowboys` lists until the turn ends. Null otherwise.
      */
-    public void log(String message) {
+    public Cowboy callIn(String job) {
         JSONObject args = new JSONObject();
-        args.put("message", Client.getInstance().gameManager.serializeSafe(message));
-        this.runOnServer("log", args);
+        args.put("job", Client.getInstance().gameManager.serializeSafe(job));
+        return (Cowboy)this.runOnServer("callIn", args);
     }
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
