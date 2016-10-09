@@ -1,6 +1,11 @@
 /**
  * ${obj['description']}
  */
+
+// DO NOT MODIFY THIS FILE
+// Never try to directly create an instance of this class, or modify its member variables.
+// Instead, you should only be reading its variables and calling its functions.
+
 package games.${lowercase_first(game_name)};
 <%include file="functions.noCreer" />
 import java.util.List;
