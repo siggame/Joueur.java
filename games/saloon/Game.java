@@ -1,5 +1,5 @@
 /**
- * Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Coyboys.
+ * Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Cowboys.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,13 +22,18 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Coyboys.
+ * Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Cowboys.
  */
 public class Game extends BaseGame {
     /**
      * All the beer Bottles currently flying across the saloon in the game.
      */
     public List<Bottle> bottles;
+
+    /**
+     * How much damage is applied to neighboring things bit by the Sharpshooter between turns.
+     */
+    public int brawlerDamage;
 
     /**
      * Every Cowboy in the game.
@@ -89,6 +94,11 @@ public class Game extends BaseGame {
      * A unique identifier for the game instance that is being played.
      */
     public String session;
+
+    /**
+     * How much damage is applied to things hit by Sharpshooters when they act.
+     */
+    public int sharpshooterDamage;
 
     /**
      * How long siestas are for a player's team.

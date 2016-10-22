@@ -41,6 +41,11 @@ public class Furnishing extends GameObject {
     public boolean isPiano;
 
     /**
+     * If this is a piano and a Cowboy is playing it this turn.
+     */
+    public boolean isPlaying;
+
+    /**
      * The Tile that this Furnishing is located on.
      */
     public Tile tile;

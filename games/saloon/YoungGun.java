@@ -26,6 +26,11 @@ import joueur.BaseGameObject;
  */
 public class YoungGun extends GameObject {
     /**
+     * The Tile that a Cowboy will be called in on if this YoungGun calls in a Cowboy.
+     */
+    public Tile callInTile;
+
+    /**
      * True if the YoungGun can call in a Cowboy, false otherwise.
      */
     public boolean canCallIn;
@@ -36,7 +41,7 @@ public class YoungGun extends GameObject {
     public Player owner;
 
     /**
-     * The Tile this YoungGun is currently on. Cowboys they send in will be on the nearest non-balcony Tile.
+     * The Tile this YoungGun is currently on.
      */
     public Tile tile;
 
@@ -54,7 +59,7 @@ public class YoungGun extends GameObject {
     }
 
     /**
-     * Tells the YoungGun to call in a new Cowbow of the given job to the open Tile nearest to them.
+     * Tells the YoungGun to call in a new Cowboy of the given job to the open Tile nearest to them.
      *
      * @param   job  The job you want the Cowboy being brought to have.
      * @return The new Cowboy that was called in if valid. They will not be added to any `cowboys` lists until the turn ends. Null otherwise.
