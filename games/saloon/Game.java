@@ -26,6 +26,11 @@ import joueur.BaseGameObject;
  */
 public class Game extends BaseGame {
     /**
+     * How many turns a Bartender will be busy for after throwing a Bottle.
+     */
+    public int bartenderCooldown;
+
+    /**
      * All the beer Bottles currently flying across the saloon in the game.
      */
     public List<Bottle> bottles;
@@ -86,9 +91,9 @@ public class Game extends BaseGame {
     public List<Player> players;
 
     /**
-     * When a player's rowdyness reaches or exceeds this number their Cowboys take a collective siesta.
+     * When a player's rowdiness reaches or exceeds this number their Cowboys take a collective siesta.
      */
-    public int rowdynessToSiesta;
+    public int rowdinessToSiesta;
 
     /**
      * A unique identifier for the game instance that is being played.
@@ -109,6 +114,11 @@ public class Game extends BaseGame {
      * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
      */
     public List<Tile> tiles;
+
+    /**
+     * How many turns a Cowboy will be drunk for if a bottle breaks on it.
+     */
+    public int turnsDrunk;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

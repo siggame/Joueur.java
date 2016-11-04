@@ -68,7 +68,7 @@ public class Player extends GameObject {
     /**
      * How rowdy their team is. When it gets too high their team takes a collective siesta.
      */
-    public int rowdyness;
+    public int rowdiness;
 
     /**
      * How many times their team has played a piano.
