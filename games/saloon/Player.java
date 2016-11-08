@@ -17,9 +17,7 @@ import joueur.Client;
 import joueur.BaseGame;
 import joueur.BaseGameObject;
 
-// <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
 // you can add addtional import(s) here
-// <<-- /Creer-Merge: imports -->>
 
 /**
  * A player in this game. Every AI controls one player.
@@ -96,9 +94,7 @@ public class Player extends GameObject {
     public YoungGun youngGun;
 
 
-    // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add addtional field(s) here. None of them will be tracked or updated by the server.
-    // <<-- /Creer-Merge: fields -->>
 
 
     /**
@@ -109,7 +105,5 @@ public class Player extends GameObject {
         this.cowboys = new ArrayList<Cowboy>();
     }
 
-    // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add addtional method(s) here.
-    // <<-- /Creer-Merge: methods -->>
 }

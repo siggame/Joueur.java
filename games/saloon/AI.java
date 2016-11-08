@@ -9,9 +9,7 @@ import java.util.Map;
 import java.util.HashMap;
 import joueur.BaseAI;
 
-// <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
 // you can add addtional import(s) here
-// <<-- /Creer-Merge: imports -->>
 
 /**
  * This is where you build your AI for the Saloon game.
@@ -27,9 +25,7 @@ public class AI extends BaseAI {
      */
     public Player player;
 
-    // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional fields here for your AI to use
-    // <<-- /Creer-Merge: fields -->>
 
 
     /**
@@ -37,9 +33,7 @@ public class AI extends BaseAI {
      * @return string of you AI's name
      */
     public String getName() {
-        // <<-- Creer-Merge: get-name -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         return "Saloon Java Player"; // REPLACE THIS WITH YOUR TEAM NAME!
-        // <<-- /Creer-Merge: get-name -->>
     }
 
     /**
@@ -47,9 +41,7 @@ public class AI extends BaseAI {
      * This is a good place to initialize any variables you add to your AI, or start tracking game objects.
      */
     public void start() {
-        // <<-- Creer-Merge: start -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         super.start();
-        // <<-- /Creer-Merge: start -->>
     }
 
     /**
@@ -57,9 +49,7 @@ public class AI extends BaseAI {
      * If a function you call triggers an update this will be called before that function returns.
      */
     public void gameUpdated() {
-        // <<-- Creer-Merge: game-updated -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         super.gameUpdated();
-        // <<-- /Creer-Merge: game-updated -->>
     }
 
     /**
@@ -69,9 +59,7 @@ public class AI extends BaseAI {
      * @param  name  reason">a string explaining why you won or lost
      */
     public void ended(boolean won, String reason) {
-        // <<-- Creer-Merge: ended -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         super.ended(won, reason);
-        // <<-- /Creer-Merge: ended -->>
     }
 
 
@@ -81,14 +69,11 @@ public class AI extends BaseAI {
      * @return Represents if you want to end your turn. True means end your turn, False means to keep your turn going and re-call this function.
      */
     public boolean runTurn() {
-        // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // Put your game logic here for runTurn
         return true;
-        // <<-- /Creer-Merge: runTurn -->>
+
     }
 
 
-    // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional methods here for your AI to call
-    // <<-- /Creer-Merge: methods -->>
 }

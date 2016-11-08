@@ -17,9 +17,7 @@ import joueur.Client;
 import joueur.BaseGame;
 import joueur.BaseGameObject;
 
-// <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
 // you can add addtional import(s) here
-// <<-- /Creer-Merge: imports -->>
 
 /**
  * An eager young person that wants to join your gang, and will call in the veteran Cowboys you need to win the brawl in the saloon.
@@ -46,9 +44,7 @@ public class YoungGun extends GameObject {
     public Tile tile;
 
 
-    // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add addtional field(s) here. None of them will be tracked or updated by the server.
-    // <<-- /Creer-Merge: fields -->>
 
 
     /**
@@ -70,7 +66,5 @@ public class YoungGun extends GameObject {
         return (Cowboy)this.runOnServer("callIn", args);
     }
 
-    // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add addtional method(s) here.
-    // <<-- /Creer-Merge: methods -->>
 }
