@@ -17,8 +17,6 @@ import joueur.Client;
 import joueur.BaseGame;
 import joueur.BaseGameObject;
 
-// you can add addtional import(s) here
-
 /**
  * A Tile in the game that makes up the 2D map grid.
  */
@@ -83,8 +81,11 @@ public class Tile extends GameObject {
      */
     public YoungGun youngGun;
 
+    /**
+     * The list of all valid directions Tiles can be in
+     */
+    public static final String[] DIRECTIONS = { "North", "East", "South", "West" };
 
-    // you can add addtional field(s) here. None of them will be tracked or updated by the server.
 
 
     /**
@@ -94,5 +95,50 @@ public class Tile extends GameObject {
         super();
     }
 
-    // you can add addtional method(s) here.
+    /**
+     * Gets the neighbors of this Tile
+     * @return The neighboring (adjacent) Tiles to this tile
+     */
+    public List<Tile> getNeighbors() {
+        List list = new ArrayList<Tile>();
+
+        if (this.tileNorth != null) {
+            list.add(this.tileNorth);
+        }
+
+        if (this.tileEast != null) {
+            list.add(this.tileEast);
+        }
+
+        if (this.tileSouth != null) {
+            list.add(this.tileSouth);
+        }
+
+        if (this.tileWest != null) {
+            list.add(this.tileWest);
+        }
+
+        return list;
+    }
+
+    /// <summary>
+    /// Checks if a Tile is pathable to units
+    /// </summary>
+    /// <returns>True if pathable, false otherwise</returns>
+    public boolean isPathable() {
+        return !this.isBalcony && this.cowboy == null && this.furnishing == null;
+    }
+
+    /// <summary>
+    /// Checks if this Tile has a specific neighboring Tile
+    /// </summary>
+    /// <param name="tile">Tile to check against</param>
+    /// <returns>true if the tile is a neighbor of this Tile, false otherwise</returns>
+    public boolean hasNeighbor(Tile tile) {
+        if (tile == null) {
+            return false;
+        }
+
+        return (this.tileNorth == tile || this.tileEast == tile || this.tileSouth == tile || this.tileEast == tile);
+    }
 }

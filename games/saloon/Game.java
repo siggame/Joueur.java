@@ -17,8 +17,6 @@ import joueur.Client;
 import joueur.BaseGame;
 import joueur.BaseGameObject;
 
-// you can add addtional import(s) here
-
 /**
  * Use cowboys to have a good time and play some music on a Piano, while brawling with enemy Cowboys.
  */
@@ -118,10 +116,6 @@ public class Game extends BaseGame {
      */
     public int turnsDrunk;
 
-
-    // you can add addtional field(s) here. None of them will be tracked or updated by the server.
-
-
     /**
      * Creates a new instance of a Game. Used during game initialization, do not call directly.
      */
@@ -137,5 +131,19 @@ public class Game extends BaseGame {
         this.tiles = new ArrayList<Tile>();
     }
 
-    // you can add addtional method(s) here.
+    /**
+     * Gets the Tile at a specified (x, y) position
+     * @param  x  integer between 0 and the mapWidth
+     * @param  y  integer between 0 and the mapHeight
+     * @return the Tile at (x, y) or null if out of bounds
+     */
+    public Tile getTileAt(int x, int y)
+    {
+        if (x < 0 || y < 0 || x >= this.mapWidth || y >= this.mapHeight) {
+            // out of bounds
+            return null;
+        }
+
+        return this.tiles.get(x + y * this.mapWidth);
+    }
 }
