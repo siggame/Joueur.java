@@ -142,8 +142,10 @@ public class AI extends BaseAI {
                 // Path can be empty if no piano to find, or the target piano is our neighbor.
                 List<Tile> path = this.findPath(activeCowboy.tile, piano.tile);
 
-                // If the path is not empty, move along it.
-                if (path.size() > 0) {
+                // if there is a path, move along it
+                //      length 0 means no path could be found to the tile
+                //      length 1 means the piano is adjacent, and we can't move onto the same tile as the piano
+                if (path.size() > 1) {
                     System.out.println("2. Moving to Tile #" + path.get(0).id);
                     activeCowboy.move(path.get(0));
                 }
@@ -236,6 +238,7 @@ public class AI extends BaseAI {
                 if (neighbor == goal) {
                     // Follow the path backward starting at the goal and return it.
                     List<Tile> path = new ArrayList<Tile>();
+                    path.add(goal);
 
                     // Starting at the tile we are currently at, insert them retracing our steps till we get to the starting tile
                     for (Tile step = inspect; step != start; step = cameFrom.get(step)) {

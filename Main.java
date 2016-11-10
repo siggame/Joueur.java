@@ -82,7 +82,6 @@ class JoueurJava {
             port = Integer.parseInt(split[1]);
         }
 
-        System.out.println("poopy!");
         Client client = Client.getInstance();
         client.connect(server, port, printIO);
         client.send("alias", gameAlias);

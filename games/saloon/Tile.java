@@ -121,19 +121,19 @@ public class Tile extends GameObject {
         return list;
     }
 
-    /// <summary>
-    /// Checks if a Tile is pathable to units
-    /// </summary>
-    /// <returns>True if pathable, false otherwise</returns>
+    /** Checks if a Tile is pathable to units
+     *
+     * @return True if pathable, false otherwise
+     */
     public boolean isPathable() {
         return !this.isBalcony && this.cowboy == null && this.furnishing == null;
     }
 
-    /// <summary>
-    /// Checks if this Tile has a specific neighboring Tile
-    /// </summary>
-    /// <param name="tile">Tile to check against</param>
-    /// <returns>true if the tile is a neighbor of this Tile, false otherwise</returns>
+    /**
+     * Checks if this Tile has a specific neighboring Tile
+     * @param  tile  Tile to check against
+     * @return true if the tile is a neighbor of this Tile, false otherwise
+     */
     public boolean hasNeighbor(Tile tile) {
         if (tile == null) {
             return false;
