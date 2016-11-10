@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.HashMap;
 import joueur.BaseAI;
 
-${merge("// ", "imports", "// you can add addtional import(s) here")}
+${merge("// ", "imports", "// you can add additional import(s) here", optional=True)}
 
 /**
  * This is where you build your AI for the ${game_name} game.
@@ -92,5 +92,5 @@ ${merge("        // ", function_name,
 % endfor
 
 
-${merge("    // ", "methods", '    // you can add additional methods here for your AI to call')}
+${merge("    // ", "methods", '    // you can add additional methods here for your AI to call', optional=True)}
 }
