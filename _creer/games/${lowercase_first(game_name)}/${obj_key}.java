@@ -17,7 +17,7 @@ import joueur.Client;
 import joueur.BaseGame;
 import joueur.BaseGameObject;
 
-${merge("// ", "imports", "// you can add addtional import(s) here")}
+${merge("// ", "imports", "// you can add additional import(s) here", optional=True)}
 <%parent_classes = list(obj['parentClasses'])
 
 if not parent_classes:
@@ -47,7 +47,7 @@ if (obj_key == "Game" and (attr_name == "gameObjects" or attr_name == "name")) o
 
 % endfor
 
-${merge("    // ", "fields", "    // you can add addtional field(s) here. None of them will be tracked or updated by the server.")}
+${merge("    // ", "fields", "    // you can add additional field(s) here. None of them will be tracked or updated by the server.", optional=True)}
 
 
     /**
@@ -131,5 +131,5 @@ if 'arguments' in function_parms:
     }
 % endfor
 
-${merge("    // ", "methods", "    // you can add addtional method(s) here.")}
+${merge("    // ", "methods", "    // you can add additional method(s) here.", optional=True)}
 }
