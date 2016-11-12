@@ -139,7 +139,7 @@ public class AI extends BaseAI {
             if (activeCowboy.canMove && !activeCowboy.isDead) {
                 System.out.println("Trying to use Cowboy #" + activeCowboy.id);
 
-                // Path can be empty if no piano to find, or the target piano is our neighbor.
+                // Find a path of tiles to the piano from our active cowboy's tile
                 List<Tile> path = this.findPath(activeCowboy.tile, piano.tile);
 
                 // if there is a path, move along it
@@ -207,7 +207,7 @@ public class AI extends BaseAI {
      * A very basic path finding algorithm (Breadth First Search) that when given a starting Tile, will return a valid path to the goal Tile.
      * @param  start  the starting Tile
      * @param  goal  the goal Tile
-     * @return A List of Tiles representing the path, the the first element being a valid adjacent Tile to the start, and the last element being the goal.
+     * @return A List of Tiles representing the path, the the first element being a valid adjacent Tile to the start, and the last element being the goal. Or an empty list if no path found.
      */
     List<Tile> findPath(Tile start, Tile goal) {
         // no need to make a path to here...
@@ -262,6 +262,5 @@ public class AI extends BaseAI {
         // if you're here, that means that there was not a path to get to where you want to go.
         //   in that case, we'll just return an empty path.
         return new ArrayList<Tile>();
-
     }
 }

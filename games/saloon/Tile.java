@@ -121,8 +121,8 @@ public class Tile extends GameObject {
         return list;
     }
 
-    /** Checks if a Tile is pathable to units
-     *
+    /**
+     * Checks if a Tile is pathable to units
      * @return True if pathable, false otherwise
      */
     public boolean isPathable() {
