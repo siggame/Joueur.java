@@ -12,7 +12,7 @@ import java.util.Stack;
 import org.json.*;
 
 public class Client {
-    // region Singletion pattern setup
+    // region Singleton pattern setup
     private static Client instance = null;
 
     protected Client() {
@@ -70,6 +70,7 @@ public class Client {
             //this.socket.setSoTimeout(Client.SERVER_TIMEOUT); // 1 sec timeout
             this.socketOut = new PrintWriter(this.socket.getOutputStream(), true);
             this.socketIn = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+            this.socket.setTcpNoDelay(true);
         } catch (IOException e) {
             this.handleError(e, ErrorCode.COULD_NOT_CONNECT, "Couldn't create the socket for the connection to: " + server + ":" + port);
         }
