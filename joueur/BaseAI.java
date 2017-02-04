@@ -1,11 +1,16 @@
 package joueur;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 
 public abstract class BaseAI {
-    public BaseAI() {}
+    private HashMap<String, String> _settings;
+
+    public BaseAI() {
+        this._settings = new HashMap<String, String>();
+    }
 
     public String getName() {
         return "Java Player";
@@ -51,6 +56,35 @@ public abstract class BaseAI {
 
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
             Client.getInstance().handleError(e, ErrorCode.REFLECTION_FAILED, "Could not find method '" + order + "' in AI to do order.");
+        }
+
+        return null;
+    }
+
+    public void setSettings(String aiSettings) {
+        if (aiSettings != null && !aiSettings.equals("")) {
+            String[] split = aiSettings.split("&");
+            for (int i = 0; i < split.length; i++) {
+                String[] kv = split[i].split("=");
+                String value = "";
+                if (kv.length > 1) {
+                    value = kv[1];
+                }
+
+                this._settings.put(kv[0], value);
+            }
+        }
+    }
+
+    /**
+   * Gets an AI setting passed to the program via the `--aiSettings` flag. If the flag was set it will be returned as a string value, null otherwise.
+   *
+   * @param key The key of the setting you wish to get the value for
+   * @return A string representing the value set via command line, or null if the key was not set
+   */
+    protected String getSetting(String key) {
+        if (this._settings.containsKey(key)) {
+            return this._settings.get(key);
         }
 
         return null;

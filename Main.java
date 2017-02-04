@@ -28,7 +28,7 @@ class JoueurJava {
         parser.addArgument("-s", "--server")
             .dest("server")
             .setDefault("localhost")
-            .help("the url to the server you want to connect to e.g. locahost:3000");
+            .help("the hostname or the server you want to connect to e.g. locahost:3000");
         parser.addArgument("-p", "--port")
             .dest("port")
             .type(Integer.class)

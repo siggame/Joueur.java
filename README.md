@@ -13,7 +13,7 @@ make
 ./testRun MyOwnGameSession
 ```
 
-JRE7 and Maven 3 are the only required packages, and can be found in `java-common` and `mvn` respectively.
+JRE7 and Maven 3 are the only required packages, and can be found in `java-common` and `maven` packages respectively.
 
 In addition, after you `make` once, you can do `make core` instead to just rebuild, and not fetch the dependencies again.
 
