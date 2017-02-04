@@ -18,7 +18,7 @@ import joueur.BaseGame;
 import joueur.BaseGameObject;
 
 // <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// you can add addtional import(s) here
+// you can add additional import(s) here
 // <<-- /Creer-Merge: imports -->>
 
 /**
@@ -47,7 +47,7 @@ public class YoungGun extends GameObject {
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add addtional field(s) here. None of them will be tracked or updated by the server.
+    // you can add additional field(s) here. None of them will be tracked or updated by the server.
     // <<-- /Creer-Merge: fields -->>
 
 
@@ -71,6 +71,6 @@ public class YoungGun extends GameObject {
     }
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add addtional method(s) here.
+    // you can add additional method(s) here.
     // <<-- /Creer-Merge: methods -->>
 }
