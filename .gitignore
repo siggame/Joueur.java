@@ -19,5 +19,7 @@ hs_err_pid*
 # generate docs
 docs/output/
 
-# vagrant
+# vagrant stuff
 .vagrant/*
+# log files
+*.log
