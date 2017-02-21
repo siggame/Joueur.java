@@ -39,7 +39,7 @@ public class Cutter extends Spiderling {
     /**
      * Creates a new instance of a Cutter. Used during game initialization, do not call directly.
      */
-    public Cutter() {
+    protected Cutter() {
         super();
     }
 

@@ -54,7 +54,7 @@ public class Checker extends GameObject {
     /**
      * Creates a new instance of a Checker. Used during game initialization, do not call directly.
      */
-    public Checker() {
+    protected Checker() {
         super();
     }
 

@@ -64,7 +64,7 @@ public class Piece extends GameObject {
     /**
      * Creates a new instance of a Piece. Used during game initialization, do not call directly.
      */
-    public Piece() {
+    protected Piece() {
         super();
     }
 

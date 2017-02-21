@@ -1,5 +1,7 @@
 package joueur;
 import java.lang.reflect.Field;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -52,8 +54,10 @@ public class GameManager {
     private BaseGameObject createGameObject(String className) {
         try {
             Class gameObjectClass = Class.forName("games." + this.gameFolder + "." + className);
-            return (BaseGameObject)gameObjectClass.newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            Constructor<?> constructor = gameObjectClass.getDeclaredConstructors()[0];
+            constructor.setAccessible(true);
+            return (BaseGameObject)constructor.newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             this.client.handleError(e, ErrorCode.DELTA_MERGE_FAILURE, "Error: could not create base game object of Class '" + className + "'");
         }
 
@@ -160,7 +164,7 @@ public class GameManager {
 
         return false;
     }
-    
+
     private boolean isDeltaList(JSONObject jsonObject) {
         if (jsonObject != null && jsonObject.has(this.DELTA_LIST_LENGTH)) {
             int deltaLength = jsonObject.optInt(this.DELTA_LIST_LENGTH);
@@ -170,7 +174,7 @@ public class GameManager {
         }
         return false;
     }
-    
+
     private boolean isDeltaRemoved(Object obj) {
         return this.DELTA_REMOVED.equals(obj);
     }

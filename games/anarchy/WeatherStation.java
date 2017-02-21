@@ -34,7 +34,7 @@ public class WeatherStation extends Building {
     /**
      * Creates a new instance of a WeatherStation. Used during game initialization, do not call directly.
      */
-    public WeatherStation() {
+    protected WeatherStation() {
         super();
     }
 

@@ -49,7 +49,7 @@ public class Forecast extends GameObject {
     /**
      * Creates a new instance of a Forecast. Used during game initialization, do not call directly.
      */
-    public Forecast() {
+    protected Forecast() {
         super();
     }
 

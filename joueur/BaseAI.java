@@ -8,7 +8,7 @@ import org.json.JSONArray;
 public abstract class BaseAI {
     private HashMap<String, String> _settings;
 
-    public BaseAI() {
+    protected BaseAI() {
         this._settings = new HashMap<String, String>();
     }
 

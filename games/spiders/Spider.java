@@ -49,7 +49,7 @@ public class Spider extends GameObject {
     /**
      * Creates a new instance of a Spider. Used during game initialization, do not call directly.
      */
-    public Spider() {
+    protected Spider() {
         super();
     }
 

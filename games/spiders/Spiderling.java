@@ -59,7 +59,7 @@ public class Spiderling extends Spider {
     /**
      * Creates a new instance of a Spiderling. Used during game initialization, do not call directly.
      */
-    public Spiderling() {
+    protected Spiderling() {
         super();
     }
 

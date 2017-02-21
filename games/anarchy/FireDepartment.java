@@ -39,7 +39,7 @@ public class FireDepartment extends Building {
     /**
      * Creates a new instance of a FireDepartment. Used during game initialization, do not call directly.
      */
-    public FireDepartment() {
+    protected FireDepartment() {
         super();
     }
 

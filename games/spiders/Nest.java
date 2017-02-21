@@ -54,7 +54,7 @@ public class Nest extends GameObject {
     /**
      * Creates a new instance of a Nest. Used during game initialization, do not call directly.
      */
-    public Nest() {
+    protected Nest() {
         super();
         this.spiders = new ArrayList<Spider>();
         this.webs = new ArrayList<Web>();

@@ -95,17 +95,19 @@ class JoueurJava {
         BaseGame game = null;
         try {
             Class<?> gameClass = Class.forName("games." + client.lowercaseFirst(gameName) + ".Game");
-            Constructor<?> gameConstructor = gameClass.getConstructor(new Class[0]);
+            Constructor<?> gameConstructor = gameClass.getDeclaredConstructors()[0];
+            gameConstructor.setAccessible(true);
             game = (BaseGame)gameConstructor.newInstance(new Object[0]);
         }
-        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
             client.handleError(e, ErrorCode.GAME_NOT_FOUND, "Could not create Game via reflection for game '" + gameName + "'");
         }
 
         BaseAI ai = null;
         try {
             Class<?> aiClass = Class.forName("games." + client.lowercaseFirst(gameName) + ".AI");
-            Constructor<?> aiConstructor = aiClass.getConstructor(new Class[0]);
+            Constructor<?> aiConstructor = aiClass.getDeclaredConstructors()[0];
+            aiConstructor.setAccessible(true);
             ai = (BaseAI)aiConstructor.newInstance(new Object[0]);
         }
         catch (Exception e) {

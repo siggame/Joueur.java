@@ -74,7 +74,7 @@ public class Move extends GameObject {
     /**
      * Creates a new instance of a Move. Used during game initialization, do not call directly.
      */
-    public Move() {
+    protected Move() {
         super();
     }
 

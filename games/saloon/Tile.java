@@ -94,7 +94,7 @@ public class Tile extends GameObject {
     /**
      * Creates a new instance of a Tile. Used during game initialization, do not call directly.
      */
-    public Tile() {
+    protected Tile() {
         super();
     }
 

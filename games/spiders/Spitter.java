@@ -39,7 +39,7 @@ public class Spitter extends Spiderling {
     /**
      * Creates a new instance of a Spitter. Used during game initialization, do not call directly.
      */
-    public Spitter() {
+    protected Spitter() {
         super();
     }
 

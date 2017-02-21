@@ -109,7 +109,7 @@ public class Player extends GameObject {
     /**
      * Creates a new instance of a Player. Used during game initialization, do not call directly.
      */
-    public Player() {
+    protected Player() {
         super();
         this.buildings = new ArrayList<Building>();
         this.fireDepartments = new ArrayList<FireDepartment>();

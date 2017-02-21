@@ -64,7 +64,7 @@ public class Web extends GameObject {
     /**
      * Creates a new instance of a Web. Used during game initialization, do not call directly.
      */
-    public Web() {
+    protected Web() {
         super();
         this.spiderlings = new ArrayList<Spiderling>();
     }

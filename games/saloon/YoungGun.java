@@ -54,7 +54,7 @@ public class YoungGun extends GameObject {
     /**
      * Creates a new instance of a YoungGun. Used during game initialization, do not call directly.
      */
-    public YoungGun() {
+    protected YoungGun() {
         super();
     }
 

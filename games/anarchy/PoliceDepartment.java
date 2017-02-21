@@ -34,7 +34,7 @@ public class PoliceDepartment extends Building {
     /**
      * Creates a new instance of a PoliceDepartment. Used during game initialization, do not call directly.
      */
-    public PoliceDepartment() {
+    protected PoliceDepartment() {
         super();
     }
 

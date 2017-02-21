@@ -59,7 +59,7 @@ public class Furnishing extends GameObject {
     /**
      * Creates a new instance of a Furnishing. Used during game initialization, do not call directly.
      */
-    public Furnishing() {
+    protected Furnishing() {
         super();
     }
 

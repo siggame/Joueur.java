@@ -53,7 +53,7 @@ ${merge("    // ", "fields", "    // you can add additional field(s) here. None 
     /**
      * Creates a new instance of a ${obj_key}. Used during game initialization, do not call directly.
      */
-    public ${obj_key}() {
+    protected ${obj_key}() {
         super();
 % if obj_key == "Game":
         this.name = "${game_name}";

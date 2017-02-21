@@ -89,7 +89,7 @@ public class Cowboy extends GameObject {
     /**
      * Creates a new instance of a Cowboy. Used during game initialization, do not call directly.
      */
-    public Cowboy() {
+    protected Cowboy() {
         super();
     }
 

@@ -44,7 +44,7 @@ public class Warehouse extends Building {
     /**
      * Creates a new instance of a Warehouse. Used during game initialization, do not call directly.
      */
-    public Warehouse() {
+    protected Warehouse() {
         super();
     }
 

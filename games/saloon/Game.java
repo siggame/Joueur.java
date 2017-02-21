@@ -129,7 +129,7 @@ public class Game extends BaseGame {
     /**
      * Creates a new instance of a Game. Used during game initialization, do not call directly.
      */
-    public Game() {
+    protected Game() {
         super();
         this.name = "Saloon";
 

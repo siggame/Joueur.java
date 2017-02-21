@@ -89,7 +89,7 @@ public class Building extends GameObject {
     /**
      * Creates a new instance of a Building. Used during game initialization, do not call directly.
      */
-    public Building() {
+    protected Building() {
         super();
     }
 

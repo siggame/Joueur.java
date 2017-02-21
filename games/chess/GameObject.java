@@ -44,7 +44,7 @@ public class GameObject extends BaseGameObject {
     /**
      * Creates a new instance of a GameObject. Used during game initialization, do not call directly.
      */
-    public GameObject() {
+    protected GameObject() {
         super();
         this.logs = new ArrayList<String>();
     }

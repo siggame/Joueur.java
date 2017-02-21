@@ -44,7 +44,7 @@ public class BroodMother extends Spider {
     /**
      * Creates a new instance of a BroodMother. Used during game initialization, do not call directly.
      */
-    public BroodMother() {
+    protected BroodMother() {
         super();
     }
 

@@ -44,7 +44,7 @@ public class Weaver extends Spiderling {
     /**
      * Creates a new instance of a Weaver. Used during game initialization, do not call directly.
      */
-    public Weaver() {
+    protected Weaver() {
         super();
     }
 

@@ -54,7 +54,7 @@ public class Bottle extends GameObject {
     /**
      * Creates a new instance of a Bottle. Used during game initialization, do not call directly.
      */
-    public Bottle() {
+    protected Bottle() {
         super();
     }
 
