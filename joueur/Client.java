@@ -12,7 +12,7 @@ import java.util.Stack;
 import org.json.*;
 
 public class Client {
-    // region Singletion pattern setup
+    // region Singleton pattern setup
     private static Client instance = null;
 
     protected Client() {
@@ -29,7 +29,7 @@ public class Client {
 
     // endregion
 
-    private String server = null;
+    private String hostname = null;
     private int port = 0;
     private boolean printIO = false;
     private boolean started = false;
@@ -45,33 +45,34 @@ public class Client {
     private Stack<ServerEvent> eventsStack;
     private String receivedBuffer = "";
 
-    public void connect(String server, int port, boolean printIO) {
-        if (server.isEmpty()) {
-            server = "localhost";
+    public void connect(String hostname, int port, boolean printIO) {
+        if (hostname.isEmpty()) {
+            hostname = "localhost";
         }
 
         if (port <= 0) {
             port = 3000;
         }
 
-        this.server = server;
+        this.hostname = hostname;
         this.port = port;
         this.printIO = printIO;
         this.eventsStack = new Stack<ServerEvent>();
 
-        System.out.println(ANSIColorCoder.FG_CYAN.apply() + "Connecting to: " + server + ":" + port + ANSIColorCoder.reset());
+        System.out.println(ANSIColorCoder.FG_CYAN.apply() + "Connecting to: " + hostname + ":" + port + ANSIColorCoder.reset());
 
         this.socket = null;
         this.socketIn = null;
         this.socketOut = null;
 
         try {
-            this.socket = new Socket(this.server, this.port);
+            this.socket = new Socket(this.hostname, this.port);
             //this.socket.setSoTimeout(Client.SERVER_TIMEOUT); // 1 sec timeout
             this.socketOut = new PrintWriter(this.socket.getOutputStream(), true);
             this.socketIn = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+            this.socket.setTcpNoDelay(true);
         } catch (IOException e) {
-            this.handleError(e, ErrorCode.COULD_NOT_CONNECT, "Couldn't create the socket for the connection to: " + server + ":" + port);
+            this.handleError(e, ErrorCode.COULD_NOT_CONNECT, "Couldn't create the socket for the connection to: " + hostname + ":" + port);
         }
     }
 
@@ -280,7 +281,8 @@ public class Client {
         System.out.println(ANSIColorCoder.FG_GREEN.apply() + "Game is over. " + (won ? "I Won!" : "I Lost :(") + " because " + reason + ANSIColorCoder.reset());
 
         String message = overData.optString("message");
-        if(message != null && message != "") {
+        if(message != null && !message.equals("")) {
+            message = message.replace("__HOSTNAME__", this.hostname);
             System.out.println(ANSIColorCoder.FG_CYAN.apply() + message + ANSIColorCoder.reset());
         }
 

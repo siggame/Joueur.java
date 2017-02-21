@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.HashMap;
 import joueur.BaseAI;
 
+
 /**
  * This is where you build your AI for the Chess game.
  */
@@ -56,7 +57,6 @@ public class AI extends BaseAI {
     public void ended(boolean won, String reason) {
         super.ended(won, reason);
     }
-
 
     /**
      * This is called every time it is this AI.player's turn.

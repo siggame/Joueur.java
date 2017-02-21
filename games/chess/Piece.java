@@ -1,6 +1,11 @@
 /**
  * A chess piece.
  */
+
+// DO NOT MODIFY THIS FILE
+// Never try to directly create an instance of this class, or modify its member variables.
+// Instead, you should only be reading its variables and calling its functions.
+
 package games.chess;
 
 import java.util.List;
@@ -12,9 +17,6 @@ import joueur.Client;
 import joueur.BaseGame;
 import joueur.BaseGameObject;
 
-// <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// you can add addtional import(s) here
-// <<-- /Creer-Merge: imports -->>
 
 /**
  * A chess piece.
@@ -51,15 +53,11 @@ public class Piece extends GameObject {
     public String type;
 
 
-    // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add addtional field(s) here. None of them will be tracked or updated by the server.
-    // <<-- /Creer-Merge: fields -->>
-
 
     /**
      * Creates a new instance of a Piece. Used during game initialization, do not call directly.
      */
-    public Piece() {
+    protected Piece() {
         super();
     }
 
@@ -87,8 +85,4 @@ public class Piece extends GameObject {
         args.put("promotionType", Client.getInstance().gameManager.serializeSafe(promotionType));
         return (Move)this.runOnServer("move", args);
     }
-
-    // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add addtional method(s) here.
-    // <<-- /Creer-Merge: methods -->>
 }

@@ -28,7 +28,7 @@ class JoueurJava {
         parser.addArgument("-s", "--server")
             .dest("server")
             .setDefault("localhost")
-            .help("the url to the server you want to connect to e.g. locahost:3000");
+            .help("the hostname or the server you want to connect to e.g. locahost:3000");
         parser.addArgument("-p", "--port")
             .dest("port")
             .type(Integer.class)
@@ -49,6 +49,9 @@ class JoueurJava {
             .dest("session")
             .setDefault("*")
             .help("the requested game session you want to play on the server");
+        parser.addArgument("--aiSettings")
+            .dest("aiSettings")
+            .help("Any settings for the AI. Delimit pairs by an ampersand (key=value&otherKey=otherValue)");
         parser.addArgument("--gameSettings")
             .dest("gameSettings")
             .help("Any settings for the game server to force. Must be url parms formatted (key=value&otherKey=otherValue)");
@@ -57,7 +60,7 @@ class JoueurJava {
             .action(Arguments.storeTrue())
             .help("(debugging) print IO through the TCP socket to the terminal");
 
-        String gameAlias = "", server = "localhost", requestedSession = "*", playerName = "Java Player", password = null, gameSettings = null;
+        String gameAlias = "", server = "localhost", requestedSession = "*", playerName = "Java Player", password = null, aiSettings = null, gameSettings = null;
         int port = 3000, playerIndex = -1;
         boolean printIO = false;
 
@@ -71,8 +74,10 @@ class JoueurJava {
             password = parsedArgs.getString("password");
             port = parsedArgs.getInt("port");
             printIO = parsedArgs.getBoolean("printIO");
+            aiSettings = parsedArgs.getString("aiSettings");
             gameSettings = parsedArgs.getString("gameSettings");
-        } catch (ArgumentParserException e) {
+        }
+        catch (ArgumentParserException e) {
             ErrorCode.handleError(e, ErrorCode.INVALID_ARGS, "Invalid Args");
         }
 
@@ -82,7 +87,6 @@ class JoueurJava {
             port = Integer.parseInt(split[1]);
         }
 
-        System.out.println("poopy!");
         Client client = Client.getInstance();
         client.connect(server, port, printIO);
         client.send("alias", gameAlias);
@@ -91,23 +95,28 @@ class JoueurJava {
         BaseGame game = null;
         try {
             Class<?> gameClass = Class.forName("games." + client.lowercaseFirst(gameName) + ".Game");
-            Constructor<?> gameConstructor = gameClass.getConstructor(new Class[0]);
+            Constructor<?> gameConstructor = gameClass.getDeclaredConstructors()[0];
+            gameConstructor.setAccessible(true);
             game = (BaseGame)gameConstructor.newInstance(new Object[0]);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
+        }
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
             client.handleError(e, ErrorCode.GAME_NOT_FOUND, "Could not create Game via reflection for game '" + gameName + "'");
         }
 
         BaseAI ai = null;
         try {
             Class<?> aiClass = Class.forName("games." + client.lowercaseFirst(gameName) + ".AI");
-            Constructor<?> aiConstructor = aiClass.getConstructor(new Class[0]);
+            Constructor<?> aiConstructor = aiClass.getDeclaredConstructors()[0];
+            aiConstructor.setAccessible(true);
             ai = (BaseAI)aiConstructor.newInstance(new Object[0]);
         }
-        catch(Exception e) {
+        catch (Exception e) {
             client.handleError(e, ErrorCode.AI_ERRORED, "Could not create AI via reflection for game '" + gameName + "'");
         }
 
         client.setup(game, ai);
+
+        ai.setSettings(aiSettings);
 
         if (playerName == null || playerName.isEmpty()) {
             playerName = ai.getName();
@@ -120,7 +129,7 @@ class JoueurJava {
         playData.put("gameName", gameName);
         playData.put("password", password);
         playData.put("playerName", playerName);
-        if(playerIndex > -1) {
+        if (playerIndex > -1) {
             playData.put("playerIndex", playerIndex);
         }
         playData.put("requestedSession", requestedSession);
@@ -144,7 +153,8 @@ class JoueurJava {
         try {
             ai.getClass().getField("game").set(ai, game);
             ai.getClass().getField("player").set(ai, game.gameObjects.get(startData.getString("playerID")));
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+        }
+        catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             client.handleError(e, ErrorCode.REFLECTION_FAILED, "Could not set reflected Game and Player for AI.");
         }
 
@@ -154,7 +164,7 @@ class JoueurJava {
             ai.start();
             ai.gameUpdated();
         }
-        catch(Exception e) {
+        catch (Exception e) {
             client.handleError(e, ErrorCode.REFLECTION_FAILED, "AI threw exception during initial start");
         }
 
