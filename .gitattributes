@@ -2,3 +2,4 @@
 # crlf line endings break many things
 * text eol=lf
 *.bat eol=crlf
+*.woff binary
