@@ -36,11 +36,6 @@ public class Beaver extends GameObject {
     public int branches;
 
     /**
-     * Number of turns this beaver is distracted for (0 means not distracted).
-     */
-    public int distracted;
-
-    /**
      * The number of fish this beaver is holding.
      */
     public int fish;
@@ -66,9 +61,19 @@ public class Beaver extends GameObject {
     public Player owner;
 
     /**
+     * True if the Beaver has finished being recruited and can do things, False otherwise.
+     */
+    public boolean recruited;
+
+    /**
      * The tile this beaver is on.
      */
     public Tile tile;
+
+    /**
+     * Number of turns this beaver is distracted for (0 means not distracted).
+     */
+    public int turnsDistracted;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -86,12 +91,12 @@ public class Beaver extends GameObject {
     /**
      * Attacks another adjacent beaver.
      *
-     * @param   tile  The tile of the beaver you want to attack.
+     * @param   beaver  The beaver to attack. Must be on an adjacent tile.
      * @return True if successfully attacked, false otherwise.
      */
-    public boolean attack(Tile tile) {
+    public boolean attack(Beaver beaver) {
         JSONObject args = new JSONObject();
-        args.put("tile", Client.getInstance().gameManager.serializeSafe(tile));
+        args.put("beaver", Client.getInstance().gameManager.serializeSafe(beaver));
         return (boolean)this.runOnServer("attack", args);
     }
 
@@ -108,21 +113,23 @@ public class Beaver extends GameObject {
     /**
      * Defaults the value for the optional arg 'amount' to '0'
      *
-     * @see Beaver#drop(String, int)
+     * @see Beaver#drop(Tile, String, int)
      */
-    public boolean drop(String resource) {
-        return this.drop(resource, 0);
+    public boolean drop(Tile tile, String resource) {
+        return this.drop(tile, resource, 0);
     }
 
     /**
      * Drops some of the given resource on the beaver's tile. Fish dropped in water disappear instantly, and fish dropped on land die one per tile per turn.
      *
+     * @param   tile  The Tile to drop branches/fish on. Must be the same Tile that the Beaver is on, or an adjacent one.
      * @param   resource  The type of resource to drop ('branch' or 'fish').
-     * @param   amount  The amount of the resource to drop, numbers <= 0 will drop all of that type.
+     * @param   amount  The amount of the resource to drop, numbers <= 0 will drop all the resource type.
      * @return True if successfully dropped the resource, false otherwise.
      */
-    public boolean drop(String resource, int amount) {
+    public boolean drop(Tile tile, String resource, int amount) {
         JSONObject args = new JSONObject();
+        args.put("tile", Client.getInstance().gameManager.serializeSafe(tile));
         args.put("resource", Client.getInstance().gameManager.serializeSafe(resource));
         args.put("amount", Client.getInstance().gameManager.serializeSafe(amount));
         return (boolean)this.runOnServer("drop", args);
@@ -131,19 +138,19 @@ public class Beaver extends GameObject {
     /**
      * Harvests the branches or fish from a Spawner on an adjacent tile.
      *
-     * @param   tile  The tile you want to harvest.
+     * @param   spawner  The Spawner you want to harvest. Must be on an adjacent tile.
      * @return True if successfully harvested, false otherwise.
      */
-    public boolean harvest(Tile tile) {
+    public boolean harvest(Spawner spawner) {
         JSONObject args = new JSONObject();
-        args.put("tile", Client.getInstance().gameManager.serializeSafe(tile));
+        args.put("spawner", Client.getInstance().gameManager.serializeSafe(spawner));
         return (boolean)this.runOnServer("harvest", args);
     }
 
     /**
      * Moves this beaver from its current tile to an adjacent tile.
      *
-     * @param   tile  The tile this beaver should move to. Costs 2 moves normally, 3 if moving upstream, and 1 if moving downstream.
+     * @param   tile  The tile this beaver should move to.
      * @return True if the move worked, false otherwise.
      */
     public boolean move(Tile tile) {
@@ -155,21 +162,23 @@ public class Beaver extends GameObject {
     /**
      * Defaults the value for the optional arg 'amount' to '0'
      *
-     * @see Beaver#pickup(String, int)
+     * @see Beaver#pickup(Tile, String, int)
      */
-    public boolean pickup(String resource) {
-        return this.pickup(resource, 0);
+    public boolean pickup(Tile tile, String resource) {
+        return this.pickup(tile, resource, 0);
     }
 
     /**
      * Picks up some branches or fish on the beaver's tile.
      *
+     * @param   tile  The Tile to pickup branches/fish from. Must be the same Tile that the Beaver is on, or an adjacent one.
      * @param   resource  The type of resource to pickup ('branch' or 'fish').
-     * @param   amount  The amount of the resource to drop, numbers <= 0 will pickup all of that type.
+     * @param   amount  The amount of the resource to drop, numbers <= 0 will pickup all of the resource type.
      * @return True if successfully picked up a resource, false otherwise.
      */
-    public boolean pickup(String resource, int amount) {
+    public boolean pickup(Tile tile, String resource, int amount) {
         JSONObject args = new JSONObject();
+        args.put("tile", Client.getInstance().gameManager.serializeSafe(tile));
         args.put("resource", Client.getInstance().gameManager.serializeSafe(resource));
         args.put("amount", Client.getInstance().gameManager.serializeSafe(amount));
         return (boolean)this.runOnServer("pickup", args);

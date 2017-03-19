@@ -53,7 +53,7 @@ public class Job extends GameObject {
     /**
      * How many turns a beaver attacked by this job is distracted by.
      */
-    public int distracts;
+    public int distractionPower;
 
     /**
      * Scalar for how many fish this job harvests at once.
@@ -91,12 +91,12 @@ public class Job extends GameObject {
     /**
      * Recruits a Beaver of this Job to a lodge
      *
-     * @param   lodge  The Tile that is a lodge owned by you that you wish to spawn the Beaver of this Job on.
+     * @param   tile  The Tile that is a lodge owned by you that you wish to spawn the Beaver of this Job on.
      * @return The recruited Beaver if successful, null otherwise.
      */
-    public Beaver recruit(Tile lodge) {
+    public Beaver recruit(Tile tile) {
         JSONObject args = new JSONObject();
-        args.put("lodge", Client.getInstance().gameManager.serializeSafe(lodge));
+        args.put("tile", Client.getInstance().gameManager.serializeSafe(tile));
         return (Beaver)this.runOnServer("recruit", args);
     }
 

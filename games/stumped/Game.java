@@ -56,6 +56,11 @@ public class Game extends BaseGame {
     public List<Job> jobs;
 
     /**
+     * Constant number used to calculate what it costs to spawn a new lodge.
+     */
+    public double lodgeCostConstant;
+
+    /**
      * How many lodges must be complete at once to win the game.
      */
     public int lodgesCompleteToWin;
@@ -89,6 +94,11 @@ public class Game extends BaseGame {
      * Every Spawner in the game.
      */
     public List<Spawner> spawner;
+
+    /**
+     * Constant number used to calculate how many breanches/fish Beavers harvest from spawners.
+     */
+    public double spawnerHarvestConstant;
 
     /**
      * All the types of spawners in the game.

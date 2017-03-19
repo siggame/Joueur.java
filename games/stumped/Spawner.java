@@ -26,12 +26,17 @@ import joueur.BaseGameObject;
  */
 public class Spawner extends GameObject {
     /**
-     * How much of the resource is left.
+     * True if this Spawner has been harvested this turn, and it will not heal at the end of the turn, false otherwise.
+     */
+    public boolean hasBeenHarvested;
+
+    /**
+     * How much health this spawner has, which is used to calculate how much of its resource can be harvested.
      */
     public int health;
 
     /**
-     * The tile this resource is on.
+     * The tile this Spawner is on.
      */
     public Tile tile;
 
