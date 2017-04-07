@@ -91,7 +91,7 @@ public class Game extends BaseGame {
     public List<Spawner> spawner;
 
     /**
-     * Constant number used to calculate how many breanches/food Beavers harvest from Spawners.
+     * Constant number used to calculate how many branches/food Beavers harvest from Spawners.
      */
     public double spawnerHarvestConstant;
 
