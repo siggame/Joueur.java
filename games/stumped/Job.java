@@ -100,6 +100,7 @@ public class Job extends GameObject {
         return (Beaver)this.runOnServer("recruit", args);
     }
 
+
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional method(s) here.
     // <<-- /Creer-Merge: methods -->>

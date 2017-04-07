@@ -131,5 +131,75 @@ if 'arguments' in function_parms:
     }
 % endfor
 
+% if 'Tile' in game_objs:
+% if 'TiledGame' in game['serverParentClasses']: #// then we need to add some client side utility functions
+% if obj_key == 'Game':
+    /**
+     * Gets the Tile at a specified (x, y) position
+     * @param  x  integer between 0 and the mapWidth
+     * @param  y  integer between 0 and the mapHeight
+     * @return the Tile at (x, y) or null if out of bounds
+     */
+    public Tile getTileAt(int x, int y)
+    {
+        if (x < 0 || y < 0 || x >= this.mapWidth || y >= this.mapHeight) {
+            // out of bounds
+            return null;
+        }
+
+        return this.tiles.get(x + y * this.mapWidth);
+    }
+% elif obj_key == 'Tile':
+    /**
+     * Gets the neighbors of this Tile
+     * @return The neighboring (adjacent) Tiles to this tile
+     */
+    public List<Tile> getNeighbors() {
+        List<Tile> list = new ArrayList<Tile>();
+
+        if (this.tileNorth != null) {
+            list.add(this.tileNorth);
+        }
+
+        if (this.tileEast != null) {
+            list.add(this.tileEast);
+        }
+
+        if (this.tileSouth != null) {
+            list.add(this.tileSouth);
+        }
+
+        if (this.tileWest != null) {
+            list.add(this.tileWest);
+        }
+
+        return list;
+    }
+
+    /**
+     * Checks if a Tile is pathable to units
+     * @return True if pathable, false otherwise
+     */
+    public boolean isPathable() {
+${merge("        // ", "is_pathable_builtin", "        return false; // DEVELOPER ADD LOGIC HERE")}
+    }
+
+    /**
+     * Checks if this Tile has a specific neighboring Tile
+     * @param  tile  Tile to check against
+     * @return true if the tile is a neighbor of this Tile, false otherwise
+     */
+    public boolean hasNeighbor(Tile tile) {
+        if (tile == null) {
+            return false;
+        }
+
+        return (this.tileNorth == tile || this.tileEast == tile || this.tileSouth == tile || this.tileEast == tile);
+    }
+
+% endif
+% endif
+
+% endif
 ${merge("    // ", "methods", "    // you can add additional method(s) here.", optional=True)}
 }
