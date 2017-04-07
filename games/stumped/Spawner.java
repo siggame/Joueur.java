@@ -1,5 +1,5 @@
 /**
- * A resource spawner that generates branches or fish.
+ * A resource spawner that generates branches or food.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,7 +22,7 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * A resource spawner that generates branches or fish.
+ * A resource spawner that generates branches or food.
  */
 public class Spawner extends GameObject {
     /**
@@ -31,17 +31,17 @@ public class Spawner extends GameObject {
     public boolean hasBeenHarvested;
 
     /**
-     * How much health this spawner has, which is used to calculate how much of its resource can be harvested.
+     * How much health this Spawner has, which is used to calculate how much of its resource can be harvested.
      */
     public int health;
 
     /**
-     * The tile this Spawner is on.
+     * The Tile this Spawner is on.
      */
     public Tile tile;
 
     /**
-     * What type of resource this is ('Fish' or 'Branch').
+     * What type of resource this is ('food' or 'branches').
      */
     public String type;
 

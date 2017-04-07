@@ -26,52 +26,52 @@ import joueur.BaseGameObject;
  */
 public class Job extends GameObject {
     /**
-     * The number of actions this job can make per turn.
+     * The number of actions this Job can make per turn.
      */
     public int actions;
 
     /**
-     * How many resources a beaver with this job can hold at once.
+     * How many combined resources a beaver with this Job can hold at once.
      */
     public int carryLimit;
 
     /**
-     * Scalar for how many branches this job harvests at once.
+     * Scalar for how many branches this Job harvests at once.
      */
     public int chopping;
 
     /**
-     * How many fish this Job costs to recruit.
+     * How much food this Job costs to recruit.
      */
     public int cost;
 
     /**
-     * The amount of damage this job does per attack.
+     * The amount of damage this Job does per attack.
      */
     public int damage;
 
     /**
-     * How many turns a beaver attacked by this job is distracted by.
+     * How many turns a beaver attacked by this Job is distracted by.
      */
     public int distractionPower;
 
     /**
-     * Scalar for how many fish this job harvests at once.
-     */
-    public int fishing;
-
-    /**
-     * The amount of starting health this job has.
+     * The amount of starting health this Job has.
      */
     public int health;
 
     /**
-     * The number of moves this job can make per turn.
+     * The number of moves this Job can make per turn.
      */
     public int moves;
 
     /**
-     * The job title ('builder', 'fisher', etc).
+     * Scalar for how much food this Job harvests at once.
+     */
+    public int munching;
+
+    /**
+     * The Job title.
      */
     public String title;
 

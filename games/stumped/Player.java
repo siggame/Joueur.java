@@ -31,7 +31,7 @@ public class Player extends GameObject {
     public List<Beaver> beavers;
 
     /**
-     * How many branches are required to build a lodge for this player.
+     * How many branches are required to build a lodge for this Player.
      */
     public int branchesToBuildLodge;
 
@@ -41,7 +41,7 @@ public class Player extends GameObject {
     public String clientType;
 
     /**
-     * A list of tiles that contain lodges owned by this player.
+     * A list of Tiles that contain lodges owned by this player.
      */
     public List<Tile> lodges;
 

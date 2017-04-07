@@ -26,37 +26,37 @@ import joueur.BaseGameObject;
  */
 public class Beaver extends GameObject {
     /**
-     * The number of actions remaining for the beaver this turn.
+     * The number of actions remaining for the Beaver this turn.
      */
     public int actions;
 
     /**
-     * The number of branches this beaver is holding.
+     * The amount of branches this Beaver is holding.
      */
     public int branches;
 
     /**
-     * The number of fish this beaver is holding.
+     * The amount of food this Beaver is holding.
      */
-    public int fish;
+    public int food;
 
     /**
-     * How much health this beaver has left.
+     * How much health this Beaver has left.
      */
     public int health;
 
     /**
-     * The Job this beaver was recruited to do.
+     * The Job this Beaver was recruited to do.
      */
     public Job job;
 
     /**
-     * How many moves this beaver has left this turn.
+     * How many moves this Beaver has left this turn.
      */
     public int moves;
 
     /**
-     * The Player that owns and can control this beaver.
+     * The Player that owns and can control this Beaver.
      */
     public Player owner;
 
@@ -66,12 +66,12 @@ public class Beaver extends GameObject {
     public boolean recruited;
 
     /**
-     * The tile this beaver is on.
+     * The Tile this Beaver is on.
      */
     public Tile tile;
 
     /**
-     * Number of turns this beaver is distracted for (0 means not distracted).
+     * Number of turns this Beaver is distracted for (0 means not distracted).
      */
     public int turnsDistracted;
 
@@ -91,7 +91,7 @@ public class Beaver extends GameObject {
     /**
      * Attacks another adjacent beaver.
      *
-     * @param   beaver  The beaver to attack. Must be on an adjacent tile.
+     * @param   beaver  The Beaver to attack. Must be on an adjacent Tile.
      * @return True if successfully attacked, false otherwise.
      */
     public boolean attack(Beaver beaver) {
@@ -101,7 +101,7 @@ public class Beaver extends GameObject {
     }
 
     /**
-     * Builds a lodge on the Beavers current tile.
+     * Builds a lodge on the Beavers current Tile.
      *
      * @return True if successfully built a lodge, false otherwise.
      */
@@ -120,10 +120,10 @@ public class Beaver extends GameObject {
     }
 
     /**
-     * Drops some of the given resource on the beaver's tile. Fish dropped in water disappear instantly, and fish dropped on land die one per tile per turn.
+     * Drops some of the given resource on the beaver's Tile.
      *
-     * @param   tile  The Tile to drop branches/fish on. Must be the same Tile that the Beaver is on, or an adjacent one.
-     * @param   resource  The type of resource to drop ('branch' or 'fish').
+     * @param   tile  The Tile to drop branches/food on. Must be the same Tile that the Beaver is on, or an adjacent one.
+     * @param   resource  The type of resource to drop ('branch' or 'food').
      * @param   amount  The amount of the resource to drop, numbers <= 0 will drop all the resource type.
      * @return True if successfully dropped the resource, false otherwise.
      */
@@ -136,9 +136,9 @@ public class Beaver extends GameObject {
     }
 
     /**
-     * Harvests the branches or fish from a Spawner on an adjacent tile.
+     * Harvests the branches or food from a Spawner on an adjacent Tile.
      *
-     * @param   spawner  The Spawner you want to harvest. Must be on an adjacent tile.
+     * @param   spawner  The Spawner you want to harvest. Must be on an adjacent Tile.
      * @return True if successfully harvested, false otherwise.
      */
     public boolean harvest(Spawner spawner) {
@@ -148,9 +148,9 @@ public class Beaver extends GameObject {
     }
 
     /**
-     * Moves this beaver from its current tile to an adjacent tile.
+     * Moves this Beaver from its current Tile to an adjacent Tile.
      *
-     * @param   tile  The tile this beaver should move to.
+     * @param   tile  The Tile this Beaver should move to.
      * @return True if the move worked, false otherwise.
      */
     public boolean move(Tile tile) {
@@ -169,10 +169,10 @@ public class Beaver extends GameObject {
     }
 
     /**
-     * Picks up some branches or fish on the beaver's tile.
+     * Picks up some branches or food on the beaver's tile.
      *
-     * @param   tile  The Tile to pickup branches/fish from. Must be the same Tile that the Beaver is on, or an adjacent one.
-     * @param   resource  The type of resource to pickup ('branch' or 'fish').
+     * @param   tile  The Tile to pickup branches/food from. Must be the same Tile that the Beaver is on, or an adjacent one.
+     * @param   resource  The type of resource to pickup ('branch' or 'food').
      * @param   amount  The amount of the resource to drop, numbers <= 0 will pickup all of the resource type.
      * @return True if successfully picked up a resource, false otherwise.
      */

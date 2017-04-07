@@ -26,32 +26,32 @@ import joueur.BaseGameObject;
  */
 public class Tile extends GameObject {
     /**
-     * The beaver on this tile if present, otherwise null.
+     * The Beaver on this Tile if present, otherwise null.
      */
     public Beaver beaver;
 
     /**
-     * The number of branches dropped on this tile.
+     * The number of branches dropped on this Tile.
      */
     public int branches;
 
     /**
-     * The number of fish dropped on this tile.
-     */
-    public int fish;
-
-    /**
-     * The cardinal direction water is flowing on this tile ('North', 'East', 'South', 'West').
+     * The cardinal direction water is flowing on this Tile ('North', 'East', 'South', 'West').
      */
     public String flowDirection;
 
     /**
-     * The owner of the beaver lodge on this tile, if present, otherwise null.
+     * The number of food dropped on this Tile.
+     */
+    public int food;
+
+    /**
+     * The owner of the Beaver lodge on this Tile, if present, otherwise null.
      */
     public Player lodgeOwner;
 
     /**
-     * The resource spawner on this tile if present, otherwise null.
+     * The resource Spawner on this Tile if present, otherwise null.
      */
     public Spawner spawner;
 

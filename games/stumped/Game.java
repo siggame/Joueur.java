@@ -31,11 +31,6 @@ public class Game extends BaseGame {
     public List<Beaver> beavers;
 
     /**
-     * How many branches a lodge must have to be considered complete.
-     */
-    public int branchesToCompleteLodge;
-
-    /**
      * The player whose turn it is currently. That player can send commands. Other players cannot.
      */
     public Player currentPlayer;
@@ -46,7 +41,7 @@ public class Game extends BaseGame {
     public int currentTurn;
 
     /**
-     * When a Player has less Beavers than this number, recruiting other Beavers is free.
+     * When a Player has less Beavers than this number, then recruiting other Beavers is free.
      */
     public int freeBeaversCount;
 
@@ -61,9 +56,9 @@ public class Game extends BaseGame {
     public double lodgeCostConstant;
 
     /**
-     * How many lodges must be complete at once to win the game.
+     * How many lodges must be owned by a Player at once to win the game.
      */
-    public int lodgesCompleteToWin;
+    public int lodgesToWin;
 
     /**
      * The number of Tiles in the map along the y (vertical) axis.
@@ -96,12 +91,12 @@ public class Game extends BaseGame {
     public List<Spawner> spawner;
 
     /**
-     * Constant number used to calculate how many breanches/fish Beavers harvest from spawners.
+     * Constant number used to calculate how many breanches/food Beavers harvest from Spawners.
      */
     public double spawnerHarvestConstant;
 
     /**
-     * All the types of spawners in the game.
+     * All the types of Spawners in the game.
      */
     public List<String> spawnerTypes;
 
