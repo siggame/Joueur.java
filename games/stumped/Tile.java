@@ -17,9 +17,7 @@ import joueur.Client;
 import joueur.BaseGame;
 import joueur.BaseGameObject;
 
-// <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// you can add additional import(s) here
-// <<-- /Creer-Merge: imports -->>
+
 
 /**
  * A Tile in the game that makes up the 2D map grid.
@@ -91,9 +89,7 @@ public class Tile extends GameObject {
     public int y;
 
 
-    // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add additional field(s) here. None of them will be tracked or updated by the server.
-    // <<-- /Creer-Merge: fields -->>
+
 
 
     /**
@@ -134,9 +130,7 @@ public class Tile extends GameObject {
      * @return True if pathable, false otherwise
      */
     public boolean isPathable() {
-        // <<-- Creer-Merge: is_pathable_builtin -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-        return false; // DEVELOPER ADD LOGIC HERE
-        // <<-- /Creer-Merge: is_pathable_builtin -->>
+        return this.beaver == null && this.spawner == null && this.lodgeOwner == null;
     }
 
     /**
@@ -153,7 +147,5 @@ public class Tile extends GameObject {
     }
 
 
-    // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add additional method(s) here.
-    // <<-- /Creer-Merge: methods -->>
+
 }
