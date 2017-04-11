@@ -69,7 +69,7 @@ class JoueurJava {
             gameAlias = parsedArgs.getString("game");
             server = parsedArgs.getString("server");
             requestedSession = parsedArgs.getString("session");
-            playerName = parsedArgs.getString("name");
+            playerName = parsedArgs.getString("playerName");
             playerIndex = parsedArgs.getInt("index");
             password = parsedArgs.getString("password");
             port = parsedArgs.getInt("port");
