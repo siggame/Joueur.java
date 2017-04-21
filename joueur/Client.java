@@ -303,13 +303,7 @@ public class Client {
             this.handleError(e, ErrorCode.REFLECTION_FAILED, "Order data malformed, missing name or index: ");
         }
 
-        Object returned = null;
-        try {
-            returned = ai.doOrder(order, orderData.optJSONArray("args"));
-        }
-        catch(Exception e) {
-            this.handleError(e, ErrorCode.AI_ERRORED, "AI threw exception when executing order '" + order + "'.");
-        }
+        Object returned = ai.doOrder(order, orderData.optJSONArray("args"));
 
         JSONObject finishedData = new JSONObject();
         finishedData.put("orderIndex", index);

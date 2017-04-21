@@ -38,7 +38,7 @@ inherit_str = ", ".join(parent_classes) # note: this could have multi-inheritanc
 public class ${obj_key} extends ${inherit_str} {
 % for attr_name in obj['attribute_names']:
 <% attr_parms = obj['attributes'][attr_name]
-if (obj_key == "Game" and (attr_name == "gameObjects" or attr_name == "name")) or attr_name == "id":
+if (obj_key == "Game" and (attr_name == "gameObjects" or attr_name == "name")) or attr_name == "id" or attr_name == "gameObjectName":
     continue
 %>    /**
      * ${attr_parms['description']}

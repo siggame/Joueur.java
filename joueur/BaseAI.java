@@ -35,9 +35,11 @@ public abstract class BaseAI {
 
     public Object doOrder(String order, JSONArray jsonArray) {
         GameManager gameManager = Client.getInstance().gameManager;
+        Object[] unserializedArgs = null;
+        Method method = null;
+
         try {
             Method[] methods = this.getClass().getDeclaredMethods();
-            Method method = null;
             for (int i = 0; i < methods.length; i++) {
                 if (methods[i].getName().equals(order)) {
                     method = methods[i];
@@ -46,19 +48,24 @@ public abstract class BaseAI {
             }
 
             int len = jsonArray.length();
-            Object[] unserializedArgs = new Object[len];
+            unserializedArgs = new Object[len];
             for (int i = 0; i < len; i++) {
                 unserializedArgs[i] = gameManager.unserialize(jsonArray.get(i));
             }
-
-            Object returned = method.invoke(this, unserializedArgs);
-            return returned;
-
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
+        } catch (IllegalArgumentException | SecurityException e) {
             Client.getInstance().handleError(e, ErrorCode.REFLECTION_FAILED, "Could not find method '" + order + "' in AI to do order.");
+            return null;
         }
 
-        return null;
+        try {
+            Object returned = method.invoke(this, unserializedArgs);
+            return returned;
+        } catch (Exception e) {
+            // assume any exception is their fault, if it was a reflection error it probably was already caught above
+            Client.getInstance().handleError(e, ErrorCode.AI_ERRORED, "AI threw exception when executing order '" + order + "'.");
+        }
+
+        return null; // should not be reached
     }
 
     public void setSettings(String aiSettings) {

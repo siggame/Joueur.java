@@ -98,6 +98,56 @@ public class Tile extends GameObject {
         super();
     }
 
+    /**
+     * Gets the neighbors of this Tile
+     * @return The neighboring (adjacent) Tiles to this tile
+     */
+    public List<Tile> getNeighbors() {
+        List<Tile> list = new ArrayList<Tile>();
+
+        if (this.tileNorth != null) {
+            list.add(this.tileNorth);
+        }
+
+        if (this.tileEast != null) {
+            list.add(this.tileEast);
+        }
+
+        if (this.tileSouth != null) {
+            list.add(this.tileSouth);
+        }
+
+        if (this.tileWest != null) {
+            list.add(this.tileWest);
+        }
+
+        return list;
+    }
+
+    /**
+     * Checks if a Tile is pathable to units
+     * @return True if pathable, false otherwise
+     */
+    public boolean isPathable() {
+        // <<-- Creer-Merge: is_pathable_builtin -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+        return false; // DEVELOPER ADD LOGIC HERE
+        // <<-- /Creer-Merge: is_pathable_builtin -->>
+    }
+
+    /**
+     * Checks if this Tile has a specific neighboring Tile
+     * @param  tile  Tile to check against
+     * @return true if the tile is a neighbor of this Tile, false otherwise
+     */
+    public boolean hasNeighbor(Tile tile) {
+        if (tile == null) {
+            return false;
+        }
+
+        return (this.tileNorth == tile || this.tileEast == tile || this.tileSouth == tile || this.tileEast == tile);
+    }
+
+
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional method(s) here.
     // <<-- /Creer-Merge: methods -->>

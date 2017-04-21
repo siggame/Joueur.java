@@ -66,7 +66,7 @@ public class Player extends GameObject {
     public List<Piece> pieces;
 
     /**
-     * The direction your Pieces must go along the rank axis until they reach the other side.
+     * The direction your Pieces must go along the rank axis until they reach the other side. Will be +1 if the Player is 'White', or -1 if the Player is 'Black'.
      */
     public int rankDirection;
 

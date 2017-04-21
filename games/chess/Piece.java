@@ -51,7 +51,7 @@ public class Piece extends GameObject {
     public int rank;
 
     /**
-     * The type of chess Piece this is, either: 'King', 'Queen', 'Knight', 'Rook', 'Bishop', or 'Pawn'.
+     * The type of chess Piece this is, either 'King, 'Queen', 'Knight', 'Rook', 'Bishop', or 'Pawn'.
      */
     public String type;
 

@@ -109,6 +109,7 @@ public class Player extends GameObject {
         this.cowboys = new ArrayList<Cowboy>();
     }
 
+
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional method(s) here.
     // <<-- /Creer-Merge: methods -->>

@@ -26,11 +26,6 @@ import joueur.BaseGameObject;
  */
 public class GameObject extends BaseGameObject {
     /**
-     * String representing the top level Class that this game object is an instance of. Used for reflection to create new instances on clients, but exposed for convenience should AIs want this data.
-     */
-    public String gameObjectName;
-
-    /**
      * Any strings logged will be stored here. Intended for debugging.
      */
     public List<String> logs;
