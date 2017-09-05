@@ -5,11 +5,12 @@ all:
 	make core
 
 dependencies:
-	mvn clean compile assembly:single
+	mkdir -p ./src/main/java/
+	cp -r ./games ./joueur Main.java ./src/main/java/
+	mvn dependency:go-offline
 
 core:
-	mkdir -p bin
-	javac -cp ".:target/joueur-1.0-jar-with-dependencies.jar" Main.java $(GAMES_FILES) -d ./bin
+	mvn -o clean compile assembly:single
 
 clean:
-	rm -rf ./bin ./target
+	rm -rf ./bin ./target ./src
