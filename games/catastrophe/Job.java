@@ -28,7 +28,7 @@ public class Job extends GameObject {
     /**
      * The amount of energy this Job normally uses to perform its actions.
      */
-    public double actCost;
+    public double actionCost;
 
     /**
      * How many combined resources a Unit with this Job can hold at once.
@@ -51,7 +51,7 @@ public class Job extends GameObject {
     public String title;
 
     /**
-     * The amount of food per turn this Unit consumes. If there isn't enough food for every Unit, all units become starved and do not consume food.
+     * The amount of food per turn this Unit consumes. If there isn't enough food for every Unit, all Units become starved and do not consume food.
      */
     public int upkeep;
 

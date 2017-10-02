@@ -26,12 +26,12 @@ import joueur.BaseGameObject;
  */
 public class Unit extends GameObject {
     /**
-     * Whether this unit has performed its action this turn.
+     * Whether this Unit has performed its action this turn.
      */
     public boolean acted;
 
     /**
-     * The amount of energy this unit has (from 0.0 to 1.0).
+     * The amount of energy this Unit has (from 0.0 to 100.0).
      */
     public double energy;
 
@@ -51,7 +51,7 @@ public class Unit extends GameObject {
     public int materials;
 
     /**
-     * The tile this Unit is moving to. This only applies to neutral fresh humans spawned on the road.
+     * The tile this Unit is moving to. This only applies to neutral fresh humans spawned on the road. Otherwise, the tile this Unit is on.
      */
     public Tile movementTarget;
 
@@ -61,17 +61,17 @@ public class Unit extends GameObject {
     public int moves;
 
     /**
-     * The Player that owns and can control this Unit, or null if the unit is neutral.
+     * The Player that owns and can control this Unit, or null if the Unit is neutral.
      */
     public Player owner;
 
     /**
-     * The units in the same squad as this unit. Units in the same squad attack and defend together.
+     * The Units in the same squad as this Unit. Units in the same squad attack and defend together.
      */
     public List<Unit> squad;
 
     /**
-     * Whether this unit is starving. Starving units regenerate energy at half the rate they normally would while resting.
+     * Whether this Unit is starving. Starving Units regenerate energy at half the rate they normally would while resting.
      */
     public boolean starving;
 
@@ -81,7 +81,7 @@ public class Unit extends GameObject {
     public Tile tile;
 
     /**
-     * The number of turns before this Unit dies. This only applies to neutral fresh humans created from combat.
+     * The number of turns before this Unit dies. This only applies to neutral fresh humans created from combat. Otherwise, 0.
      */
     public int turnsToDie;
 
@@ -100,7 +100,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Attacks an adjacent tile. Costs an action for each unit in this squad. Units in this squad without an action don't participate in combat. Units in the squad cannot move after performing this action.
+     * Attacks an adjacent Tile. Costs an action for each Unit in this Unit's squad. Units in the squad without an action don't participate in combat. Units in combat cannot move afterwards.
      *
      * @param   tile  The Tile to attack.
      * @return True if successfully attacked, false otherwise.
@@ -112,7 +112,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Changes this Unit's Job. Must be at max energy (1.0) to change Jobs.
+     * Changes this Unit's Job. Must be at max energy (100.0) to change Jobs.
      *
      * @param   job  The Job to change to.
      * @return True if successfully changed Jobs, false otherwise.
@@ -124,10 +124,10 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Constructs a structure on an adjacent Tile.
+     * Constructs a Structure on an adjacent Tile.
      *
-     * @param   tile  The Tile to construct the structure on. It must have enough materials on it for a structure to be constructed.
-     * @param   type  The type of structure to construct on that tile.
+     * @param   tile  The Tile to construct the Structure on. It must have enough materials on it for a Structure to be constructed.
+     * @param   type  The type of Structure to construct on that Tile.
      * @return True if successfully constructed a structure, false otherwise.
      */
     public boolean construct(Tile tile, String type) {
@@ -171,11 +171,11 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Drops some of the given resource on or adjacent to the unit's Tile. Does not count as an action.
+     * Drops some of the given resource on or adjacent to the Unit's Tile. Does not count as an action.
      *
      * @param   tile  The Tile to drop materials/food on.
      * @param   resource  The type of resource to drop ('material' or 'food').
-     * @param   amount  The amount of the resource to drop, numbers <= 0 will drop all of the resource.
+     * @param   amount  The amount of the resource to drop. Amounts <= 0 will drop as much as possible.
      * @return True if successfully dropped the resource, false otherwise.
      */
     public boolean drop(Tile tile, String resource, int amount) {
@@ -220,11 +220,11 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Picks up some materials or food on or adjacent to the unit's tile. Does not count as an action.
+     * Picks up some materials or food on or adjacent to the Unit's Tile. Does not count as an action.
      *
      * @param   tile  The Tile to pickup materials/food from.
      * @param   resource  The type of resource to pickup ('material' or 'food').
-     * @param   amount  The amount of the resource to pickup, numbers <= 0 will pickup all of the resource possible.
+     * @param   amount  The amount of the resource to pickup. Amounts <= 0 will pickup as much as possible.
      * @return True if successfully picked up a resource, false otherwise.
      */
     public boolean pickup(Tile tile, String resource, int amount) {
@@ -236,7 +236,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Regenerates energy. Must be in range of a friendly shelter to rest. Unit cannot move after performing this action.
+     * Regenerates energy. Must be in range of a friendly shelter to rest. Costs an action. Units cannot move after resting.
      *
      * @return True if successfully rested, false otherwise.
      */

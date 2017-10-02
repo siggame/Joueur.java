@@ -31,7 +31,7 @@ public class Structure extends GameObject {
     public int effectRadius;
 
     /**
-     * The number of materials in this Structure.
+     * The number of materials in this Structure. Once this number reaches 0, this Structure is destroyed.
      */
     public int materials;
 
@@ -41,12 +41,12 @@ public class Structure extends GameObject {
     public Player owner;
 
     /**
-     * The Tile this structure is on.
+     * The Tile this Structure is on.
      */
     public Tile tile;
 
     /**
-     * The type of structure this is.
+     * The type of Structure this is ('shelter', 'monument', 'wall', 'road').
      */
     public String type;
 

@@ -31,7 +31,7 @@ public class Tile extends GameObject {
     public int food;
 
     /**
-     * The amount of food that can be harvested from this tile per turn.
+     * The amount of food that can be harvested from this Tile per turn.
      */
     public int harvestRate;
 
@@ -41,7 +41,7 @@ public class Tile extends GameObject {
     public int materials;
 
     /**
-     * The structure on this Tile if present, otherwise null.
+     * The Structure on this Tile if present, otherwise null.
      */
     public String structure;
 
@@ -64,6 +64,11 @@ public class Tile extends GameObject {
      * The Tile to the 'West' of this one (x-1, y). Null if out of bounds of the map.
      */
     public Tile tileWest;
+
+    /**
+     * The amount of turns before this resource can be harvested.
+     */
+    public int turnsToHarvest;
 
     /**
      * What type of Tile this is.

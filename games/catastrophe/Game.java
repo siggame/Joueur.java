@@ -26,7 +26,7 @@ import joueur.BaseGameObject;
  */
 public class Game extends BaseGame {
     /**
-     * The multiplier for the amount of energy regenerated when resting in a base with the cat overlord.
+     * The multiplier for the amount of energy regenerated when resting in a shelter with the cat overlord.
      */
     public double catEnergyMult;
 
@@ -39,6 +39,11 @@ public class Game extends BaseGame {
      * The current turn number, starting at 0 for the first player's turn.
      */
     public int currentTurn;
+
+    /**
+     * The amount of turns it takes for a Tile that was just harvested to grow food again.
+     */
+    public int harvestCooldown;
 
     /**
      * All the Jobs that Units can have in the game.
