@@ -46,7 +46,7 @@ public class Structure extends GameObject {
     public Tile tile;
 
     /**
-     * The type of Structure this is ('shelter', 'monument', 'wall', 'road').
+     * The type of Structure this is ('shelter', 'monument', 'wall', 'road', 'neutral').
      */
     public String type;
 

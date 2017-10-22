@@ -43,7 +43,7 @@ public class Tile extends GameObject {
     /**
      * The Structure on this Tile if present, otherwise null.
      */
-    public String structure;
+    public Structure structure;
 
     /**
      * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
@@ -69,11 +69,6 @@ public class Tile extends GameObject {
      * The amount of turns before this resource can be harvested.
      */
     public int turnsToHarvest;
-
-    /**
-     * What type of Tile this is.
-     */
-    public String type;
 
     /**
      * The Unit on this Tile if present, otherwise null.

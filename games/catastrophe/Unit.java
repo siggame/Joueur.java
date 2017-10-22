@@ -114,10 +114,10 @@ public class Unit extends GameObject {
     /**
      * Changes this Unit's Job. Must be at max energy (100.0) to change Jobs.
      *
-     * @param   job  The Job to change to.
+     * @param   job  The name of the Job to change to.
      * @return True if successfully changed Jobs, false otherwise.
      */
-    public boolean changeJob(Job job) {
+    public boolean changeJob(String job) {
         JSONObject args = new JSONObject();
         args.put("job", Client.getInstance().gameManager.serializeSafe(job));
         return (boolean)this.runOnServer("changeJob", args);
