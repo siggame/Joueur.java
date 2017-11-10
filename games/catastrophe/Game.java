@@ -51,6 +51,11 @@ public class Game extends BaseGame {
     public List<Job> jobs;
 
     /**
+     * The amount that the harvest rate is lowered each season.
+     */
+    public int lowerHarvestAmount;
+
+    /**
      * The number of Tiles in the map along the y (vertical) axis.
      */
     public int mapHeight;
@@ -66,6 +71,21 @@ public class Game extends BaseGame {
     public int maxTurns;
 
     /**
+     * The multiplier for the cost of actions when performing them in range of a monument. Does not effect pickup cost.
+     */
+    public double monumentCostMult;
+
+    /**
+     * The number of materials in a monument.
+     */
+    public int monumentMaterials;
+
+    /**
+     * The number of materials in a neutral Structure.
+     */
+    public int neutralMaterials;
+
+    /**
      * List of all the players in the game.
      */
     public List<Player> players;
@@ -74,6 +94,11 @@ public class Game extends BaseGame {
      * A unique identifier for the game instance that is being played.
      */
     public String session;
+
+    /**
+     * The number of materials in a shelter.
+     */
+    public int shelterMaterials;
 
     /**
      * The multiplier for the amount of energy regenerated when resting while starving.
@@ -91,9 +116,29 @@ public class Game extends BaseGame {
     public List<Tile> tiles;
 
     /**
+     * After a food tile is harvested, the number of turns before it can be harvested again.
+     */
+    public int turnsBetweenHarvests;
+
+    /**
+     * The number of turns between fresh humans being spawned on the road.
+     */
+    public int turnsToCreateHuman;
+
+    /**
+     * The number of turns before the harvest rate is lowered (length of each season basically).
+     */
+    public int turnsToLowerHarvest;
+
+    /**
      * Every Unit in the game.
      */
     public List<Unit> units;
+
+    /**
+     * The number of materials in a wall.
+     */
+    public int wallMaterials;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

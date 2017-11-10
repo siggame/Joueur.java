@@ -100,7 +100,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Attacks an adjacent Tile. Costs an action for each Unit in this Unit's squad. Units in the squad without an action don't participate in combat. Units in combat cannot move afterwards.
+     * Attacks an adjacent Tile. Costs an action for each Unit in this Unit's squad. Units in the squad without an action don't participate in combat. Units in combat cannot move afterwards. Attacking structures will not give materials.
      *
      * @param   tile  The Tile to attack.
      * @return True if successfully attacked, false otherwise.
@@ -150,7 +150,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Removes materials from an adjacent Tile's Structure. Soldiers do not gain materials from doing this, but can deconstruct friendly Structures as well.
+     * Removes materials from an adjacent Tile's Structure. You cannot deconstruct friendly structures (see Unit.attack).
      *
      * @param   tile  The Tile to deconstruct. It must have a Structure on it.
      * @return True if successfully deconstructed, false otherwise.
