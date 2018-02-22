@@ -1,3 +1,0 @@
-#!/bin/bash
-
-exec java -jar java-client-jar-with-dependencies.jar "@"
