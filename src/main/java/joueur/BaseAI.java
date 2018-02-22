@@ -1,5 +1,5 @@
 package joueur;
-import java.lang.reflect.InvocationTargetException;
+
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
@@ -17,11 +17,11 @@ public abstract class BaseAI {
     }
 
     public void start() {
-     // the inheriting AI can add code to this inherited function
+        // the inheriting AI can add code to this inherited function
     }
 
     public void ended(boolean won, String reason) {
-     // the inheriting AI can add code to this inherited function
+        // the inheriting AI can add code to this inherited function
     }
 
     public void invalid(String message) {
@@ -30,7 +30,7 @@ public abstract class BaseAI {
     }
 
     public void gameUpdated() {
-     // the inheriting AI can add code to this inherited function
+        // the inheriting AI can add code to this inherited function
     }
 
     public Object doOrder(String order, JSONArray jsonArray) {
@@ -53,7 +53,8 @@ public abstract class BaseAI {
                 unserializedArgs[i] = gameManager.unserialize(jsonArray.get(i));
             }
         } catch (IllegalArgumentException | SecurityException e) {
-            Client.getInstance().handleError(e, ErrorCode.REFLECTION_FAILED, "Could not find method '" + order + "' in AI to do order.");
+            Client.getInstance().handleError(e, ErrorCode.REFLECTION_FAILED,
+                    "Could not find method '" + order + "' in AI to do order.");
             return null;
         }
 
@@ -62,7 +63,8 @@ public abstract class BaseAI {
             return returned;
         } catch (Exception e) {
             // assume any exception is their fault, if it was a reflection error it probably was already caught above
-            Client.getInstance().handleError(e, ErrorCode.AI_ERRORED, "AI threw exception when executing order '" + order + "'.");
+            Client.getInstance().handleError(e, ErrorCode.AI_ERRORED,
+                    "AI threw exception when executing order '" + order + "'.");
         }
 
         return null; // should not be reached
@@ -84,11 +86,11 @@ public abstract class BaseAI {
     }
 
     /**
-   * Gets an AI setting passed to the program via the `--aiSettings` flag. If the flag was set it will be returned as a string value, null otherwise.
-   *
-   * @param key The key of the setting you wish to get the value for
-   * @return A string representing the value set via command line, or null if the key was not set
-   */
+    * Gets an AI setting passed to the program via the `--aiSettings` flag. If the flag was set it will be returned as a string value, null otherwise.
+    *
+    * @param key The key of the setting you wish to get the value for
+    * @return A string representing the value set via command line, or null if the key was not set
+    */
     protected String getSetting(String key) {
         if (this._settings.containsKey(key)) {
             return this._settings.get(key);

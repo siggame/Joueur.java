@@ -35,7 +35,6 @@ public class Client {
     private boolean started = false;
     private static final String EOT_CHAR = "" + (char) 4;
     private static final int BUFFER_SIZE = 1024;
-    private static final int SERVER_TIMEOUT = 30000;
     private BaseAI ai = null;
     private BaseGameObject aisPlayer = null;
     public GameManager gameManager;
@@ -59,7 +58,8 @@ public class Client {
         this.printIO = printIO;
         this.eventsStack = new Stack<ServerEvent>();
 
-        System.out.println(ANSIColorCoder.FG_CYAN.apply() + "Connecting to: " + hostname + ":" + port + ANSIColorCoder.reset());
+        System.out.println(
+                ANSIColorCoder.FG_CYAN.apply() + "Connecting to: " + hostname + ":" + port + ANSIColorCoder.reset());
 
         this.socket = null;
         this.socketIn = null;
@@ -67,12 +67,12 @@ public class Client {
 
         try {
             this.socket = new Socket(this.hostname, this.port);
-            //this.socket.setSoTimeout(Client.SERVER_TIMEOUT); // 1 sec timeout
             this.socketOut = new PrintWriter(this.socket.getOutputStream(), true);
             this.socketIn = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             this.socket.setTcpNoDelay(true);
         } catch (IOException e) {
-            this.handleError(e, ErrorCode.COULD_NOT_CONNECT, "Couldn't create the socket for the connection to: " + hostname + ":" + port);
+            this.handleError(e, ErrorCode.COULD_NOT_CONNECT,
+                    "Couldn't create the socket for the connection to: " + hostname + ":" + port);
         }
     }
 
@@ -158,8 +158,7 @@ public class Client {
             } catch (SocketTimeoutException e) {
                 if (this.started) { // then the server is probably frozen :(
                     this.handleError(e, ErrorCode.SERVER_TIMEOUT, "Timed out from server, it probably froze.");
-                }
-                else {
+                } else {
                     continue; // because we should be lobbied and will wait for it to start
                 }
             } catch (IOException e) {
@@ -167,7 +166,7 @@ public class Client {
             }
 
             String responseData = null;
-            if(charsRead != -2) {
+            if (charsRead != -2) {
                 if (charsRead == -1) { // then there was still more to read, so it filled the whole buffer
                     charsRead = Client.BUFFER_SIZE;
                 }
@@ -181,7 +180,8 @@ public class Client {
             }
 
             if (this.printIO) {
-                System.out.println(ANSIColorCoder.FG_MAGENTA.apply() + "FROM SERVER -->" + responseData + ANSIColorCoder.reset());
+                System.out.println(
+                        ANSIColorCoder.FG_MAGENTA.apply() + "FROM SERVER -->" + responseData + ANSIColorCoder.reset());
             }
 
             String total = this.receivedBuffer + responseData;
@@ -204,10 +204,12 @@ public class Client {
 
     private void autoHandle(String eventName, Object data) {
         try {
-            Method method = this.getClass().getDeclaredMethod("autoHandle" + eventName.substring(0, 1).toUpperCase() + eventName.substring(1), Object.class);
+            Method method = this.getClass().getDeclaredMethod(
+                    "autoHandle" + eventName.substring(0, 1).toUpperCase() + eventName.substring(1), Object.class);
             method.setAccessible(true);
             method.invoke(this, data);
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                | SecurityException e) {
             this.handleError(e, ErrorCode.REFLECTION_FAILED, "could not auto handle event '" + eventName + "'");
         }
     }
@@ -218,7 +220,7 @@ public class Client {
 
         if (this.aisPlayer == null) {
             try {
-                this.aisPlayer = (BaseGameObject)this.ai.getClass().getField("player").get(this.ai);
+                this.aisPlayer = (BaseGameObject) this.ai.getClass().getField("player").get(this.ai);
             } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
                 this.handleError(e, ErrorCode.REFLECTION_FAILED, "Could not get the AI's Player");
             }
@@ -227,8 +229,7 @@ public class Client {
         if (this.aisPlayer != null) {
             try {
                 this.ai.gameUpdated();
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 this.handleError(e, ErrorCode.AI_ERRORED, "AI.gameUpdated() errored");
             }
         }
@@ -236,31 +237,31 @@ public class Client {
 
     @SuppressWarnings("unused") // because it can be invoked via reflection
     private void autoHandleInvalid(Object data) throws Exception {
-        JSONObject jsonObject = (JSONObject)data;
+        JSONObject jsonObject = (JSONObject) data;
         try {
             this.ai.invalid(jsonObject.getString("message"));
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             this.handleError(e, ErrorCode.AI_ERRORED, "AI.invalid() errored");
         }
     }
 
     @SuppressWarnings("unused") // because it can be invoked via reflection
     private void autoHandleFatal(Object data) throws Exception {
-        JSONObject jsonObject = (JSONObject)data;
+        JSONObject jsonObject = (JSONObject) data;
         this.handleError(null, ErrorCode.FATAL_EVENT, "Got fatal error: " + jsonObject.getString("message"));
     }
 
     @SuppressWarnings("unused") // because it can be invoked via reflection
     private void autoHandleOver(Object data) {
-        JSONObject overData = (JSONObject)data;
+        JSONObject overData = (JSONObject) data;
         boolean won = false;
         String reason = "";
 
-        if(this.aisPlayer != null) {
+        if (this.aisPlayer != null) {
             try {
                 won = this.aisPlayer.getClass().getField("won").getBoolean(this.aisPlayer);
-                reason = (String)this.aisPlayer.getClass().getField(won ? "reasonWon" : "reasonLost").get(this.aisPlayer);
+                reason = (String) this.aisPlayer.getClass().getField(won ? "reasonWon" : "reasonLost")
+                        .get(this.aisPlayer);
             } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
                 this.handleError(e, ErrorCode.REFLECTION_FAILED, "Cannot get if play won or lost when game is over");
             }
@@ -269,19 +270,18 @@ public class Client {
         try {
             try {
                 this.ai.ended(won, reason);
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 this.handleError(e, ErrorCode.AI_ERRORED, "AI threw exception during AI.ended()");
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             this.handleError(e, ErrorCode.AI_ERRORED, "AI errored in AI.ended(won, reason)");
         }
 
-        System.out.println(ANSIColorCoder.FG_GREEN.apply() + "Game is over. " + (won ? "I Won!" : "I Lost :(") + " because " + reason + ANSIColorCoder.reset());
+        System.out.println(ANSIColorCoder.FG_GREEN.apply() + "Game is over. " + (won ? "I Won!" : "I Lost :(")
+                + " because " + reason + ANSIColorCoder.reset());
 
         String message = overData.optString("message");
-        if(message != null && !message.equals("")) {
+        if (message != null && !message.equals("")) {
             message = message.replace("__HOSTNAME__", this.hostname);
             System.out.println(ANSIColorCoder.FG_CYAN.apply() + message + ANSIColorCoder.reset());
         }
@@ -291,15 +291,14 @@ public class Client {
 
     @SuppressWarnings("unused") // because it can be invoked via reflection
     private void autoHandleOrder(Object data) {
-        JSONObject orderData = (JSONObject)data;
+        JSONObject orderData = (JSONObject) data;
 
         String order = null;
         int index = -1;
         try {
             order = orderData.getString("name");
             index = orderData.getInt("index");
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             this.handleError(e, ErrorCode.REFLECTION_FAILED, "Order data malformed, missing name or index: ");
         }
 
