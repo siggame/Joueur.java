@@ -1,3 +1,0 @@
-#!/bin/bash
-
-exec java -cp target/joueur-1.0-jar-with-dependencies.jar:bin JoueurJava "$@"

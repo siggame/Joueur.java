@@ -1,4 +1,7 @@
 *.class
+.vscode/
+.java-version
+target/
 
 # Eclipse
 bin/

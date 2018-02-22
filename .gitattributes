@@ -1,4 +1,5 @@
 # force git to convert line endings
 # crlf line endings break many things
 * text eol=lf
+*.bat eol=crlf
 *.woff binary
