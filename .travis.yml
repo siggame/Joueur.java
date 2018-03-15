@@ -3,6 +3,7 @@ language: java
 before_deploy:
   # run the docs
   - cd docs
+  - pip3 install -r requirements.txt
   - python3 generate_docs.py
   # file to tell GitHub pages not to try to run jekyll stuff (can break urls)
   - touch output/.nojekyll
