@@ -59,7 +59,7 @@ ${merge("        // ", "game-updated", '        super.gameUpdated();')}
      * This is automatically called when the game ends.
      * You can do any cleanup of you AI here, or do custom logging. After this function returns the application will close.
      * @param  won  true if your player won, false otherwise
-     * @param  name  reason">a string explaining why you won or lost
+     * @param  reason  a string explaining why you won or lost
      */
     public void ended(boolean won, String reason) {
 ${merge("        // ", "ended", '        super.ended(won, reason);')}

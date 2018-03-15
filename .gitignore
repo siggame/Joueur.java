@@ -21,6 +21,7 @@ hs_err_pid*
 
 # generate docs
 docs/output/
+docs/temp/
 
 # vagrant stuff
 .vagrant/*

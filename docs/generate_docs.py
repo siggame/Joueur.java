@@ -5,7 +5,6 @@ from __future__ import print_function
 import os
 import os.path
 import subprocess
-import argparse
 import shutil
 import markdown # this is a pip package you'll need
 from datetime import date
@@ -17,16 +16,6 @@ def run(*args, **kwargs):
     if error_code != 0: # an error happened
         raise Exception()
 
-JAVA_SRC_DIR = "../src/main/java"
-
-parser = argparse.ArgumentParser(description='Runs the java client doc generation script.')
-parser.add_argument('game', action='store', help='the name of the game you want to document. Must exist in {}/games/'.format(JAVA_SRC_DIR))
-
-args = parser.parse_args()
-
-game_name = args.game[0].upper() + args.game[1:]
-lower_game_name = game_name[0].lower() + game_name[1:]
-
 output_path = "./output"
 if os.path.isdir(output_path):
     shutil.rmtree(output_path)
@@ -34,16 +23,17 @@ if os.path.isdir(output_path):
 with open('../README.md', 'r') as readme_file:
     readme_md = readme_file.read()
 
-readme_md = readme_md.replace("GAME_NAME", game_name).replace("game_name", lower_game_name)
+# readme_md = readme_md.replace("GAME_NAME", game_name).replace("game_name", lower_game_name)
 
-temp_path = 'temp'
+temp_path = 'temp/'
+if os.path.isdir(temp_path):
+    shutil.rmtree(temp_path)
 
-shutil.copytree('{}/games/'.format(JAVA_SRC_DIR), os.path.join(temp_path, 'games'), )
-shutil.copytree('{}/joueur/'.format(JAVA_SRC_DIR), os.path.join(temp_path, 'joueur'))
-
-temp_readme_html_path = os.path.join(temp_path, 'games', lower_game_name, "package.html")
+shutil.copytree("../src/main/java", temp_path)
+temp_readme_html_path = os.path.join(temp_path, 'games', "package.html")
 
 with open(temp_readme_html_path, "w+") as readme_html:
+    # TODO: this file is not being picked up, so the readme is not included in the docs
     readme_html.write("<html><head></head><body>" + markdown.markdown(readme_md) + "</body></html>")
 
 shutil.copytree('resources', os.path.join(output_path, 'resources'))
@@ -60,34 +50,35 @@ get_settings_function = """
     }
 """
 
-ai_path = os.path.join(temp_path, 'games', lower_game_name, 'AI.java')
-with open(ai_path, 'r') as ai_file:
-    ai_lines = ai_file.readlines()
+for root, dirnames, filenames in os.walk(os.path.join(temp_path, 'games')):
+    for filename in filenames:
+        if filename != "AI.java":
+            continue
 
-for index in reversed(range(len(ai_lines))):
-    if ai_lines[index].strip() == '}':
-        insert_index = index
-        break
+        with open(os.path.join(root, filename), 'r+') as ai_file:
+            ai_lines = ai_file.readlines()
 
-ai_lines[insert_index:insert_index] = get_settings_function
+            for index in reversed(range(len(ai_lines))):
+                if ai_lines[index].strip() == '}':
+                    ai_lines[index:index] = get_settings_function
+                    break
 
-with open(ai_path, 'w+') as ai_file:
-    ai_file.write(''.join(ai_lines))
+            ai_file.seek(0)
+            ai_file.write(''.join(ai_lines))
 
 try:
-    run([('javadoc -d {output_path} '
+    run(('javadoc -d {output_path} '
         '-public '
-        '-use -windowtitle "{game_name} Java Client Documentation" '
-        '-header "<h1>{game_name} Java Client Documentation</h1>" '
+        '-use -windowtitle "Java Joueur Client Documentation" '
+        '-header "<h1>Java Joueur Client Documentation</h1>" '
         '-bottom "&copy; {year} MST ACM SIG-GAME" '
         '-sourcepath {temp_path} '
-        '-subpackages games.{lower_game_name} ').format(
+        '-subpackages games').format(
         output_path=output_path,
-        game_name=game_name,
-        lower_game_name=lower_game_name,
         temp_path=temp_path,
         year=date.today().year,
-    )], shell=True)
+    ), shell=True)
 except:
-    print("javadoc creation had a problem")
+    print("javadoc creation had a problem but should be ok...")
+
 shutil.rmtree(temp_path)
