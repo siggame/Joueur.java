@@ -2,6 +2,8 @@ language: java
 python: "3.6"
 
 before_deploy:
+  # pip3 not found in travis... for some reason
+  - sudo apt-get install python3-pip
   # run the docs
   - cd docs
   - pip3 install --user -r requirements.txt
