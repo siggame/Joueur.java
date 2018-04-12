@@ -93,7 +93,7 @@ public class Unit extends GameObject {
      * Attacks either crew, a ship, or a port on a Tile in range.
      *
      * @param   tile  The Tile to attack.
-     * @param   target  Whether to attack 'crew', 'ship', or 'port'. Crew deal damage to crew, and ships deal damage to ships and ports. Consumes any remaining moves.
+     * @param   target  Whether to attack 'crew', 'ship', or 'port'. Crew deal damage to crew, and ships deal damage to ships. Both can attack ports as well. Units cannot attack other units in ports. Consumes any remaining moves.
      * @return True if successfully attacked, false otherwise.
      */
     public boolean attack(Tile tile, String target) {
@@ -107,7 +107,7 @@ public class Unit extends GameObject {
      * Builds a Port on the given Tile.
      *
      * @param   tile  The Tile to build the Port on.
-     * @return True if successfully constructed a Port, false otherwise.
+     * @return True if successfully built a Port, false otherwise.
      */
     public boolean build(Tile tile) {
         JSONObject args = new JSONObject();
@@ -118,7 +118,7 @@ public class Unit extends GameObject {
     /**
      * Buries gold on this Unit's Tile.
      *
-     * @param   amount  How much gold this Unit should bury.
+     * @param   amount  How much gold this Unit should bury. Amounts <= 0 will bury as much as possible.
      * @return True if successfully buried, false otherwise.
      */
     public boolean bury(int amount) {
@@ -137,7 +137,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Puts gold into an adjacent Port. If that Port is the Player's main port, the gold is added to that Player. If that Port is owned by merchants, adds to the investment.
+     * Puts gold into an adjacent Port. If that Port is the Player's main port, the gold is added to that Player. If that Port is owned by merchants, it adds to that Port's investment.
      *
      * @param   amount  The amount of gold to deposit. Amounts <= 0 will deposit all the gold on this Unit.
      * @return True if successfully deposited, false otherwise.
@@ -182,25 +182,12 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Defaults the value for the optional arg 'amount' to '1'
-     *
-     * @see Unit#rest(Tile, int)
-     */
-    public boolean rest(Tile tile) {
-        return this.rest(tile, 1);
-    }
-
-    /**
      * Regenerates this Unit's health. Must be used in range of a port.
      *
-     * @param   tile  The Tile to move the crew to.
-     * @param   amount  The number of crew to move onto that Tile. Amount <= 0 will move all the crew to that Tile.
-     * @return True if successfully split, false otherwise.
+     * @return True if successfully rested, false otherwise.
      */
-    public boolean rest(Tile tile, int amount) {
+    public boolean rest() {
         JSONObject args = new JSONObject();
-        args.put("tile", Client.getInstance().gameManager.serializeSafe(tile));
-        args.put("amount", Client.getInstance().gameManager.serializeSafe(amount));
         return (boolean)this.runOnServer("rest", args);
     }
 

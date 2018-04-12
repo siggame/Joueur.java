@@ -76,7 +76,7 @@ public class Game extends BaseGame {
     public int mapWidth;
 
     /**
-     * The Euclidean distance from a Player port required to reach maxInterestRate.
+     * The Euclidean distance from a Player Port required to reach maxInterestRate.
      */
     public double maxInterestDistance;
 
@@ -89,6 +89,21 @@ public class Game extends BaseGame {
      * The maximum number of turns before the game will automatically end.
      */
     public int maxTurns;
+
+    /**
+     * How much gold it costs a merchant Port to create a crew member.
+     */
+    public int merchantCrewCost;
+
+    /**
+     * How much gold merchant Ports get per turn. They gain (Port.investment * merchantInvestmentRate) gold each turn.
+     */
+    public double merchantInvestmentRate;
+
+    /**
+     * How much gold it costs a merchant Port to create a ship.
+     */
+    public int merchantShipCost;
 
     /**
      * List of all the players in the game.
