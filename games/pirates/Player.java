@@ -58,7 +58,7 @@ public class Player extends GameObject {
     /**
      * The Port owned by this Player.
      */
-    public Port ports;
+    public Port port;
 
     /**
      * The reason why the player lost the game.
