@@ -96,11 +96,6 @@ public class Game extends BaseGame {
     public double merchantInterestRate;
 
     /**
-     * Every Port in the game. Merchant ports have owner set to null.
-     */
-    public List<Port> merchantPorts;
-
-    /**
      * The Euclidean distance buried gold must be from the Player's Port to accumulate interest.
      */
     public double minInterestDistance;
@@ -109,6 +104,11 @@ public class Game extends BaseGame {
      * List of all the players in the game.
      */
     public List<Player> players;
+
+    /**
+     * Every Port in the game. Merchant ports have owner set to null.
+     */
+    public List<Port> ports;
 
     /**
      * How far a Unit can be from a Port to rest. Range is circular.
@@ -168,8 +168,8 @@ public class Game extends BaseGame {
         super();
         this.name = "Pirates";
 
-        this.merchantPorts = new ArrayList<Port>();
         this.players = new ArrayList<Player>();
+        this.ports = new ArrayList<Port>();
         this.tiles = new ArrayList<Tile>();
         this.units = new ArrayList<Unit>();
     }
