@@ -56,9 +56,9 @@ public class Player extends GameObject {
     public Player opponent;
 
     /**
-     * The ports owned by this Player.
+     * The Port owned by this Player.
      */
-    public List<Port> ports;
+    public Port ports;
 
     /**
      * The reason why the player lost the game.
@@ -69,11 +69,6 @@ public class Player extends GameObject {
      * The reason why the player won the game.
      */
     public String reasonWon;
-
-    /**
-     * This Player's starting port.
-     */
-    public Port startingPort;
 
     /**
      * The amount of time (in ns) remaining for this AI to send commands.
@@ -101,7 +96,6 @@ public class Player extends GameObject {
      */
     protected Player() {
         super();
-        this.ports = new ArrayList<Port>();
         this.units = new ArrayList<Unit>();
     }
 

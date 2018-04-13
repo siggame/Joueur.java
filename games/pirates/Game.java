@@ -26,6 +26,11 @@ import joueur.BaseGameObject;
  */
 public class Game extends BaseGame {
     /**
+     * The rate buried gold increases each turn.
+     */
+    public double buryInterestRate;
+
+    /**
      * How much gold it costs to construct a single crew.
      */
     public int crewCost;
@@ -76,54 +81,34 @@ public class Game extends BaseGame {
     public int mapWidth;
 
     /**
-     * The Euclidean distance from a Player Port required to reach maxInterestRate.
-     */
-    public double maxInterestDistance;
-
-    /**
-     * The maximum rate buried gold can increase over time.
-     */
-    public double maxInterestRate;
-
-    /**
      * The maximum number of turns before the game will automatically end.
      */
     public int maxTurns;
 
     /**
-     * How much gold it costs a merchant Port to create a crew member.
+     * How much gold merchant Ports get each turn.
      */
-    public int merchantCrewCost;
+    public double merchantGoldRate;
 
     /**
-     * How much gold merchant Ports get per turn. They gain (Port.investment * merchantInvestmentRate) gold each turn.
+     * When a merchant ship spawns, the amount of additional gold it has relative to the Port's investment.
      */
-    public double merchantInvestmentRate;
+    public double merchantInterestRate;
 
     /**
-     * How much gold it costs a merchant Port to create a ship.
+     * Every Port in the game. Merchant ports have owner set to null.
      */
-    public int merchantShipCost;
+    public List<Port> merchantPorts;
+
+    /**
+     * The Euclidean distance buried gold must be from the Player's Port to accumulate interest.
+     */
+    public double minInterestDistance;
 
     /**
      * List of all the players in the game.
      */
     public List<Player> players;
-
-    /**
-     * How much gold it costs to construct a port.
-     */
-    public int portCost;
-
-    /**
-     * The maximum amount of health a Port can have.
-     */
-    public int portHealth;
-
-    /**
-     * Every Port in the game.
-     */
-    public List<Port> ports;
 
     /**
      * How far a Unit can be from a Port to rest. Range is circular.
@@ -166,7 +151,7 @@ public class Game extends BaseGame {
     public List<Tile> tiles;
 
     /**
-     * Every Unit in the game.
+     * Every Unit in the game. Merchant units have targetPort set to a port.
      */
     public List<Unit> units;
 
@@ -183,8 +168,8 @@ public class Game extends BaseGame {
         super();
         this.name = "Pirates";
 
+        this.merchantPorts = new ArrayList<Port>();
         this.players = new ArrayList<Player>();
-        this.ports = new ArrayList<Port>();
         this.tiles = new ArrayList<Tile>();
         this.units = new ArrayList<Unit>();
     }

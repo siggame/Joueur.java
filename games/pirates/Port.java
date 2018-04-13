@@ -26,27 +26,12 @@ import joueur.BaseGameObject;
  */
 public class Port extends GameObject {
     /**
-     * Whether this Port has created a Unit this turn.
-     */
-    public boolean cooldown;
-
-    /**
-     * Whether this Port can be destroyed.
-     */
-    public int destroyable;
-
-    /**
-     * (Merchants only) How much gold this Port has accumulated. Once this port can afford to create a ship, it will spend gold to construct one.
+     * For players, how much more gold this Port can spend this turn. For merchants, how much gold this Port has accumulated (it will spawn a ship when the Port can afford one).
      */
     public int gold;
 
     /**
-     * How much health this Port has.
-     */
-    public int health;
-
-    /**
-     * (Merchants only) How much gold this Port accumulates each turn.
+     * (Merchants only) How much gold was invested into this Port. Investment determines the strength and value of the next ship.
      */
     public int investment;
 

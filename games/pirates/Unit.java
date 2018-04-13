@@ -66,6 +66,11 @@ public class Unit extends GameObject {
     public int shipHealth;
 
     /**
+     * (Merchants only) The number of turns this merchant ship won't be able to move. They will still attack. Merchant ships are stunned when they're attacked.
+     */
+    public int stunTurns;
+
+    /**
      * (Merchants only) The Port this Unit is moving to.
      */
     public Port targetPort;
@@ -90,10 +95,10 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Attacks either crew, a ship, or a port on a Tile in range.
+     * Attacks either the 'crew' or 'ship' on a Tile in range.
      *
      * @param   tile  The Tile to attack.
-     * @param   target  Whether to attack 'crew', 'ship', or 'port'. Crew deal damage to crew, and ships deal damage to ships. Both can attack ports as well. Units cannot attack other units in ports. Consumes any remaining moves.
+     * @param   target  Whether to attack 'crew' or 'ship'. Crew deal damage to crew and ships deal damage to ships. Consumes any remaining moves.
      * @return True if successfully attacked, false otherwise.
      */
     public boolean attack(Tile tile, String target) {
@@ -104,19 +109,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Builds a Port on the given Tile.
-     *
-     * @param   tile  The Tile to build the Port on.
-     * @return True if successfully built a Port, false otherwise.
-     */
-    public boolean build(Tile tile) {
-        JSONObject args = new JSONObject();
-        args.put("tile", Client.getInstance().gameManager.serializeSafe(tile));
-        return (boolean)this.runOnServer("build", args);
-    }
-
-    /**
-     * Buries gold on this Unit's Tile.
+     * Buries gold on this Unit's Tile. Gold must be a certain distance away for it to get interest (Game.minInterestDistance).
      *
      * @param   amount  How much gold this Unit should bury. Amounts <= 0 will bury as much as possible.
      * @return True if successfully buried, false otherwise.
@@ -137,7 +130,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Puts gold into an adjacent Port. If that Port is the Player's main port, the gold is added to that Player. If that Port is owned by merchants, it adds to that Port's investment.
+     * Puts gold into an adjacent Port. If that Port is the Player's port, the gold is added to that Player. If that Port is owned by merchants, it adds to that Port's investment.
      *
      * @param   amount  The amount of gold to deposit. Amounts <= 0 will deposit all the gold on this Unit.
      * @return True if successfully deposited, false otherwise.
@@ -170,7 +163,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Moves this Unit from its current Tile to an adjacent Tile.
+     * Moves this Unit from its current Tile to an adjacent Tile. If this Unit merges with another one, the other Unit will be destroyed and its tile will be set to null. Make sure to check that your Unit's tile is not null before doing things with it.
      *
      * @param   tile  The Tile this Unit should move to.
      * @return True if it moved, false otherwise.
@@ -235,7 +228,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Takes gold from the Player. You can only withdraw from your main port.
+     * Takes gold from the Player. You can only withdraw from your own Port.
      *
      * @param   amount  The amount of gold to withdraw. Amounts <= 0 will withdraw everything.
      * @return True if successfully withdrawn, false otherwise.

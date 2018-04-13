@@ -26,6 +26,11 @@ import joueur.BaseGameObject;
  */
 public class Tile extends GameObject {
     /**
+     * (Visualizer only) Whether this tile is deep sea or grassy. This has no effect on gameplay, but feel free to use it if you want.
+     */
+    public boolean decoration;
+
+    /**
      * The amount of gold buried on this tile.
      */
     public int gold;
