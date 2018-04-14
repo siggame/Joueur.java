@@ -1,7 +1,7 @@
 /**
- * This is where you build your AI for the Spiders game.
+ * This is where you build your AI for the Anarchy game.
  */
-package games.spiders;
+package games.anarchy;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import joueur.BaseAI;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * This is where you build your AI for the Spiders game.
+ * This is where you build your AI for the Anarchy game.
  */
 public class AI extends BaseAI {
     /**
@@ -41,7 +41,7 @@ public class AI extends BaseAI {
      */
     public String getName() {
         // <<-- Creer-Merge: get-name -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-        return "Spiders Java Player"; // REPLACE THIS WITH YOUR TEAM NAME!
+        return "Anarchy Java Player"; // REPLACE THIS WITH YOUR TEAM NAME!
         // <<-- /Creer-Merge: get-name -->>
     }
 
@@ -69,7 +69,7 @@ public class AI extends BaseAI {
      * This is automatically called when the game ends.
      * You can do any cleanup of you AI here, or do custom logging. After this function returns the application will close.
      * @param  won  true if your player won, false otherwise
-     * @param  name  reason">a string explaining why you won or lost
+     * @param  reason  a string explaining why you won or lost
      */
     public void ended(boolean won, String reason) {
         // <<-- Creer-Merge: ended -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

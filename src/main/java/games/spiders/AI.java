@@ -1,7 +1,7 @@
 /**
- * This is where you build your AI for the Catastrophe game.
+ * This is where you build your AI for the Spiders game.
  */
-package games.catastrophe;
+package games.spiders;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import joueur.BaseAI;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * This is where you build your AI for the Catastrophe game.
+ * This is where you build your AI for the Spiders game.
  */
 public class AI extends BaseAI {
     /**
@@ -41,7 +41,7 @@ public class AI extends BaseAI {
      */
     public String getName() {
         // <<-- Creer-Merge: get-name -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-        return "Catastrophe Java Player"; // REPLACE THIS WITH YOUR TEAM NAME!
+        return "Spiders Java Player"; // REPLACE THIS WITH YOUR TEAM NAME!
         // <<-- /Creer-Merge: get-name -->>
     }
 
@@ -69,7 +69,7 @@ public class AI extends BaseAI {
      * This is automatically called when the game ends.
      * You can do any cleanup of you AI here, or do custom logging. After this function returns the application will close.
      * @param  won  true if your player won, false otherwise
-     * @param  name  reason">a string explaining why you won or lost
+     * @param  reason  a string explaining why you won or lost
      */
     public void ended(boolean won, String reason) {
         // <<-- Creer-Merge: ended -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -90,67 +90,6 @@ public class AI extends BaseAI {
         // <<-- /Creer-Merge: runTurn -->>
     }
 
-
-    /**
-     * A very basic path finding algorithm (Breadth First Search) that when given a starting Tile, will return a valid path to the goal Tile.
-     * @param  start  the starting Tile
-     * @param  goal  the goal Tile
-     * @return A List of Tiles representing the path, the the first element being a valid adjacent Tile to the start, and the last element being the goal. Or an empty list if no path found.
-     */
-    List<Tile> findPath(Tile start, Tile goal) {
-        // no need to make a path to here...
-        if (start == goal) {
-            return new ArrayList<Tile>();
-        }
-
-        // the tiles that will have their neighbors searched for 'goal'
-        Queue<Tile> fringe = new LinkedList<Tile>();
-
-        // How we got to each tile that went into the fringe.
-        HashMap<Tile, Tile> cameFrom = new HashMap<Tile, Tile>();
-
-        // Enqueue start as the first tile to have its neighbors searched.
-        fringe.add(start);
-
-        // keep exploring neighbors of neighbors... until there are no more.
-        while (!fringe.isEmpty()) {
-            // the tile we are currently exploring.
-            Tile inspect = fringe.remove();
-
-            // cycle through the tile's neighbors.
-            List<Tile> neighbors = inspect.getNeighbors();
-            for (int i = 0; i < neighbors.size(); i++) {
-                Tile neighbor = neighbors.get(i);
-
-                // If we found the goal we've found the path!
-                if (neighbor == goal) {
-                    // Follow the path backward starting at the goal and return it.
-                    List<Tile> path = new ArrayList<Tile>();
-                    path.add(goal);
-
-                    // Starting at the tile we are currently at, insert them retracing our steps till we get to the starting tile
-                    for (Tile step = inspect; step != start; step = cameFrom.get(step)) {
-                        path.add(0, step);
-                    }
-
-                    return path;
-                }
-
-                // if the tile exists, has not been explored or added to the fringe yet, and it is pathable
-                if (neighbor != null && !cameFrom.containsKey(neighbor) && neighbor.isPathable()) {
-                    // add it to the tiles to be explored and add where it came from.
-                    fringe.add(neighbor);
-                    cameFrom.put(neighbor, inspect);
-                }
-
-            } // for each neighbor
-
-        } // while fringe not empty
-
-        // if you're here, that means that there was not a path to get to where you want to go.
-        //   in that case, we'll just return an empty path.
-        return new ArrayList<Tile>();
-    }
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional methods here for your AI to call

@@ -1,8 +1,8 @@
 /**
- * This is where you build your AI for the ${game_name} game.
+ * This is where you build your AI for the Saloon game.
  */
-package games.${lowercase_first(game_name)};
-<%include file="functions.noCreer" />
+package games.saloon;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -12,10 +12,12 @@ import java.util.Queue;
 import java.util.Random;
 import joueur.BaseAI;
 
-${merge("// ", "imports", "// you can add additional import(s) here", optional=True)}
+// <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+// you can add additional import(s) here
+// <<-- /Creer-Merge: imports -->>
 
 /**
- * This is where you build your AI for the ${game_name} game.
+ * This is where you build your AI for the Saloon game.
  */
 public class AI extends BaseAI {
     /**
@@ -28,7 +30,9 @@ public class AI extends BaseAI {
      */
     public Player player;
 
-${merge("    // ", "fields", '    // you can add additional fields here for your AI to use')}
+    // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+    // you can add additional fields here for your AI to use
+    // <<-- /Creer-Merge: fields -->>
 
 
     /**
@@ -36,7 +40,9 @@ ${merge("    // ", "fields", '    // you can add additional fields here for your
      * @return string of you AI's name
      */
     public String getName() {
-${merge("        // ", "get-name", '        return "' + game_name + ' Java Player"; // REPLACE THIS WITH YOUR TEAM NAME!')}
+        // <<-- Creer-Merge: get-name -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+        return "Saloon Java Player"; // REPLACE THIS WITH YOUR TEAM NAME!
+        // <<-- /Creer-Merge: get-name -->>
     }
 
     /**
@@ -44,7 +50,9 @@ ${merge("        // ", "get-name", '        return "' + game_name + ' Java Playe
      * This is a good place to initialize any variables you add to your AI, or start tracking game objects.
      */
     public void start() {
-${merge("        // ", "start", '        super.start();')}
+        // <<-- Creer-Merge: start -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+        super.start();
+        // <<-- /Creer-Merge: start -->>
     }
 
     /**
@@ -52,50 +60,37 @@ ${merge("        // ", "start", '        super.start();')}
      * If a function you call triggers an update this will be called before that function returns.
      */
     public void gameUpdated() {
-${merge("        // ", "game-updated", '        super.gameUpdated();')}
+        // <<-- Creer-Merge: game-updated -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+        super.gameUpdated();
+        // <<-- /Creer-Merge: game-updated -->>
     }
 
     /**
      * This is automatically called when the game ends.
      * You can do any cleanup of you AI here, or do custom logging. After this function returns the application will close.
      * @param  won  true if your player won, false otherwise
-     * @param  name  reason">a string explaining why you won or lost
+     * @param  reason  a string explaining why you won or lost
      */
     public void ended(boolean won, String reason) {
-${merge("        // ", "ended", '        super.ended(won, reason);')}
+        // <<-- Creer-Merge: ended -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+        super.ended(won, reason);
+        // <<-- /Creer-Merge: ended -->>
     }
 
-% for function_name in ai['function_names']:
-<% function_parms = ai["functions"][function_name];
-arg_strings = []
-%>
+
     /**
-     * ${function_parms['description']}<% a = "*/ this is to appease the syntax highlighter\"" %>
-% if 'arguments' in function_parms:
+     * This is called every time it is this AI.player's turn.
      *
-% for arg_parms in function_parms['arguments']:
-<% arg_strings.append(shared['java']['type'](arg_parms['type']) + " " + arg_parms['name']) # syntax highlighter freaking out, needs ;
-%>     * @param  ${arg_parms['name']}  ${arg_parms['description']}
-% endfor
-% endif
-% if function_parms['returns'] != None:
-% if 'arguments' not in function_parms:
-     *
-% endif
-     * @return ${function_parms['returns']['description']}
-% endif
+     * @return Represents if you want to end your turn. True means end your turn, False means to keep your turn going and re-call this function.
      */
-    public ${shared['java']['type'](function_parms['returns']['type']) if function_parms['returns'] else "void"} ${function_name}(${", ".join(arg_strings)}) {
-${merge("        // ", function_name,
-"""        // Put your game logic here for {0}
-        return {1};
-""".format(function_name, shared['java']['default'](function_parms['returns']['type'], function_parms['returns']['default']) if function_parms['returns'] else "")
-)}
+    public boolean runTurn() {
+        // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+        // Put your game logic here for runTurn
+        return true;
+        // <<-- /Creer-Merge: runTurn -->>
     }
-% endfor
 
 
-% if 'TiledGame' in game['serverParentClasses']: #// then we need to add some client side utility functions
     /**
      * A very basic path finding algorithm (Breadth First Search) that when given a starting Tile, will return a valid path to the goal Tile.
      * @param  start  the starting Tile
@@ -157,6 +152,7 @@ ${merge("        // ", function_name,
         return new ArrayList<Tile>();
     }
 
-% endif
-${merge("    // ", "methods", '    // you can add additional methods here for your AI to call', optional=True)}
+    // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+    // you can add additional methods here for your AI to call
+    // <<-- /Creer-Merge: methods -->>
 }

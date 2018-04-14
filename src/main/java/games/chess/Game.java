@@ -36,7 +36,7 @@ public class Game extends BaseGame {
     public int currentTurn;
 
     /**
-     * Forsyth–Edwards Notation, a notation that describes the game board.
+     * Forsythâ€“Edwards Notation, a notation that describes the game board.
      */
     public String fen;
 
