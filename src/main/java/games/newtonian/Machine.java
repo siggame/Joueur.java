@@ -26,19 +26,9 @@ import joueur.BaseGameObject;
  */
 public class Machine extends GameObject {
     /**
-     * The amount of ore that is in the machine. Cannot be higher than the refineInput value.
-     */
-    public int input;
-
-    /**
      * What type of ore the machine takes it, also determins the type of material it outputs.
      */
     public String oreType;
-
-    /**
-     * The amount of material that is waiting to be collected in the machine.
-     */
-    public int output;
 
     /**
      * The amount of ore that needs to be inputted into the machine.
