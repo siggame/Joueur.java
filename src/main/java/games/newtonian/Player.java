@@ -31,11 +31,6 @@ public class Player extends GameObject {
     public String clientType;
 
     /**
-     * Every generator tile owned by this Player.
-     */
-    public List<Tile> generatorTiles;
-
-    /**
      * The amount of heat this Player has.
      */
     public int heat;
@@ -111,7 +106,6 @@ public class Player extends GameObject {
      */
     protected Player() {
         super();
-        this.generatorTiles = new ArrayList<Tile>();
         this.units = new ArrayList<Unit>();
     }
 

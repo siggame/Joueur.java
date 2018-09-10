@@ -101,6 +101,11 @@ public class Game extends BaseGame {
     public int spawnTime;
 
     /**
+     * How many turns a unit is stunned.
+     */
+    public int stunTime;
+
+    /**
      * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
      */
     public List<Tile> tiles;
@@ -109,6 +114,11 @@ public class Game extends BaseGame {
      * The amount of time (in nano-seconds) added after each player performs a turn.
      */
     public int timeAddedPerTurn;
+
+    /**
+     * How many turns a unit is immune to being stunned.
+     */
+    public int timeImmune;
 
     /**
      * Every Unit in the game.

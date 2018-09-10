@@ -41,7 +41,7 @@ public class Unit extends GameObject {
     public int blueiumOre;
 
     /**
-     * If a ship is on this Tile, how much health it has remaining.
+     * The remaining health of a unit.
      */
     public int health;
 
@@ -125,12 +125,14 @@ public class Unit extends GameObject {
     /**
      * Drops material at the units feat
      *
+     * @param   tile  The tile the materials will be dropped on.
      * @param   amount  The amount of materials to dropped. Amounts <= 0 will drop all the materials on the Unit.
      * @param   material  The material the unit will drop.
      * @return True if successfully deposited, false otherwise.
      */
-    public boolean drop(int amount, String material) {
+    public boolean drop(Tile tile, int amount, String material) {
         JSONObject args = new JSONObject();
+        args.put("tile", Client.getInstance().gameManager.serializeSafe(tile));
         args.put("amount", Client.getInstance().gameManager.serializeSafe(amount));
         args.put("material", Client.getInstance().gameManager.serializeSafe(material));
         return (boolean)this.runOnServer("drop", args);
@@ -151,12 +153,14 @@ public class Unit extends GameObject {
     /**
      * Picks up material at the units feat
      *
+     * @param   tile  The tile the materials will be dropped on.
      * @param   amount  The amount of materials to pick up. Amounts <= 0 will pick up all the materials on the Unit.
      * @param   material  The material the unit will pick up.
      * @return True if successfully deposited, false otherwise.
      */
-    public boolean pickup(int amount, String material) {
+    public boolean pickup(Tile tile, int amount, String material) {
         JSONObject args = new JSONObject();
+        args.put("tile", Client.getInstance().gameManager.serializeSafe(tile));
         args.put("amount", Client.getInstance().gameManager.serializeSafe(amount));
         args.put("material", Client.getInstance().gameManager.serializeSafe(material));
         return (boolean)this.runOnServer("pickup", args);
