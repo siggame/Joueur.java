@@ -36,17 +36,17 @@ public class Game extends BaseGame {
     public int currentTurn;
 
     /**
-     * Determins the rate at which the highest value victory points degrade.
+     * Percent loss from the difference of Heat and Pressure. (0 to 1).
      */
     public double degradeRate;
 
     /**
-     * How many interns a player can have.
+     * The maximum number of interns a player can have.
      */
     public int internCap;
 
     /**
-     * Every job in the game.
+     * A list of all jobs. first item is intern, second is physicists, and third is manager.
      */
     public List<Job> jobs;
 
@@ -56,7 +56,7 @@ public class Game extends BaseGame {
     public List<Machine> machines;
 
     /**
-     * How many managers a player can have.
+     * The maximum number of managers a player can have.
      */
     public int managerCap;
 
@@ -71,12 +71,17 @@ public class Game extends BaseGame {
     public int mapWidth;
 
     /**
+     * The number of materials that spawn per spawn cycle.
+     */
+    public int materialSpawn;
+
+    /**
      * The maximum number of turns before the game will automatically end.
      */
     public int maxTurns;
 
     /**
-     * How many physicists a player can have.
+     * The maximum number of physicists a player can have.
      */
     public int physicistCap;
 
@@ -86,7 +91,7 @@ public class Game extends BaseGame {
     public List<Player> players;
 
     /**
-     * How much each refined ore adds when put in the generator.
+     * The amount of victory points added when a refined ore is consumed by the generator.
      */
     public int refinedValue;
 
@@ -96,12 +101,12 @@ public class Game extends BaseGame {
     public String session;
 
     /**
-     * The number of turns between spawning unit waves.
+     * The amount of turns it takes a unit to spawn.
      */
     public int spawnTime;
 
     /**
-     * How many turns a unit is stunned.
+     * The amount of turns a unit cannot do anything when stunned.
      */
     public int stunTime;
 
@@ -116,7 +121,7 @@ public class Game extends BaseGame {
     public int timeAddedPerTurn;
 
     /**
-     * How many turns a unit is immune to being stunned.
+     * The number turns a unit is immune to being stunned.
      */
     public int timeImmune;
 

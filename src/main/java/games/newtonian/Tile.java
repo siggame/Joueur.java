@@ -36,22 +36,22 @@ public class Tile extends GameObject {
     public int blueiumOre;
 
     /**
-     * (Visualizer only) Different tile tipes, cracked, slightly dirty, ect. This has no effect on gameplay, but feel free to use it if you want.
+     * (Visualizer only) Different tile types, cracked, slightly dirty, etc. This has no effect on gameplay, but feel free to use it if you want.
      */
     public int decoration;
 
     /**
-     * The direction of a conveyor belt ('blank', 'north', 'east', 'south', or 'west'). blank mean no conveyor.
+     * The direction of a conveyor belt ('blank', 'north', 'east', 'south', or 'west'). blank means conveyor doesn't move.
      */
     public String direction;
 
     /**
-     * Weither or not the tile is a wall.
+     * Whether or not the tile is a wall.
      */
     public boolean isWall;
 
     /**
-     * The machine on this Tile if present, otherwise null.
+     * The Machine on this Tile if present, otherwise null.
      */
     public Machine machine;
 

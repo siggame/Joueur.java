@@ -1,5 +1,5 @@
 /**
- * Information about a units's job.
+ * Information about a unit's job.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,11 +22,11 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * Information about a units's job.
+ * Information about a unit's job.
  */
 public class Job extends GameObject {
     /**
-     * How many combined resources a beaver with this Job can hold at once.
+     * How many combined resources a unit with this Job can hold at once.
      */
     public int carryLimit;
 

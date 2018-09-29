@@ -31,12 +31,17 @@ public class Player extends GameObject {
     public String clientType;
 
     /**
+     * Every generator Tile owned by this Player. (listed from the outer edges inward, from top to bottom).
+     */
+    public List<Tile> generatorTiles;
+
+    /**
      * The amount of heat this Player has.
      */
     public int heat;
 
     /**
-     * Time left till a intern spawns.
+     * The time left till a intern spawns. (0 to spawnTime).
      */
     public int internSpawn;
 
@@ -46,7 +51,7 @@ public class Player extends GameObject {
     public boolean lost;
 
     /**
-     * Time left till a manager spawns.
+     * The time left till a manager spawns. (0 to spawnTime).
      */
     public int managerSpawn;
 
@@ -61,7 +66,7 @@ public class Player extends GameObject {
     public Player opponent;
 
     /**
-     * Time left till a physicist spawns.
+     * The time left till a physicist spawns. (0 to spawnTime).
      */
     public int physicistSpawn;
 
@@ -79,6 +84,11 @@ public class Player extends GameObject {
      * The reason why the player won the game.
      */
     public String reasonWon;
+
+    /**
+     * All the tiles this Player's units can spawn on. (listed from the outer edges inward, from top to bottom).
+     */
+    public List<Tile> spawnTiles;
 
     /**
      * The amount of time (in ns) remaining for this AI to send commands.
@@ -106,6 +116,8 @@ public class Player extends GameObject {
      */
     protected Player() {
         super();
+        this.generatorTiles = new ArrayList<Tile>();
+        this.spawnTiles = new ArrayList<Tile>();
         this.units = new ArrayList<Unit>();
     }
 

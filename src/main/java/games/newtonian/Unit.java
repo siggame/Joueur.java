@@ -26,17 +26,17 @@ import joueur.BaseGameObject;
  */
 public class Unit extends GameObject {
     /**
-     * Whether this Unit has performed its action this turn.
+     * Whether or not this Unit has performed its action this turn.
      */
     public boolean acted;
 
     /**
-     * The amount of blueium carried by this unit.
+     * The amount of blueium carried by this unit. (0 to job carry capacity - other carried items).
      */
     public int blueium;
 
     /**
-     * The amount of blueium ore carried by this unit.
+     * The amount of blueium ore carried by this unit. (0 to job carry capacity - other carried items).
      */
     public int blueiumOre;
 
@@ -46,12 +46,12 @@ public class Unit extends GameObject {
     public int health;
 
     /**
-     * The Job this Unit does.
+     * The Job this Unit has.
      */
     public Job job;
 
     /**
-     * How many more times this Unit may move this turn.
+     * The number of moves this unit has left this turn.
      */
     public int moves;
 
@@ -61,22 +61,22 @@ public class Unit extends GameObject {
     public Player owner;
 
     /**
-     * The amount of redium carried by this unit.
+     * The amount of redium carried by this unit. (0 to job carry capacity - other carried items).
      */
     public int redium;
 
     /**
-     * The amount of redium ore carried by this unit.
+     * The amount of redium ore carried by this unit. (0 to job carry capacity - other carried items).
      */
     public int rediumOre;
 
     /**
-     * Duration of stun immunity.
+     * Duration of stun immunity. (0 to timeImmune).
      */
     public int stunImmune;
 
     /**
-     * Duration the unit is stunned.
+     * Duration the unit is stunned. (0 to the game constant stunTime).
      */
     public int stunTime;
 
@@ -99,7 +99,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Makes the unit do something to a machine on its tile. Interns sabotage, physicists run, and managers protect.
+     * Makes the unit do something to a machine adjacent to its tile. Interns sabotage, physicists work. Interns stun physicist, physicist stuns manager, manager stuns intern.
      *
      * @param   tile  The tile the unit acts on.
      * @return True if successfully acted, false otherwise.
@@ -111,7 +111,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Attacks a unit on a ajacent tile.
+     * Attacks a unit on an adjacent tile.
      *
      * @param   tile  The Tile to attack.
      * @return True if successfully attacked, false otherwise.
@@ -123,10 +123,10 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Drops material at the units feat
+     * Drops materials at the units feet or adjacent tile.
      *
      * @param   tile  The tile the materials will be dropped on.
-     * @param   amount  The amount of materials to dropped. Amounts <= 0 will drop all the materials on the Unit.
+     * @param   amount  The number of materials to dropped. Amounts <= 0 will drop all the materials.
      * @param   material  The material the unit will drop.
      * @return True if successfully deposited, false otherwise.
      */
@@ -151,10 +151,10 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Picks up material at the units feat
+     * Picks up material at the units feet or adjacent tile.
      *
-     * @param   tile  The tile the materials will be dropped on.
-     * @param   amount  The amount of materials to pick up. Amounts <= 0 will pick up all the materials on the Unit.
+     * @param   tile  The tile the materials will be picked up from.
+     * @param   amount  The amount of materials to pick up. Amounts <= 0 will pick up all the materials that the unit can.
      * @param   material  The material the unit will pick up.
      * @return True if successfully deposited, false otherwise.
      */

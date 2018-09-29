@@ -1,5 +1,5 @@
 /**
- * A machine on a tile.
+ * A machine in the game. Used to refine ore.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,26 +22,26 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * A machine on a tile.
+ * A machine in the game. Used to refine ore.
  */
 public class Machine extends GameObject {
     /**
-     * What type of ore the machine takes it, also determins the type of material it outputs.
+     * What type of ore the machine takes it. Also determines the type of material it outputs. (redium or blueium).
      */
     public String oreType;
 
     /**
-     * The amount of ore that needs to be inputted into the machine.
+     * The amount of ore that needs to be inputted into the machine for it to be worked.
      */
     public int refineInput;
 
     /**
-     * The amount of material that out of the machine after running.
+     * The amount of refined ore that is returned after the machine has been fully worked.
      */
     public int refineOutput;
 
     /**
-     * The amount of turns this machine takes to refine the ore.
+     * The number of times this machine needs to be worked to refine ore.
      */
     public int refineTime;
 
@@ -51,12 +51,7 @@ public class Machine extends GameObject {
     public Tile tile;
 
     /**
-     * Time till the machine finishes running.
-     */
-    public int timeLeft;
-
-    /**
-     * Tracks how many times this machine has been worked.
+     * Tracks how many times this machine has been worked. (0 to refineTime).
      */
     public int worked;
 
