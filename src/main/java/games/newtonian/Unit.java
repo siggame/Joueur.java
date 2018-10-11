@@ -127,7 +127,7 @@ public class Unit extends GameObject {
      *
      * @param   tile  The tile the materials will be dropped on.
      * @param   amount  The number of materials to dropped. Amounts <= 0 will drop all the materials.
-     * @param   material  The material the unit will drop.
+     * @param   material  The material the unit will drop. 'redium', 'blueium', 'redium ore', or 'blueium ore'.
      * @return True if successfully deposited, false otherwise.
      */
     public boolean drop(Tile tile, int amount, String material) {
@@ -155,7 +155,7 @@ public class Unit extends GameObject {
      *
      * @param   tile  The tile the materials will be picked up from.
      * @param   amount  The amount of materials to pick up. Amounts <= 0 will pick up all the materials that the unit can.
-     * @param   material  The material the unit will pick up.
+     * @param   material  The material the unit will pick up. 'redium', 'blueium', 'redium ore', or 'blueium ore'.
      * @return True if successfully deposited, false otherwise.
      */
     public boolean pickup(Tile tile, int amount, String material) {

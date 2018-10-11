@@ -130,6 +130,11 @@ public class Game extends BaseGame {
      */
     public List<Unit> units;
 
+    /**
+     * The amount of combined heat and pressure that you need to win.
+     */
+    public int victoryAmount;
+
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional field(s) here. None of them will be tracked or updated by the server.
