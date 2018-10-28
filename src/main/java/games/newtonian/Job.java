@@ -46,7 +46,7 @@ public class Job extends GameObject {
     public int moves;
 
     /**
-     * The Job title.
+     * The Job title. 'intern', 'manager', or 'physicist'.
      */
     public String title;
 
