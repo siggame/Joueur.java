@@ -1,12 +1,12 @@
 /**
- * A port on a Tile.
+ * Information about a unit's job.
  */
 
 // DO NOT MODIFY THIS FILE
 // Never try to directly create an instance of this class, or modify its member variables.
 // Instead, you should only be reading its variables and calling its functions.
 
-package games.pirates;
+package games.newtonian;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -22,28 +22,33 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * A port on a Tile.
+ * Information about a unit's job.
  */
-public class Port extends GameObject {
+public class Job extends GameObject {
     /**
-     * For players, how much more gold this Port can spend this turn. For merchants, how much gold this Port has accumulated (it will spawn a ship when the Port can afford one).
+     * How many combined resources a unit with this Job can hold at once.
      */
-    public int gold;
+    public int carryLimit;
 
     /**
-     * (Merchants only) How much gold was invested into this Port. Investment determines the strength and value of the next ship.
+     * The amount of damage this Job does per attack.
      */
-    public int investment;
+    public int damage;
 
     /**
-     * The owner of this Port, or null if owned by merchants.
+     * The amount of starting health this Job has.
      */
-    public Player owner;
+    public int health;
 
     /**
-     * The Tile this Port is on.
+     * The number of moves this Job can make per turn.
      */
-    public Tile tile;
+    public int moves;
+
+    /**
+     * The Job title. 'intern', 'manager', or 'physicist'.
+     */
+    public String title;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -52,22 +57,10 @@ public class Port extends GameObject {
 
 
     /**
-     * Creates a new instance of a Port. Used during game initialization, do not call directly.
+     * Creates a new instance of a Job. Used during game initialization, do not call directly.
      */
-    protected Port() {
+    protected Job() {
         super();
-    }
-
-    /**
-     * Spawn a Unit on this port.
-     *
-     * @param   type  What type of Unit to create ('crew' or 'ship').
-     * @return True if Unit was created successfully, false otherwise.
-     */
-    public boolean spawn(String type) {
-        JSONObject args = new JSONObject();
-        args.put("type", Client.getInstance().gameManager.serializeSafe(type));
-        return (boolean)this.runOnServer("spawn", args);
     }
 
 

@@ -1,12 +1,12 @@
 /**
- * Steal from merchants and become the most infamous pirate.
+ * Combine elements and be the first scientists to create fusion.
  */
 
 // DO NOT MODIFY THIS FILE
 // Never try to directly create an instance of this class, or modify its member variables.
 // Instead, you should only be reading its variables and calling its functions.
 
-package games.pirates;
+package games.newtonian;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -22,38 +22,13 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * Steal from merchants and become the most infamous pirate.
+ * Combine elements and be the first scientists to create fusion.
  */
 public class Game extends BaseGame {
     /**
-     * The rate buried gold increases each turn.
+     * The percent of max HP regained when a unit end their turn on a tile owned by their player.
      */
-    public double buryInterestRate;
-
-    /**
-     * How much gold it costs to construct a single crew.
-     */
-    public int crewCost;
-
-    /**
-     * How much damage crew deal to each other.
-     */
-    public int crewDamage;
-
-    /**
-     * The maximum amount of health a crew member can have.
-     */
-    public int crewHealth;
-
-    /**
-     * The number of moves Units with only crew are given each turn.
-     */
-    public int crewMoves;
-
-    /**
-     * A crew's attack range. Range is circular.
-     */
-    public double crewRange;
+    public double RegenerateRate;
 
     /**
      * The player whose turn it is currently. That player can send commands. Other players cannot.
@@ -66,9 +41,24 @@ public class Game extends BaseGame {
     public int currentTurn;
 
     /**
-     * How much health a Unit recovers when they rest.
+     * The maximum number of interns a player can have.
      */
-    public double healFactor;
+    public int internCap;
+
+    /**
+     * A list of all jobs. first item is intern, second is physicists, and third is manager.
+     */
+    public List<Job> jobs;
+
+    /**
+     * Every Machine in the game.
+     */
+    public List<Machine> machines;
+
+    /**
+     * The maximum number of managers a player can have.
+     */
+    public int managerCap;
 
     /**
      * The number of Tiles in the map along the y (vertical) axis.
@@ -81,24 +71,19 @@ public class Game extends BaseGame {
     public int mapWidth;
 
     /**
+     * The number of materials that spawn per spawn cycle.
+     */
+    public int materialSpawn;
+
+    /**
      * The maximum number of turns before the game will automatically end.
      */
     public int maxTurns;
 
     /**
-     * How much gold merchant Ports get each turn.
+     * The maximum number of physicists a player can have.
      */
-    public double merchantGoldRate;
-
-    /**
-     * When a merchant ship spawns, the amount of additional gold it has relative to the Port's investment.
-     */
-    public double merchantInterestRate;
-
-    /**
-     * The Euclidean distance buried gold must be from the Player's Port to accumulate interest.
-     */
-    public double minInterestDistance;
+    public int physicistCap;
 
     /**
      * List of all the players in the game.
@@ -106,14 +91,9 @@ public class Game extends BaseGame {
     public List<Player> players;
 
     /**
-     * Every Port in the game. Merchant ports have owner set to null.
+     * The amount of victory points added when a refined ore is consumed by the generator.
      */
-    public List<Port> ports;
-
-    /**
-     * How far a Unit can be from a Port to rest. Range is circular.
-     */
-    public double restRange;
+    public int refinedValue;
 
     /**
      * A unique identifier for the game instance that is being played.
@@ -121,29 +101,14 @@ public class Game extends BaseGame {
     public String session;
 
     /**
-     * How much gold it costs to construct a ship.
+     * The amount of turns it takes a unit to spawn.
      */
-    public int shipCost;
+    public int spawnTime;
 
     /**
-     * How much damage ships deal to ships and ports.
+     * The amount of turns a unit cannot do anything when stunned.
      */
-    public int shipDamage;
-
-    /**
-     * The maximum amount of health a ship can have.
-     */
-    public int shipHealth;
-
-    /**
-     * The number of moves Units with ships are given each turn.
-     */
-    public int shipMoves;
-
-    /**
-     * A ship's attack range. Range is circular.
-     */
-    public double shipRange;
+    public int stunTime;
 
     /**
      * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
@@ -151,9 +116,24 @@ public class Game extends BaseGame {
     public List<Tile> tiles;
 
     /**
-     * Every Unit in the game. Merchant units have targetPort set to a port.
+     * The amount of time (in nano-seconds) added after each player performs a turn.
+     */
+    public int timeAddedPerTurn;
+
+    /**
+     * The number turns a unit is immune to being stunned.
+     */
+    public int timeImmune;
+
+    /**
+     * Every Unit in the game.
      */
     public List<Unit> units;
+
+    /**
+     * The amount of combined heat and pressure that you need to win.
+     */
+    public int victoryAmount;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -166,10 +146,11 @@ public class Game extends BaseGame {
      */
     protected Game() {
         super();
-        this.name = "Pirates";
+        this.name = "Newtonian";
 
+        this.jobs = new ArrayList<Job>();
+        this.machines = new ArrayList<Machine>();
         this.players = new ArrayList<Player>();
-        this.ports = new ArrayList<Port>();
         this.tiles = new ArrayList<Tile>();
         this.units = new ArrayList<Unit>();
     }

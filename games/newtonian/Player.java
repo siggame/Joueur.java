@@ -6,7 +6,7 @@
 // Never try to directly create an instance of this class, or modify its member variables.
 // Instead, you should only be reading its variables and calling its functions.
 
-package games.pirates;
+package games.newtonian;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -31,19 +31,29 @@ public class Player extends GameObject {
     public String clientType;
 
     /**
-     * The amount of gold this Player has in reserve.
+     * Every generator Tile owned by this Player. (listed from the outer edges inward, from top to bottom).
      */
-    public int gold;
+    public List<Tile> generatorTiles;
 
     /**
-     * The amount of infamy this Player has.
+     * The amount of heat this Player has.
      */
-    public int infamy;
+    public int heat;
+
+    /**
+     * The time left till a intern spawns. (0 to spawnTime).
+     */
+    public int internSpawn;
 
     /**
      * If the player lost the game or not.
      */
     public boolean lost;
+
+    /**
+     * The time left till a manager spawns. (0 to spawnTime).
+     */
+    public int managerSpawn;
 
     /**
      * The name of the player.
@@ -56,9 +66,14 @@ public class Player extends GameObject {
     public Player opponent;
 
     /**
-     * The Port owned by this Player.
+     * The time left till a physicist spawns. (0 to spawnTime).
      */
-    public Port port;
+    public int physicistSpawn;
+
+    /**
+     * The amount of pressure this Player has.
+     */
+    public int pressure;
 
     /**
      * The reason why the player lost the game.
@@ -69,6 +84,11 @@ public class Player extends GameObject {
      * The reason why the player won the game.
      */
     public String reasonWon;
+
+    /**
+     * All the tiles this Player's units can spawn on. (listed from the outer edges inward, from top to bottom).
+     */
+    public List<Tile> spawnTiles;
 
     /**
      * The amount of time (in ns) remaining for this AI to send commands.
@@ -96,6 +116,8 @@ public class Player extends GameObject {
      */
     protected Player() {
         super();
+        this.generatorTiles = new ArrayList<Tile>();
+        this.spawnTiles = new ArrayList<Tile>();
         this.units = new ArrayList<Unit>();
     }
 

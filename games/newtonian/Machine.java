@@ -1,12 +1,12 @@
 /**
- * An object in the game. The most basic class that all game classes should inherit from automatically.
+ * A machine in the game. Used to refine ore.
  */
 
 // DO NOT MODIFY THIS FILE
 // Never try to directly create an instance of this class, or modify its member variables.
 // Instead, you should only be reading its variables and calling its functions.
 
-package games.pirates;
+package games.newtonian;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -22,13 +22,38 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * An object in the game. The most basic class that all game classes should inherit from automatically.
+ * A machine in the game. Used to refine ore.
  */
-public class GameObject extends BaseGameObject {
+public class Machine extends GameObject {
     /**
-     * Any strings logged will be stored here. Intended for debugging.
+     * What type of ore the machine takes it. Also determines the type of material it outputs. (redium or blueium).
      */
-    public List<String> logs;
+    public String oreType;
+
+    /**
+     * The amount of ore that needs to be inputted into the machine for it to be worked.
+     */
+    public int refineInput;
+
+    /**
+     * The amount of refined ore that is returned after the machine has been fully worked.
+     */
+    public int refineOutput;
+
+    /**
+     * The number of times this machine needs to be worked to refine ore.
+     */
+    public int refineTime;
+
+    /**
+     * The Tile this Machine is on.
+     */
+    public Tile tile;
+
+    /**
+     * Tracks how many times this machine has been worked. (0 to refineTime).
+     */
+    public int worked;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -37,22 +62,10 @@ public class GameObject extends BaseGameObject {
 
 
     /**
-     * Creates a new instance of a GameObject. Used during game initialization, do not call directly.
+     * Creates a new instance of a Machine. Used during game initialization, do not call directly.
      */
-    protected GameObject() {
+    protected Machine() {
         super();
-        this.logs = new ArrayList<String>();
-    }
-
-    /**
-     * Adds a message to this GameObject's logs. Intended for your own debugging purposes, as strings stored here are saved in the gamelog.
-     *
-     * @param   message  A string to add to this GameObject's log. Intended for debugging.
-     */
-    public void log(String message) {
-        JSONObject args = new JSONObject();
-        args.put("message", Client.getInstance().gameManager.serializeSafe(message));
-        this.runOnServer("log", args);
     }
 
 

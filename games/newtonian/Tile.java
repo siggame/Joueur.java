@@ -6,7 +6,7 @@
 // Never try to directly create an instance of this class, or modify its member variables.
 // Instead, you should only be reading its variables and calling its functions.
 
-package games.pirates;
+package games.newtonian;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -26,19 +26,49 @@ import joueur.BaseGameObject;
  */
 public class Tile extends GameObject {
     /**
-     * (Visualizer only) Whether this tile is deep sea or grassy. This has no effect on gameplay, but feel free to use it if you want.
+     * The amount of blueium on this tile.
      */
-    public boolean decoration;
+    public int blueium;
 
     /**
-     * The amount of gold buried on this tile.
+     * The amount of blueium ore on this tile.
      */
-    public int gold;
+    public int blueiumOre;
 
     /**
-     * The Port on this Tile if present, otherwise null.
+     * (Visualizer only) Different tile types, cracked, slightly dirty, etc. This has no effect on gameplay, but feel free to use it if you want.
      */
-    public Port port;
+    public int decoration;
+
+    /**
+     * The direction of a conveyor belt ('blank', 'north', 'east', 'south', or 'west'). blank means conveyor doesn't move.
+     */
+    public String direction;
+
+    /**
+     * Whether or not the tile is a wall.
+     */
+    public boolean isWall;
+
+    /**
+     * The Machine on this Tile if present, otherwise null.
+     */
+    public Machine machine;
+
+    /**
+     * The owner of this Tile, or null if owned by no-one. Only for generators and spawn areas.
+     */
+    public Player owner;
+
+    /**
+     * The amount of redium on this tile.
+     */
+    public int redium;
+
+    /**
+     * The amount of redium ore on this tile.
+     */
+    public int rediumOre;
 
     /**
      * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
@@ -61,7 +91,7 @@ public class Tile extends GameObject {
     public Tile tileWest;
 
     /**
-     * The type of Tile this is ('water' or 'land').
+     * The type of Tile this is ('normal', 'generator', 'conveyor', or 'spawn').
      */
     public String type;
 
@@ -125,7 +155,10 @@ public class Tile extends GameObject {
      */
     public boolean isPathable() {
         // <<-- Creer-Merge: is_pathable_builtin -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-        return false; // DEVELOPER ADD LOGIC HERE
+        if (isWall) return false;
+        if (machine != null) return  false;
+        if (unit != null) return false;
+        return true; // DEVELOPER ADD LOGIC HERE
         // <<-- /Creer-Merge: is_pathable_builtin -->>
     }
 
