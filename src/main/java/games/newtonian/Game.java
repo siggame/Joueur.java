@@ -26,6 +26,11 @@ import joueur.BaseGameObject;
  */
 public class Game extends BaseGame {
     /**
+     * The percent of max HP regained when a unit end their turn on a tile owned by their player.
+     */
+    public double RegenerateRate;
+
+    /**
      * The player whose turn it is currently. That player can send commands. Other players cannot.
      */
     public Player currentPlayer;
@@ -34,11 +39,6 @@ public class Game extends BaseGame {
      * The current turn number, starting at 0 for the first player's turn.
      */
     public int currentTurn;
-
-    /**
-     * Percent loss from the difference of Heat and Pressure. (0 to 1).
-     */
-    public double degradeRate;
 
     /**
      * The maximum number of interns a player can have.
