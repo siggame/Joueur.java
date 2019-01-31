@@ -31,24 +31,14 @@ public class Player extends GameObject {
     public String clientType;
 
     /**
-     * The color (side) of this player. Either 'White' or 'Black', with the 'White' player having the first move.
+     * The color (side) of this player. Either 'white' or 'black', with the 'white' player having the first move.
      */
     public String color;
-
-    /**
-     * True if this player is currently in check, and must move out of check, false otherwise.
-     */
-    public boolean inCheck;
 
     /**
      * If the player lost the game or not.
      */
     public boolean lost;
-
-    /**
-     * If the Player has made their move for the turn. true means they can no longer move a Piece this turn.
-     */
-    public boolean madeMove;
 
     /**
      * The name of the player.
@@ -59,16 +49,6 @@ public class Player extends GameObject {
      * This player's opponent in the game.
      */
     public Player opponent;
-
-    /**
-     * All the uncaptured chess Pieces owned by this player.
-     */
-    public List<Piece> pieces;
-
-    /**
-     * The direction your Pieces must go along the rank axis until they reach the other side. Will be +1 if the Player is 'White', or -1 if the Player is 'Black'.
-     */
-    public int rankDirection;
 
     /**
      * The reason why the player lost the game.
@@ -101,7 +81,6 @@ public class Player extends GameObject {
      */
     protected Player() {
         super();
-        this.pieces = new ArrayList<Piece>();
     }
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
