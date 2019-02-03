@@ -17,9 +17,7 @@ import joueur.Client;
 import joueur.BaseGame;
 import joueur.BaseGameObject;
 
-// <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// you can add additional import(s) here
-// <<-- /Creer-Merge: imports -->>
+
 
 /**
  * An object in the game. The most basic class that all game classes should inherit from automatically.
@@ -31,9 +29,7 @@ public class GameObject extends BaseGameObject {
     public List<String> logs;
 
 
-    // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add additional field(s) here. None of them will be tracked or updated by the server.
-    // <<-- /Creer-Merge: fields -->>
+
 
 
     /**
@@ -55,7 +51,5 @@ public class GameObject extends BaseGameObject {
         this.runOnServer("log", args);
     }
 
-    // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add additional method(s) here.
-    // <<-- /Creer-Merge: methods -->>
+
 }

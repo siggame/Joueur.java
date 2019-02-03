@@ -17,9 +17,7 @@ import joueur.Client;
 import joueur.BaseGame;
 import joueur.BaseGameObject;
 
-// <<-- Creer-Merge: imports -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-// you can add additional import(s) here
-// <<-- /Creer-Merge: imports -->>
+
 
 /**
  * The traditional 8x8 chess board with pieces.
@@ -46,9 +44,7 @@ public class Game extends BaseGame {
     public String session;
 
 
-    // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add additional field(s) here. None of them will be tracked or updated by the server.
-    // <<-- /Creer-Merge: fields -->>
+
 
 
     /**
@@ -62,7 +58,5 @@ public class Game extends BaseGame {
         this.players = new ArrayList<Player>();
     }
 
-    // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-    // you can add additional method(s) here.
-    // <<-- /Creer-Merge: methods -->>
+
 }
