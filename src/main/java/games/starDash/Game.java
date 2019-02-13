@@ -66,6 +66,11 @@ public class Game extends BaseGame {
     public int minAsteroid;
 
     /**
+     * The rate at which miners grab minerals from asteroids.
+     */
+    public int miningSpeed;
+
+    /**
      * The rarity modifier of the most common ore. This controls how much spawns.
      */
     public double oreRarity1;
@@ -89,6 +94,11 @@ public class Game extends BaseGame {
      * List of all the players in the game.
      */
     public List<Player> players;
+
+    /**
+     * The amount of distance missiles travel through space.
+     */
+    public int projectileSpeed;
 
     /**
      * The regeneration rate of asteroids.

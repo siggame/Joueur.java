@@ -156,17 +156,15 @@ public class Unit extends GameObject {
     }
 
     /**
-     * tell you if there is a open path to that location.
+     * Attacks the specified projectile.
      *
-     * @param   x  The x position of the destination you wish to check to.
-     * @param   y  The y position of the destination you wish to check to.
-     * @return True if pathable by this unit, false otherwise.
+     * @param   missile  The projectile being shot down.
+     * @return True if successfully attacked, false otherwise.
      */
-    public boolean pathable(double x, double y) {
+    public boolean shootDown(Projectile missile) {
         JSONObject args = new JSONObject();
-        args.put("x", Client.getInstance().gameManager.serializeSafe(x));
-        args.put("y", Client.getInstance().gameManager.serializeSafe(y));
-        return (boolean)this.runOnServer("pathable", args);
+        args.put("missile", Client.getInstance().gameManager.serializeSafe(missile));
+        return (boolean)this.runOnServer("shootDown", args);
     }
 
     /**

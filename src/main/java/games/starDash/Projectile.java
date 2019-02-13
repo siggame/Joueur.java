@@ -1,5 +1,5 @@
 /**
- * Information about a unit's job.
+ * Tracks any projectiles moving through space.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,43 +22,33 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * Information about a unit's job.
+ * Tracks any projectiles moving through space.
  */
-public class Job extends GameObject {
+public class Projectile extends GameObject {
     /**
-     * How many combined resources a unit with this Job can hold at once.
+     * The Player that owns and can control this Unit.
      */
-    public int carryLimit;
+    public Player owner;
 
     /**
-     * The amount of damage this Job does per attack.
+     * The radius of the circle this projectile occupies.
      */
-    public int damage;
+    public double radius;
 
     /**
-     * The amount of starting health this Job has.
+     * The unit that is being attacked by this projectile.
      */
-    public int energy;
+    public Unit target;
 
     /**
-     * The distance this job can move per turn.
+     * The x value this projectile is on.
      */
-    public int moves;
+    public double x;
 
     /**
-     * The reserve the martyr use to protect allies.
+     * The y value this projectile is on.
      */
-    public int shield;
-
-    /**
-     * The Job title. 'corvette', 'missleboat', 'martyr', 'transport', or 'miner'. (in this order from 0-4).
-     */
-    public String title;
-
-    /**
-     * How much money it costs to spawn a unit.
-     */
-    public int unitCost;
+    public double y;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -67,9 +57,9 @@ public class Job extends GameObject {
 
 
     /**
-     * Creates a new instance of a Job. Used during game initialization, do not call directly.
+     * Creates a new instance of a Projectile. Used during game initialization, do not call directly.
      */
-    protected Job() {
+    protected Projectile() {
         super();
     }
 
