@@ -56,6 +56,11 @@ public class Player extends GameObject {
     public Player opponent;
 
     /**
+     * Every Projectile owned by this Player.
+     */
+    public List<Projectile> projectiles;
+
+    /**
      * The reason why the player lost the game.
      */
     public String reasonLost;
@@ -96,6 +101,7 @@ public class Player extends GameObject {
      */
     protected Player() {
         super();
+        this.projectiles = new ArrayList<Projectile>();
         this.units = new ArrayList<Unit>();
     }
 
