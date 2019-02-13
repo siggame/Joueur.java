@@ -101,6 +101,11 @@ public class Game extends BaseGame {
     public int projectileSpeed;
 
     /**
+     * Every projectile in the game.
+     */
+    public List<Projectile> projectiles;
+
+    /**
      * The regeneration rate of asteroids.
      */
     public double regenerateRate;
@@ -146,6 +151,7 @@ public class Game extends BaseGame {
         this.bodies = new ArrayList<Body>();
         this.jobs = new ArrayList<Job>();
         this.players = new ArrayList<Player>();
+        this.projectiles = new ArrayList<Projectile>();
         this.units = new ArrayList<Unit>();
     }
 
