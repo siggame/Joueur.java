@@ -6,7 +6,7 @@
 // Never try to directly create an instance of this class, or modify its member variables.
 // Instead, you should only be reading its variables and calling its functions.
 
-package games.starDash;
+package games.stardash;
 
 import java.util.List;
 import java.util.ArrayList;

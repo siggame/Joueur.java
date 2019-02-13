@@ -1,7 +1,7 @@
 /**
- * This is where you build your AI for the StarDash game.
+ * This is where you build your AI for the Stardash game.
  */
-package games.starDash;
+package games.stardash;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import joueur.BaseAI;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * This is where you build your AI for the StarDash game.
+ * This is where you build your AI for the Stardash game.
  */
 public class AI extends BaseAI {
     /**
@@ -41,7 +41,7 @@ public class AI extends BaseAI {
      */
     public String getName() {
         // <<-- Creer-Merge: get-name -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-        return "StarDash Java Player"; // REPLACE THIS WITH YOUR TEAM NAME!
+        return "Stardash Java Player"; // REPLACE THIS WITH YOUR TEAM NAME!
         // <<-- /Creer-Merge: get-name -->>
     }
 
