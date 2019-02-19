@@ -26,6 +26,11 @@ import joueur.BaseGameObject;
  */
 public class Projectile extends GameObject {
     /**
+     * The amount of remaining distance the projectile can move.
+     */
+    public int fuel;
+
+    /**
      * The Player that owns and can control this Unit.
      */
     public Player owner;

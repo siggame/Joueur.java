@@ -46,6 +46,11 @@ public class Job extends GameObject {
     public int moves;
 
     /**
+     * The distance at which this job can effect things.
+     */
+    public int range;
+
+    /**
      * The reserve the martyr use to protect allies.
      */
     public int shield;
