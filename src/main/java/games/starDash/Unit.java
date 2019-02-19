@@ -71,6 +71,11 @@ public class Unit extends GameObject {
     public Player owner;
 
     /**
+     * The martyr ship that is currently shielding this ship if any.
+     */
+    public Unit protector;
+
+    /**
      * The radius of the circle this unit occupies.
      */
     public double radius;
