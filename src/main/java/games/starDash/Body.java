@@ -41,6 +41,11 @@ public class Body extends GameObject {
     public String materialType;
 
     /**
+     * The Player that owns and can control this Unit.
+     */
+    public Player owner;
+
+    /**
      * The radius of the circle that this body takes up.
      */
     public double radius;
