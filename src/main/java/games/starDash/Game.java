@@ -41,6 +41,11 @@ public class Game extends BaseGame {
     public int currentTurn;
 
     /**
+     * Radius of the no dash zone around the sun.
+     */
+    public int dashBlock;
+
+    /**
      * The distance traveled each turn by dashing.
      */
     public int dashDistance;
@@ -114,6 +119,11 @@ public class Game extends BaseGame {
      * A unique identifier for the game instance that is being played.
      */
     public String session;
+
+    /**
+     * The standard size of ships.
+     */
+    public int shipRadius;
 
     /**
      * The size of the map in the X direction.

@@ -31,6 +31,16 @@ public class Unit extends GameObject {
     public boolean acted;
 
     /**
+     * The x value this unit is dashing to.
+     */
+    public double dashX;
+
+    /**
+     * The y value this unit is dashing to.
+     */
+    public double dashY;
+
+    /**
      * The remaining health of a unit.
      */
     public int energy;
@@ -147,7 +157,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * tells you if your ship can be at that location.
+     * tells you if your ship can dash to that location.
      *
      * @param   x  The x position of the location you wish to check.
      * @param   y  The y position of the location you wish to check.
