@@ -78,17 +78,17 @@ public class Game extends BaseGame {
     /**
      * The rarity modifier of the most common ore. This controls how much spawns.
      */
-    public double oreRarity1;
+    public double oreRarityGenarium;
 
     /**
      * The rarity modifier of the second rarest ore. This controls how much spawns.
      */
-    public double oreRarity2;
+    public double oreRarityRarium;
 
     /**
      * The rarity modifier of the rarest ore. This controls how much spawns.
      */
-    public double oreRarity3;
+    public double oreRaritylegendarium;
 
     /**
      * The amount of energy the planets restore each round.
@@ -99,6 +99,11 @@ public class Game extends BaseGame {
      * List of all the players in the game.
      */
     public List<Player> players;
+
+    /**
+     * The standard size of ships.
+     */
+    public int projectileRadius;
 
     /**
      * The amount of distance missiles travel through space.

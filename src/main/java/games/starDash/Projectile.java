@@ -36,11 +36,6 @@ public class Projectile extends GameObject {
     public Player owner;
 
     /**
-     * The radius of the circle this projectile occupies.
-     */
-    public double radius;
-
-    /**
      * The unit that is being attacked by this projectile.
      */
     public Unit target;

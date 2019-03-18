@@ -86,14 +86,14 @@ public class Unit extends GameObject {
     public Unit protector;
 
     /**
-     * The radius of the circle this unit occupies.
-     */
-    public double radius;
-
-    /**
      * The amount of Rarium carried by this unit. (0 to job carry capacity - other carried items).
      */
     public int rarium;
+
+    /**
+     * The sheild that a martyr ship has.
+     */
+    public int shield;
 
     /**
      * The x value this unit is on.
@@ -131,6 +131,20 @@ public class Unit extends GameObject {
     }
 
     /**
+     * Causes the unit to dash towards the designated destination.
+     *
+     * @param   x  The x value of the destination's coordinates.
+     * @param   y  The y value of the destination's coordinates.
+     * @return True if it moved, false otherwise.
+     */
+    public boolean dash(double x, double y) {
+        JSONObject args = new JSONObject();
+        args.put("x", Client.getInstance().gameManager.serializeSafe(x));
+        args.put("y", Client.getInstance().gameManager.serializeSafe(y));
+        return (boolean)this.runOnServer("dash", args);
+    }
+
+    /**
      * allows a miner to mine a asteroid
      *
      * @param   body  The object to be mined.
@@ -157,7 +171,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * tells you if your ship can dash to that location.
+     * tells you if your ship can be at that location.
      *
      * @param   x  The x position of the location you wish to check.
      * @param   y  The y position of the location you wish to check.
