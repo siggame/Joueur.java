@@ -51,9 +51,19 @@ public class Game extends BaseGame {
     public int dashDistance;
 
     /**
+     * The value of every unit of genarium.
+     */
+    public double genariumValue;
+
+    /**
      * A list of all jobs. first item is corvette, second is missleboat, third is martyr, fourth is transport, and fifth is miner.
      */
     public List<Job> jobs;
+
+    /**
+     * The value of every unit of legendarium.
+     */
+    public double legendariumValue;
 
     /**
      * The highest amount of material, barring rarity, that can be in a asteroid.
@@ -76,9 +86,19 @@ public class Game extends BaseGame {
     public int miningSpeed;
 
     /**
+     * The amount of mythicite that spawns at the start of the game.
+     */
+    public double mythiciteAmount;
+
+    /**
      * The rarity modifier of the most common ore. This controls how much spawns.
      */
     public double oreRarityGenarium;
+
+    /**
+     * The rarity modifier of the rarest ore. This controls how much spawns.
+     */
+    public double oreRarityLegendarium;
 
     /**
      * The rarity modifier of the second rarest ore. This controls how much spawns.
@@ -86,9 +106,9 @@ public class Game extends BaseGame {
     public double oreRarityRarium;
 
     /**
-     * The rarity modifier of the rarest ore. This controls how much spawns.
+     * The amount of energy a planet can hold at once.
      */
-    public double oreRaritylegendarium;
+    public int planetEnergyCap;
 
     /**
      * The amount of energy the planets restore each round.
@@ -114,6 +134,11 @@ public class Game extends BaseGame {
      * Every projectile in the game.
      */
     public List<Projectile> projectiles;
+
+    /**
+     * The value of every unit of rarium.
+     */
+    public double rariumValue;
 
     /**
      * The regeneration rate of asteroids.
