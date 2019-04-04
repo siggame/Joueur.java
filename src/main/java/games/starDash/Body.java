@@ -41,7 +41,7 @@ public class Body extends GameObject {
     public String materialType;
 
     /**
-     * The Player that owns and can control this Unit.
+     * The Player that owns and can control this Body.
      */
     public Player owner;
 
@@ -71,6 +71,30 @@ public class Body extends GameObject {
      */
     protected Body() {
         super();
+    }
+
+    /**
+     * The x value of this body a number of turns from now. (0-how many you want).
+     *
+     * @param   num  The number of turns in the future you wish to check.
+     * @return The x position of the body the input number of turns in the future.
+     */
+    public int nextX(int num) {
+        JSONObject args = new JSONObject();
+        args.put("num", Client.getInstance().gameManager.serializeSafe(num));
+        return (int)this.runOnServer("nextX", args);
+    }
+
+    /**
+     * The x value of this body a number of turns from now. (0-how many you want).
+     *
+     * @param   num  The number of turns in the future you wish to check.
+     * @return The x position of the body the input number of turns in the future.
+     */
+    public int nextY(int num) {
+        JSONObject args = new JSONObject();
+        args.put("num", Client.getInstance().gameManager.serializeSafe(num));
+        return (int)this.runOnServer("nextY", args);
     }
 
     /**

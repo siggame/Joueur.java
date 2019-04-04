@@ -26,7 +26,7 @@ import joueur.BaseGameObject;
  */
 public class Game extends BaseGame {
     /**
-     * All the celestial bodies in the game.
+     * All the celestial bodies in the game. The first two are planets and the third is the sun. The fourth is the VP asteroid. Everything else is normal asteroids.
      */
     public List<Body> bodies;
 
@@ -44,6 +44,11 @@ public class Game extends BaseGame {
      * Radius of the no dash zone around the sun.
      */
     public int dashBlock;
+
+    /**
+     * The cost of dashing.
+     */
+    public int dashCost;
 
     /**
      * The distance traveled each turn by dashing.
@@ -66,7 +71,7 @@ public class Game extends BaseGame {
     public double legendariumValue;
 
     /**
-     * The highest amount of material, barring rarity, that can be in a asteroid.
+     * The highest amount of material, that can be in a asteroid.
      */
     public int maxAsteroid;
 
@@ -76,7 +81,7 @@ public class Game extends BaseGame {
     public int maxTurns;
 
     /**
-     * The smallest amount of material, barring rarity, that can be in a asteroid.
+     * The smallest amount of material, that can be in a asteroid.
      */
     public int minAsteroid;
 
@@ -89,6 +94,11 @@ public class Game extends BaseGame {
      * The amount of mythicite that spawns at the start of the game.
      */
     public double mythiciteAmount;
+
+    /**
+     * The number of orbit updates you cannot mine the mithicite asteroid.
+     */
+    public int orbitsProtected;
 
     /**
      * The rarity modifier of the most common ore. This controls how much spawns.
@@ -169,6 +179,11 @@ public class Game extends BaseGame {
      * The amount of time (in nano-seconds) added after each player performs a turn.
      */
     public int timeAddedPerTurn;
+
+    /**
+     * The number of turns it takes for a asteroid to orbit the sun. (Asteroids move after each players turn).
+     */
+    public int turnsToOrbit;
 
     /**
      * Every Unit in the game.
