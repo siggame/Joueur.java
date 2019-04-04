@@ -31,7 +31,7 @@ public class Projectile extends GameObject {
     public int fuel;
 
     /**
-     * The Player that owns and can control this Unit.
+     * The Player that owns and can control this Projectile.
      */
     public Player owner;
 

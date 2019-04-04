@@ -177,11 +177,11 @@ public class Unit extends GameObject {
      * @param   y  The y position of the location you wish to check.
      * @return True if pathable by this unit, false otherwise.
      */
-    public boolean open(double x, double y) {
+    public boolean safe(double x, double y) {
         JSONObject args = new JSONObject();
         args.put("x", Client.getInstance().gameManager.serializeSafe(x));
         args.put("y", Client.getInstance().gameManager.serializeSafe(y));
-        return (boolean)this.runOnServer("open", args);
+        return (boolean)this.runOnServer("safe", args);
     }
 
     /**
