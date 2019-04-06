@@ -46,7 +46,7 @@ public class Unit extends GameObject {
     public int energy;
 
     /**
-     * The amount of Generium ore carried by this unit. (0 to job carry capacity - other carried items).
+     * The amount of Genarium ore carried by this unit. (0 to job carry capacity - other carried items).
      */
     public int genarium;
 
@@ -145,6 +145,20 @@ public class Unit extends GameObject {
     }
 
     /**
+     * tells you if your ship dash to that location.
+     *
+     * @param   x  The x position of the location you wish to arrive.
+     * @param   y  The y position of the location you wish to arrive.
+     * @return True if pathable by this unit, false otherwise.
+     */
+    public boolean dashable(double x, double y) {
+        JSONObject args = new JSONObject();
+        args.put("x", Client.getInstance().gameManager.serializeSafe(x));
+        args.put("y", Client.getInstance().gameManager.serializeSafe(y));
+        return (boolean)this.runOnServer("dashable", args);
+    }
+
+    /**
      * allows a miner to mine a asteroid
      *
      * @param   body  The object to be mined.
@@ -171,10 +185,10 @@ public class Unit extends GameObject {
     }
 
     /**
-     * tells you if your ship can be at that location.
+     * tells you if your ship can move to that location.
      *
-     * @param   x  The x position of the location you wish to check.
-     * @param   y  The y position of the location you wish to check.
+     * @param   x  The x position of the location you wish to arrive.
+     * @param   y  The y position of the location you wish to arrive.
      * @return True if pathable by this unit, false otherwise.
      */
     public boolean safe(double x, double y) {
