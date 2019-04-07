@@ -51,9 +51,9 @@ public class Unit extends GameObject {
     public int genarium;
 
     /**
-     * Tracks wheither or not the ship is dashing.
+     * Tracks wheither or not the ship is dashing or Mining. If true, it cannot do anything else.
      */
-    public boolean isDashing;
+    public boolean isBusy;
 
     /**
      * The Job this Unit has.
