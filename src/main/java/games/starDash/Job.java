@@ -56,7 +56,7 @@ public class Job extends GameObject {
     public int shield;
 
     /**
-     * The Job title. 'corvette', 'missleboat', 'martyr', 'transport', or 'miner'. (in this order from 0-4).
+     * The Job title. 'corvette', 'missileboat', 'martyr', 'transport', or 'miner'. (in this order from 0-4).
      */
     public String title;
 
