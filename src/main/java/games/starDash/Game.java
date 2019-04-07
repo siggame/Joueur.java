@@ -41,11 +41,6 @@ public class Game extends BaseGame {
     public int currentTurn;
 
     /**
-     * Radius of the no dash zone around the sun.
-     */
-    public int dashBlock;
-
-    /**
      * The cost of dashing.
      */
     public int dashCost;
@@ -61,7 +56,7 @@ public class Game extends BaseGame {
     public double genariumValue;
 
     /**
-     * A list of all jobs. first item is corvette, second is missleboat, third is martyr, fourth is transport, and fifth is miner.
+     * A list of all jobs. first item is corvette, second is missileboat, third is martyr, fourth is transport, and fifth is miner.
      */
     public List<Job> jobs;
 
