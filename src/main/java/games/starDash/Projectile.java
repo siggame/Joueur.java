@@ -26,6 +26,11 @@ import joueur.BaseGameObject;
  */
 public class Projectile extends GameObject {
     /**
+     * The remaining health of the projectile.
+     */
+    public int energy;
+
+    /**
      * The amount of remaining distance the projectile can move.
      */
     public int fuel;
