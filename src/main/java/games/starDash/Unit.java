@@ -41,7 +41,7 @@ public class Unit extends GameObject {
     public double dashY;
 
     /**
-     * The remaining health of a unit.
+     * The remaining health of the unit.
      */
     public int energy;
 
