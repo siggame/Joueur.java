@@ -190,10 +190,10 @@ public class Unit extends GameObject {
      * @param   missile  The projectile being shot down.
      * @return True if successfully attacked, false otherwise.
      */
-    public boolean shootDown(Projectile missile) {
+    public boolean shootdown(Projectile missile) {
         JSONObject args = new JSONObject();
         args.put("missile", Client.getInstance().gameManager.serializeSafe(missile));
-        return (boolean)this.runOnServer("shootDown", args);
+        return (boolean)this.runOnServer("shootdown", args);
     }
 
     /**
@@ -201,7 +201,7 @@ public class Unit extends GameObject {
      *
      * @param   unit  The unit you are grabbing the resources from.
      * @param   amount  The amount of materials to you with to grab. Amounts <= 0 will pick up all the materials that the unit can.
-     * @param   material  The material the unit will pick up. 'resource1', 'resource2', or 'resource3'.
+     * @param   material  The material the unit will pick up. 'genarium', 'rarium', 'legendarium', or 'mythicite'.
      * @return True if successfully taken, false otherwise.
      */
     public boolean transfer(Unit unit, int amount, String material) {

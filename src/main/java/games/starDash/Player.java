@@ -56,7 +56,7 @@ public class Player extends GameObject {
     public Player opponent;
 
     /**
-     * Every Projectile owned by this Player.
+     * Every Projectile owned by this Player. The earlier in the list the older they are.
      */
     public List<Projectile> projectiles;
 
@@ -76,7 +76,7 @@ public class Player extends GameObject {
     public double timeRemaining;
 
     /**
-     * Every Unit owned by this Player.
+     * Every Unit owned by this Player. The earlier in the list the older they are.
      */
     public List<Unit> units;
 
