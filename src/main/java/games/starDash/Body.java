@@ -31,12 +31,12 @@ public class Body extends GameObject {
     public int amount;
 
     /**
-     * The type of celestial body it is.
+     * The type of celestial body it is. Either 'planet', 'asteroid', or 'sun'.
      */
     public String bodyType;
 
     /**
-     * The type of material the celestial body has.
+     * The type of material the celestial body has. Either 'none', 'genarium', 'rarium', 'legendarium', or 'mythicite'.
      */
     public String materialType;
 
