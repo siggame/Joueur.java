@@ -145,6 +145,20 @@ public class Unit extends GameObject {
     }
 
     /**
+     * tells you if your ship can dash to that location from where it is without clipping the sun.
+     *
+     * @param   x  The x position of the location you wish to arrive.
+     * @param   y  The y position of the location you wish to arrive.
+     * @return True if pathable by this unit, false otherwise.
+     */
+    public boolean isDashable(double x, double y) {
+        JSONObject args = new JSONObject();
+        args.put("x", Client.getInstance().gameManager.serializeSafe(x));
+        args.put("y", Client.getInstance().gameManager.serializeSafe(y));
+        return (boolean)this.runOnServer("isDashable", args);
+    }
+
+    /**
      * allows a miner to mine a asteroid
      *
      * @param   body  The object to be mined.
@@ -171,7 +185,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * tells you if your ship can move to that location from were it is without clipping the sun.
+     * tells you if your ship can move to that location from were it is landing in the sun.
      *
      * @param   x  The x position of the location you wish to arrive.
      * @param   y  The y position of the location you wish to arrive.
