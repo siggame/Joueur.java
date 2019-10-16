@@ -61,6 +61,21 @@ public class Tile extends GameObject {
     public boolean isWall;
 
     /**
+     * The amount of Ghouls on this tile at the moment.
+     */
+    public int numOfGhouls;
+
+    /**
+     * The amount of Hell Hounds on this tile at the moment.
+     */
+    public int numOfHounds;
+
+    /**
+     * The amount of animated zombies on this tile at the moment.
+     */
+    public int numOfZombies;
+
+    /**
      * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
      */
     public Tile tileEast;
@@ -86,7 +101,7 @@ public class Tile extends GameObject {
     public Tower tower;
 
     /**
-     * The type of Tile this is ('normal', 'path', 'river', or 'spawn').
+     * The type of Tile this is ('normal', 'path', 'river', 'mine', 'castle', 'pathSpawn', or 'workerSpawn').
      */
     public String type;
 
@@ -116,6 +131,18 @@ public class Tile extends GameObject {
      */
     protected Tile() {
         super();
+    }
+
+    /**
+     * Resurrect the corpses on this tile into zombies.
+     *
+     * @param   number  Number of zombies on the tile that are being resurrected.
+     * @return True if Unit was created successfully, false otherwise.
+     */
+    public boolean res(int number) {
+        JSONObject args = new JSONObject();
+        args.put("number", Client.getInstance().gameManager.serializeSafe(number));
+        return (boolean)this.runOnServer("res", args);
     }
 
     /**

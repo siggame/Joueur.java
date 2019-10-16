@@ -36,12 +36,12 @@ public class Player extends GameObject {
     public int gold;
 
     /**
-     * The amount of health remaining for this player's main unit.
+     * The amount of health remaining for this player's Castle.
      */
     public int health;
 
     /**
-     * The tile that the home base is located on.
+     * The tiles that the home base is located on.
      */
     public List<Tile> homeBase;
 
@@ -115,6 +115,30 @@ public class Player extends GameObject {
         this.side = new ArrayList<Tile>();
         this.towers = new ArrayList<Tower>();
         this.units = new ArrayList<Unit>();
+    }
+
+    /**
+     * Spawn a fighting Unit on this player's path spawn tile.
+     *
+     * @param   type  What type of Unit to create (ghoul, hound, abomination, wraith, or horseman).
+     * @return True if Unit was created successfully, false otherwise.
+     */
+    public boolean spawnUnit(String type) {
+        JSONObject args = new JSONObject();
+        args.put("type", Client.getInstance().gameManager.serializeSafe(type));
+        return (boolean)this.runOnServer("spawnUnit", args);
+    }
+
+    /**
+     * Spawn a worker Unit on this player's worker spawn tile.
+     *
+     * @param   type  What type of Unit to create (worker, zombie, ghoul).
+     * @return True if Unit was created successfully, false otherwise.
+     */
+    public boolean spawnWorker(String type) {
+        JSONObject args = new JSONObject();
+        args.put("type", Client.getInstance().gameManager.serializeSafe(type));
+        return (boolean)this.runOnServer("spawnWorker", args);
     }
 
 
