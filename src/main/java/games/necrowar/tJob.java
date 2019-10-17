@@ -85,6 +85,11 @@ public class tJob extends GameObject {
      */
     public String title;
 
+    /**
+     * How many turns this tower type needs to take between attacks.
+     */
+    public int turnsBetweenAttacks;
+
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional field(s) here. None of them will be tracked or updated by the server.

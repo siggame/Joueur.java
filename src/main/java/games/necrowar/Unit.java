@@ -107,7 +107,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Enters a mine and is put to work gathering resources.
+     * Enters an empty mine tile and is put to work gathering resources.
      *
      * @param   tile  The tile the mine is located on.
      * @return True if successfully entered mine and began mining, false otherwise.

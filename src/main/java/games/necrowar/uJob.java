@@ -31,11 +31,6 @@ public class uJob extends GameObject {
     public int damage;
 
     /**
-     * Amount of damage this type does against towers on a given turn.
-     */
-    public int damageVsTowers;
-
-    /**
      * How much does this type cost in gold.
      */
     public int goldCost;
