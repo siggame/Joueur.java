@@ -31,36 +31,6 @@ public class tJob extends GameObject {
     public boolean allUnits;
 
     /**
-     * The amount of damage this type does per attack against abominations.
-     */
-    public int damageVsAbomination;
-
-    /**
-     * The amount of damage this type does per attack against ghouls.
-     */
-    public int damageVsGhoul;
-
-    /**
-     * The amount of damage this type does per attack against horseman.
-     */
-    public int damageVsHorseman;
-
-    /**
-     * The amount of damage this type does per attack against hounds.
-     */
-    public int damageVsHound;
-
-    /**
-     * The amount of damage this type does per attack against wraiths.
-     */
-    public int damageVsWraith;
-
-    /**
-     * The amount of damage this type does per attack against zombies.
-     */
-    public int damageVsZombie;
-
-    /**
      * How much does this type cost in gold.
      */
     public int goldCost;

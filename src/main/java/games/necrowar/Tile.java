@@ -106,7 +106,7 @@ public class Tile extends GameObject {
     public String type;
 
     /**
-     * The Unit on this Tile if present, otherwise null.
+     * The list of Units on this Tile if present, otherwise null.
      */
     public Unit unit;
 

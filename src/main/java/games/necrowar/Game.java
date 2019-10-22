@@ -66,11 +66,6 @@ public class Game extends BaseGame {
     public int maxTurns;
 
     /**
-     * The maximum number of workers that can occupy a mine at a given time.
-     */
-    public int mineUnitCap;
-
-    /**
      * List of all the players in the game.
      */
     public List<Player> players;
