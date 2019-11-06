@@ -109,39 +109,45 @@ public class AI extends BaseAI {
                             // Send it to that tile
                             target = tile;
                         }
-                        // Else if fishing and building
                     }
-
+                    // Else, try fishing
                     if (target == null)
-                    {
-                        // Chases down enemy managers if there are no machines that are ready to be worked.
-                        for (Unit enemy : player.opponent.units)
+                    {   
+                        // All river spots
+                        List<Tile> riverSpots = new ArrayList<Title>();
+                        for (Tile tile : game.tiles)
                         {
-                            // Only does anything if the unit that we found is a manager.
-                            if (enemy.tile != null && enemy.job.title.equals("manager"))
+                            // Gathers all river spots
+                            if (tile.isRiver && player.side.contains(tile))
                             {
-                                // Moves towards the manager.
-                                while (unit.moves > 0 && !findPath(unit.tile, enemy.tile).isEmpty())
+                                riverSpots.add(tile)
+                            }
+                        // Go through all game titles and find all adjacent spots to the river
+                        for (Tile tile : game.tiles)
+                        {
+                            boolean foundRiverSpot = False
+                            for (Tile spot : riverSpots)
+                            {
+                                foundRiverSpot = tile.getNeighbors().contains(spot)
+                            }
+                            // Only does anything if tile is adjacent to river
+                            if (foundRiverSpot && player.side.contains(tile)
+                            {
+                                
+                                while (unit.moves > 0 && !findPath(unit.tile, tile).isEmpty())
                                 {
                                     // Moves unit there are no moves left for the physicist.
-                                    if (!unit.move(findPath(unit.tile, enemy.tile).get(0)))
+                                    if (!unit.move(findPath(unit.tile, tile).get(0)))
                                     {
                                         break;
                                     }
                                 }
-
-                                if (enemy.tile.hasNeighbor(unit.tile))
+                                // Fish
+                                if (!unit.acted)
                                 {
-                                    if (enemy.stunTime == 0 && enemy.stunImmune == 0)
-                                    {
-                                        // Stuns the enemy manager if they are not stunned and not immune.
-                                    }
-                                    else
-                                    {
-                                        // Attacks the manager otherwise.
-                                        unit.attack(enemy.tile);
-                                    }
+                                    unit.fish(tile)
                                 }
+                                
 
                                 break;
                             }
