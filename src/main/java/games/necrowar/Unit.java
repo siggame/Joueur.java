@@ -26,14 +26,24 @@ import joueur.BaseGameObject;
  */
 public class Unit extends GameObject {
     /**
-     * Whether or not this Unit has performed its action this turn (attack or build).
+     * Whether or not this Unit has attacked this turn or not.
      */
-    public boolean acted;
+    public boolean attacked;
+
+    /**
+     * Whether or not this Unit has built a tower (workers only) this turn or not.
+     */
+    public boolean built;
 
     /**
      * The remaining health of a unit.
      */
     public int health;
+
+    /**
+     * Whether or not this Unit has moved yet this turn.
+     */
+    public boolean moved;
 
     /**
      * The number of moves this unit has left this turn.

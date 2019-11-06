@@ -31,9 +31,19 @@ public class Tile extends GameObject {
     public int corpses;
 
     /**
+     * Whether or not the tile is where a player's castle rests.
+     */
+    public boolean isCastle;
+
+    /**
      * Whether or not the tile is considered to be a gold mine or not.
      */
     public boolean isGoldMine;
+
+    /**
+     * Whether or not the tile can be moved on by workers.
+     */
+    public boolean isGrass;
 
     /**
      * Whether or not the tile is considered to be the island gold mine or not.
@@ -56,9 +66,14 @@ public class Tile extends GameObject {
     public boolean isTower;
 
     /**
-     * Whether or not the tile can be moved on by workers.
+     * Whether or not this tile is this player's Unit spawn.
      */
-    public boolean isWall;
+    public boolean isUnitSpawn;
+
+    /**
+     * Whether or not this tile is this player's Worker spawn.
+     */
+    public boolean isWorkerSpawn;
 
     /**
      * The amount of Ghouls on this tile at the moment.
@@ -101,7 +116,7 @@ public class Tile extends GameObject {
     public Tower tower;
 
     /**
-     * The type of Tile this is ('normal', 'path', 'river', 'mine', 'castle', 'pathSpawn', or 'workerSpawn').
+     * The type of Tile this is ('grass', 'path', 'river', 'mine', 'castle', 'pathSpawn', or 'workerSpawn').
      */
     public String type;
 

@@ -31,6 +31,11 @@ public class tJob extends GameObject {
     public boolean allUnits;
 
     /**
+     * How much damage this tower type does in a single turn of attack.
+     */
+    public int damage;
+
+    /**
      * How much does this type cost in gold.
      */
     public int goldCost;
