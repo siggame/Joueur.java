@@ -109,6 +109,12 @@ public class AI extends BaseAI {
                             // Send it to that tile
                             target = tile;
                         }
+                        // If the tile is a tower and on my side, and has no other units on it.
+                        else if (tile.isTower && player.side.contains(tile) && tile.unit == null)
+                        {
+                            // Send it to that tile
+                            target = tile;
+                        }
                     }
                     // Else, try fishing
                     if (target == null)
@@ -136,7 +142,7 @@ public class AI extends BaseAI {
                                 
                                 while (unit.moves > 0 && !findPath(unit.tile, tile).isEmpty())
                                 {
-                                    // Moves unit there are no moves left for the physicist.
+                                    // Moves unit until there are no moves left for the worker or at the tile
                                     if (!unit.move(findPath(unit.tile, tile).get(0)))
                                     {
                                         break;
@@ -155,30 +161,25 @@ public class AI extends BaseAI {
                     }
                     else
                     {
-                        // Gets the tile of the targeted machine if adjacent to it.
-                        boolean adjacent = false;
-
-                        for (Tile tile : target.getNeighbors())
-                        {
-                            if (tile == unit.tile)
-                            {
-                                adjacent = true;
-                            }
-                        }
-
-                        // If there is a machine that is waiting to be worked on, go to it.
-                        while ( unit.moves > 0 && !findPath(unit.tile, target).isEmpty() && !adjacent)
+                        // Move to the target, whether that be mine or tower
+                        while (unit.moves > 0 && !findPath(unit.tile, target).isEmpty())
                         {
                             if (!unit.move(findPath(unit.tile, target).get(0)))
                             {
                                 break;
                             }
                         }
-
-                        // Acts on the target machine to run it if the physicist is adjacent.
-                        if (adjacent && !unit.acted)
+                        // Checks whether the target is a mine or tower. Acts accordingly
+                        if (!unit.acted)
                         {
-                            unit.act(target);
+                            if (target.isMine) {
+                                unit.acted = True;
+                                unit.mine(tile);
+                            }
+                            else if (target.isTower) {
+                                unit.acted = True;
+                                unit.build(tile);
+                            }
                         }
                     }
                 }
