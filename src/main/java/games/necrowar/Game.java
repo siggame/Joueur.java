@@ -46,11 +46,6 @@ public class Game extends BaseGame {
     public int islandIncomePerUnit;
 
     /**
-     * The maximum number of workers that can occupy the mine on the island at a given time.
-     */
-    public int islandUnitCap;
-
-    /**
      * The Amount of gold income per turn per unit fishing on the river side.
      */
     public int manaIncomePerUnit;
@@ -69,11 +64,6 @@ public class Game extends BaseGame {
      * The maximum number of turns before the game will automatically end.
      */
     public int maxTurns;
-
-    /**
-     * The maximum number of workers that can occupy a mine at a given time.
-     */
-    public int mineUnitCap;
 
     /**
      * List of all the players in the game.

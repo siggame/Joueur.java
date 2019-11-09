@@ -81,6 +81,21 @@ public class Tile extends GameObject {
     public boolean isWorkerSpawn;
 
     /**
+     * The amount of Ghouls on this tile.
+     */
+    public int numGhouls;
+
+    /**
+     * The amount of Hounds on this tile.
+     */
+    public int numHounds;
+
+    /**
+     * The amount of Zombies on this tile.
+     */
+    public int numZombies;
+
+    /**
      * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
      */
     public Tile tileEast;
@@ -141,12 +156,12 @@ public class Tile extends GameObject {
     /**
      * Resurrect the corpses on this tile into Zombies.
      *
-     * @param   number  Number of zombies to resurrect.
+     * @param   num  Number of zombies to resurrect.
      * @return True if successful res, false otherwise.
      */
-    public boolean res(int number) {
+    public boolean res(int num) {
         JSONObject args = new JSONObject();
-        args.put("number", Client.getInstance().gameManager.serializeSafe(number));
+        args.put("num", Client.getInstance().gameManager.serializeSafe(num));
         return (boolean)this.runOnServer("res", args);
     }
 
