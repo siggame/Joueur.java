@@ -83,14 +83,12 @@ public class Unit extends GameObject {
     /**
      * Unit, if it is a worker, builds a tower on the tile it is on, only workers can do this.
      *
-     * @param   tile  The tile the unit is on/builds on.
-     * @param   tJob  The type of tower that is being built. 'arrow', 'aoe', 'ballista', or 'cleansing'.
+     * @param   title  The tower type to build, as a string.
      * @return True if successfully built, false otherwise.
      */
-    public boolean build(Tile tile, tJob tJob) {
+    public boolean build(String title) {
         JSONObject args = new JSONObject();
-        args.put("tile", Client.getInstance().gameManager.serializeSafe(tile));
-        args.put("tJob", Client.getInstance().gameManager.serializeSafe(tJob));
+        args.put("title", Client.getInstance().gameManager.serializeSafe(title));
         return (boolean)this.runOnServer("build", args);
     }
 
