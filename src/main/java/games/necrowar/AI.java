@@ -86,7 +86,9 @@ public class AI extends BaseAI {
     public boolean runTurn() {
         // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // Put your game logic here for runTurn
-               // Go through all the units that you own.
+        // Go through all the units that you own.
+        player.spawnWorker('worker');
+        player.spawnUnit('ghoul');
         for (Unit unit : player.units)
         {
 
@@ -183,113 +185,18 @@ public class AI extends BaseAI {
                         }
                     }
                 }
-                else if (unit.job.title.equals("intern"))
-                {
-                    // If the unit is an intern, collects blueium ore.
-                    // Note: You also need to collect redium ore.
-
-                    // Goes to gather resources if currently carrying less than the carry limit.
-                    if (unit.blueiumOre < unit.job.carryLimit)
-                    {
-                        // Your intern's current target.
-                        Tile target = null;
-
-                        // Goes to collect blueium ore that isn't on a machine.
-                        for (Tile tile : game.tiles)
-                        {
-                            if (tile.blueiumOre > 0 && tile.machine == null)
-                            {
-                                target = tile;
-                                break;
-                            }
-                        }
-
-                        // Moves towards our target until at the target or out of moves.
-                        if (!findPath(unit.tile, target).isEmpty())
-                        {
-                            while (unit.moves > 0 && !findPath(unit.tile, target).isEmpty())
-                            {
-                                if (!unit.move(findPath(unit.tile, target).get(0)))
-                                    break;
-                            }
-                        }
-
-                        // Picks up the appropriate resource once we reach our target's tile.
-                        if (unit.tile == target && target.blueiumOre > 0)
-                        {
-                            unit.pickup(target, 0, "blueium ore");
-                        }
-
-
-                    }
-                    else
-                    {
-                        // Deposits blueium ore in a machine for it if we have any.
-
-                        // Finds a machine in the game's tiles that takes blueium ore.
-                        for (Tile tile : game.tiles)
-                        {
-                            if (tile.machine != null && tile.machine.oreType.equals("blueium"))
-                            {
-                                // Moves towards the found machine until we reach it or are out of moves.
-                                while (unit.moves > 0 && !findPath(unit.tile, tile).isEmpty())
-                                {
-                                    if (!unit.move(findPath(unit.tile, tile).get(0)))
-                                    {
-                                        break;
-                                    }
-                                }
-
-                                // Deposits blueium ore on the machine if we have reached it.
-                                if (findPath(unit.tile, tile).size() <= 1)
-                                {
-                                    unit.drop(tile, 0, "blueium ore");
-                                }
-                            }
-                        }
-                    }
-                }
-                else if (unit.job.title.equals("manager"))
+                else if (unit.job.title.equals('ghoul'))
                 {
                     // Finds enemy interns, stuns, && attacks them if there is no blueium to take to the generator.
                     Tile target = null;
 
                     for (Tile tile : game.tiles)
                     {
-                        if (tile.blueium > 1 && unit.blueium < unit.job.carryLimit)
+                        if (tile.isTower && enemy.side.contains(tile) && tile.unit == null)
                             target = tile;
                     }
 
-                    if (target  == null && unit.blueium == 0)
-                    {
-                        for (Unit enemy : game.units)
-                        {
-                            // Only does anything for an intern that is owned by your opponent.
-                            if (enemy.tile != null && enemy.owner == player.opponent && enemy.job.title.equals("intern"))
-                            {
-                                // Moves towards the intern until reached or out of moves.
-                                while (unit.moves > 0 && !findPath(unit.tile, enemy.tile).isEmpty())
-                                    if (!unit.move(findPath(unit.tile, enemy.tile).get(0)))
-                                        break;
-
-                                // Either stuns or attacks the intern if we are within range.
-                                if (enemy.tile.hasNeighbor(unit.tile))
-                                {
-                                    if (enemy.stunTime == 0 && enemy.stunImmune == 0)
-                                    {
-                                        // Stuns the enemy intern if they are !stunned && !immune.
-                                        unit.act(enemy.tile);
-                                    }
-                                    else
-                                    {
-                                        // Attacks the intern otherwise.
-                                        unit.attack(enemy.tile);
-                                    }
-
-                                    break;
-                                }
-                            }
-                        }
+                  
                     }
                     else if (target != null)
                     {
@@ -301,31 +208,10 @@ public class AI extends BaseAI {
                                 break;
                             }
                         }
-
-                        // Picks up blueium once we reach our target's tile.
-                        if (findPath(unit.tile, target).size() <= 1 && target.blueium > 0)
+                        if (!unit.acted)
                         {
-                            unit.pickup(target, 0, "blueium");
-                        }
-                    }
-                    else if (target == null && unit.blueium > 0)
-                    {
-                        // Stores a tile that is part of your generator.
-                        Tile gen_tile = player.generatorTiles.get(0);
-
-                        // Goes to your generator && drops blueium in.
-                        while (unit.moves > 0 && !findPath(unit.tile, gen_tile).isEmpty())
-                        {
-                            if (!unit.move(findPath(unit.tile, gen_tile).get(0)))
-                            {
-                                break;
-                            }
-                        }
-
-                        // Deposits blueium in our generator if we have reached it.
-                        if (findPath(unit.tile, gen_tile).isEmpty())
-                        {
-                            unit.drop(gen_tile, 0, "blueium");
+                            unit.attack(target);
+                            unit.acted = True;
                         }
                     }
                 }
