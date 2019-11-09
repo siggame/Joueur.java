@@ -26,24 +26,14 @@ import joueur.BaseGameObject;
  */
 public class Unit extends GameObject {
     /**
-     * Whether or not this Unit has attacked this turn or not.
+     * Whether or not this Unit has performed its action this turn (attack or build).
      */
-    public boolean attacked;
-
-    /**
-     * Whether or not this Unit has built a tower (workers only) this turn or not.
-     */
-    public boolean built;
+    public boolean acted;
 
     /**
      * The remaining health of a unit.
      */
     public int health;
-
-    /**
-     * Whether or not this Unit has moved yet this turn.
-     */
-    public boolean moved;
 
     /**
      * The number of moves this unit has left this turn.
@@ -117,7 +107,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Enters an empty mine tile and is put to work gathering resources.
+     * Enters a mine and is put to work gathering resources.
      *
      * @param   tile  The tile the mine is located on.
      * @return True if successfully entered mine and began mining, false otherwise.

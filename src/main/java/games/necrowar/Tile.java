@@ -31,7 +31,7 @@ public class Tile extends GameObject {
     public int corpses;
 
     /**
-     * Whether or not the tile is where a player's castle rests.
+     * Whether or not the tile is a castle tile.
      */
     public boolean isCastle;
 
@@ -41,7 +41,7 @@ public class Tile extends GameObject {
     public boolean isGoldMine;
 
     /**
-     * Whether or not the tile can be moved on by workers.
+     * Whether or not the tile is considered grass or not (Workers can walk on grass).
      */
     public boolean isGrass;
 
@@ -51,7 +51,7 @@ public class Tile extends GameObject {
     public boolean isIslandGoldMine;
 
     /**
-     * Whether or not the tile is considered a path or not.
+     * Whether or not the tile is considered a path or not (Units can walk on paths).
      */
     public boolean isPath;
 
@@ -66,29 +66,19 @@ public class Tile extends GameObject {
     public boolean isTower;
 
     /**
-     * Whether or not this tile is this player's Unit spawn.
+     * Whether or not the tile is the unit spawn.
      */
     public boolean isUnitSpawn;
 
     /**
-     * Whether or not this tile is this player's Worker spawn.
+     * Whether or not the tile can be moved on by workers.
+     */
+    public boolean isWall;
+
+    /**
+     * Whether or not the tile is the worker spawn.
      */
     public boolean isWorkerSpawn;
-
-    /**
-     * The amount of Ghouls on this tile at the moment.
-     */
-    public int numOfGhouls;
-
-    /**
-     * The amount of Hell Hounds on this tile at the moment.
-     */
-    public int numOfHounds;
-
-    /**
-     * The amount of animated zombies on this tile at the moment.
-     */
-    public int numOfZombies;
 
     /**
      * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
@@ -116,12 +106,12 @@ public class Tile extends GameObject {
     public Tower tower;
 
     /**
-     * The type of Tile this is ('grass', 'path', 'river', 'mine', 'castle', 'pathSpawn', or 'workerSpawn').
+     * The type of Tile this is ('normal', 'path', 'river', or 'spawn').
      */
     public String type;
 
     /**
-     * The list of Units on this Tile if present, otherwise null.
+     * The Unit on this Tile if present, otherwise null.
      */
     public Unit unit;
 
@@ -149,15 +139,37 @@ public class Tile extends GameObject {
     }
 
     /**
-     * Resurrect the corpses on this tile into zombies.
+     * Resurrect the corpses on this tile into Zombies.
      *
-     * @param   number  Number of zombies on the tile that are being resurrected.
-     * @return True if Unit was created successfully, false otherwise.
+     * @param   number  Number of zombies to resurrect.
+     * @return True if successful res, false otherwise.
      */
     public boolean res(int number) {
         JSONObject args = new JSONObject();
         args.put("number", Client.getInstance().gameManager.serializeSafe(number));
         return (boolean)this.runOnServer("res", args);
+    }
+
+    /**
+     * Spawns a fighting unit on the correct tile.
+     *
+     * @param   title  The title of the desired unit type.
+     * @return True if successfully spawned, false otherwise.
+     */
+    public boolean spawnUnit(String title) {
+        JSONObject args = new JSONObject();
+        args.put("title", Client.getInstance().gameManager.serializeSafe(title));
+        return (boolean)this.runOnServer("spawnUnit", args);
+    }
+
+    /**
+     * Spawns a worker on the correct tile.
+     *
+     * @return True if successfully spawned, false otherwise.
+     */
+    public boolean spawnWorker() {
+        JSONObject args = new JSONObject();
+        return (boolean)this.runOnServer("spawnWorker", args);
     }
 
     /**
