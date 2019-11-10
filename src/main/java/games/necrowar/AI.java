@@ -96,7 +96,7 @@ public class AI extends BaseAI {
             // if a unit does not have a tile, then they are dead.
             if (unit != null && unit.tile != null)
             {
-                if (unit.uJob.title.equals("worker"))
+                if (unit.UnitJob.title.equals("worker"))
                 {
                     //If the unit is a worker, go to mine and collect gold
                     Tile target = null;
@@ -185,7 +185,7 @@ public class AI extends BaseAI {
                         }
                     }
                 }
-                else if (unit.job.title.equals('ghoul'))
+                else if (unit.UnitJob.title.equals('ghoul'))
                 {
                     // Finds enemy interns, stuns, && attacks them if there is no blueium to take to the generator.
                     Tile target = null;
