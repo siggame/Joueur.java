@@ -31,6 +31,11 @@ public class tJob extends GameObject {
     public boolean allUnits;
 
     /**
+     * The amount of damage this type does per attack.
+     */
+    public int damage;
+
+    /**
      * How much does this type cost in gold.
      */
     public int goldCost;
@@ -56,7 +61,7 @@ public class tJob extends GameObject {
     public String title;
 
     /**
-     * How many turns this tower type needs to take between attacks.
+     * How many turns have to take place between this type's attacks.
      */
     public int turnsBetweenAttacks;
 

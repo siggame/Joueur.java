@@ -36,6 +36,11 @@ public class Unit extends GameObject {
     public int health;
 
     /**
+     * The type of unit this is.
+     */
+    public UnitJob job;
+
+    /**
      * The number of moves this unit has left this turn.
      */
     public int moves;
@@ -49,11 +54,6 @@ public class Unit extends GameObject {
      * The Tile this Unit is on.
      */
     public Tile tile;
-
-    /**
-     * The type of unit this is.
-     */
-    public uJob uJob;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -83,14 +83,12 @@ public class Unit extends GameObject {
     /**
      * Unit, if it is a worker, builds a tower on the tile it is on, only workers can do this.
      *
-     * @param   tile  The tile the unit is on/builds on.
-     * @param   tJob  The type of tower that is being built. 'arrow', 'aoe', 'ballista', or 'cleansing'.
+     * @param   title  The tower type to build, as a string.
      * @return True if successfully built, false otherwise.
      */
-    public boolean build(Tile tile, tJob tJob) {
+    public boolean build(String title) {
         JSONObject args = new JSONObject();
-        args.put("tile", Client.getInstance().gameManager.serializeSafe(tile));
-        args.put("tJob", Client.getInstance().gameManager.serializeSafe(tJob));
+        args.put("title", Client.getInstance().gameManager.serializeSafe(title));
         return (boolean)this.runOnServer("build", args);
     }
 
@@ -107,7 +105,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Enters an empty mine tile and is put to work gathering resources.
+     * Enters a mine and is put to work gathering resources.
      *
      * @param   tile  The tile the mine is located on.
      * @return True if successfully entered mine and began mining, false otherwise.
