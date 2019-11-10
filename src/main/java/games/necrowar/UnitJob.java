@@ -1,5 +1,5 @@
 /**
- * A tower in the game. Used to combat enemy waves.
+ * Information about a unit's job/type.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,33 +22,48 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * A tower in the game. Used to combat enemy waves.
+ * Information about a unit's job/type.
  */
-public class Tower extends GameObject {
+public class UnitJob extends GameObject {
     /**
-     * Whether this tower has attacked this turn or not.
+     * The amount of damage this type does per attack.
      */
-    public boolean attacked;
+    public int damage;
 
     /**
-     * How much remaining health this tower has.
+     * How much does this type cost in gold.
+     */
+    public int goldCost;
+
+    /**
+     * The amount of starting health this type has.
      */
     public int health;
 
     /**
-     * What type of tower this is (it's job).
+     * How much does this type cost in mana.
      */
-    public TowerJob job;
+    public int manaCost;
 
     /**
-     * The player that built / owns this tower.
+     * The number of moves this type can make per turn.
      */
-    public Player owner;
+    public int moves;
 
     /**
-     * The Tile this Tower is on.
+     * How many of this type of unit can take up one tile.
      */
-    public Tile tile;
+    public int perTile;
+
+    /**
+     * Amount of tiles away this type has to be in order to be effective.
+     */
+    public int range;
+
+    /**
+     * The type title. 'worker', 'zombie', 'ghoul', 'hound', 'abomination', 'wraith' or 'horseman'.
+     */
+    public String title;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -57,22 +72,10 @@ public class Tower extends GameObject {
 
 
     /**
-     * Creates a new instance of a Tower. Used during game initialization, do not call directly.
+     * Creates a new instance of a UnitJob. Used during game initialization, do not call directly.
      */
-    protected Tower() {
+    protected UnitJob() {
         super();
-    }
-
-    /**
-     * Attacks an enemy unit on an tile within it's range.
-     *
-     * @param   tile  The Tile to attack.
-     * @return True if successfully attacked, false otherwise.
-     */
-    public boolean attack(Tile tile) {
-        JSONObject args = new JSONObject();
-        args.put("tile", Client.getInstance().gameManager.serializeSafe(tile));
-        return (boolean)this.runOnServer("attack", args);
     }
 
 

@@ -26,6 +26,16 @@ import joueur.BaseGameObject;
  */
 public class Game extends BaseGame {
     /**
+     * A list of every tower type / job.
+     */
+    public List<TowerJob> TowerJobs;
+
+    /**
+     * A list of every unit type / job.
+     */
+    public List<UnitJob> UnitJobs;
+
+    /**
      * The player whose turn it is currently. That player can send commands. Other players cannot.
      */
     public Player currentPlayer;
@@ -81,11 +91,6 @@ public class Game extends BaseGame {
     public String session;
 
     /**
-     * A list of every tower type / job.
-     */
-    public List<tJob> tJobs;
-
-    /**
      * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
      */
     public List<Tile> tiles;
@@ -99,11 +104,6 @@ public class Game extends BaseGame {
      * Every Tower in the game.
      */
     public List<Tower> towers;
-
-    /**
-     * A list of every unit type / job.
-     */
-    public List<uJob> uJobs;
 
     /**
      * Every Unit in the game.
@@ -123,11 +123,11 @@ public class Game extends BaseGame {
         super();
         this.name = "Necrowar";
 
+        this.TowerJobs = new ArrayList<TowerJob>();
+        this.UnitJobs = new ArrayList<UnitJob>();
         this.players = new ArrayList<Player>();
-        this.tJobs = new ArrayList<tJob>();
         this.tiles = new ArrayList<Tile>();
         this.towers = new ArrayList<Tower>();
-        this.uJobs = new ArrayList<uJob>();
         this.units = new ArrayList<Unit>();
     }
 

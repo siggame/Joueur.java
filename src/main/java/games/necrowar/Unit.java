@@ -36,6 +36,11 @@ public class Unit extends GameObject {
     public int health;
 
     /**
+     * The type of unit this is.
+     */
+    public UnitJob job;
+
+    /**
      * The number of moves this unit has left this turn.
      */
     public int moves;
@@ -49,11 +54,6 @@ public class Unit extends GameObject {
      * The Tile this Unit is on.
      */
     public Tile tile;
-
-    /**
-     * The type of unit this is.
-     */
-    public uJob uJob;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
