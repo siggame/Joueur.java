@@ -188,31 +188,51 @@ public class AI extends BaseAI {
                 }
                 else if (unit.UnitJob.title.equals('ghoul'))
                 {
-                    // Finds enemy interns, stuns, && attacks them if there is no blueium to take to the generator.
+                    // Finds enemy towers
                     Tile target = null;
 
                     for (Tile tile : game.tiles)
                     {
-                        if (tile.isTower && enemy.side.contains(tile) && tile.unit == null)
+                        if (tile.isTower && enemy.side.contains(tile) && tile.unit != null)
+                        {
                             target = tile;
-                    }
-
-                  
+                            // Moves towards our target until at the target or out of moves.
+                            while (unit.moves > 0 && findPath(unit.tile, target).size() > 1)
+                            {
+                                if (!unit.move(findPath(unit.tile, target).get(0)))
+                                {
+                                    if (!unit.acted)
+                                    {
+                                       unit.attack(target);
+                                       unit.acted = True;
+                                    }       
+                                    break;
+                                }
+                            }
+                        }
                     }
                     else if (target != null)
                     {
-                        // Moves towards our target until at the target or out of moves.
-                        while (unit.moves > 0 && findPath(unit.tile, target).size() > 1)
+                        Tile target = null;
+                        for (Tile tile : game.tiles)
                         {
-                            if (!unit.move(findPath(unit.tile, target).get(0)))
+                            if (tile.isCastle && enemy.side.contains(tile) && tile.unit != null)
                             {
-                                break;
+                                target = tile;
+                                // Moves towards our target until at the target or out of moves.
+                                while (unit.moves > 0 && findPath(unit.tile, target).size() > 1)
+                                {
+                                    if (!unit.move(findPath(unit.tile, target).get(0)))
+                                    {
+                                        if (!unit.acted)
+                                        {
+                                            unit.attack(target);
+                                            unit.acted = True;
+                                        }       
+                                        break;
+                                    }
+                                }
                             }
-                        }
-                        if (!unit.acted)
-                        {
-                            unit.attack(target);
-                            unit.acted = True;
                         }
                     }
                 }
