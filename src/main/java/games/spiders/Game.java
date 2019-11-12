@@ -56,6 +56,11 @@ public class Game extends BaseGame {
     public int maxTurns;
 
     /**
+     * The maximum strength a web can be strengthened to.
+     */
+    public int maxWebStrength;
+
+    /**
      * The speed at which Spiderlings move on Webs.
      */
     public int movementSpeed;
@@ -79,6 +84,11 @@ public class Game extends BaseGame {
      * The speed at which Spitters work to spit new Webs.
      */
     public int spitSpeed;
+
+    /**
+     * The amount of time (in nano-seconds) added after each player performs a turn.
+     */
+    public int timeAddedPerTurn;
 
     /**
      * How much web strength is added or removed from Webs when they are weaved.

@@ -28,7 +28,7 @@ public class BroodMother extends Spider {
     /**
      * How many eggs the BroodMother has to spawn Spiderlings this turn.
      */
-    public double eggs;
+    public int eggs;
 
     /**
      * How much health this BroodMother has left. When it reaches 0, she dies and her owner loses.

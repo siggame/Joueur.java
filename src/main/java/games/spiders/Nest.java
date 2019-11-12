@@ -26,6 +26,11 @@ import joueur.BaseGameObject;
  */
 public class Nest extends GameObject {
     /**
+     * The Player that 'controls' this Nest as they have the most Spiders on this nest.
+     */
+    public Player controllingPlayer;
+
+    /**
      * All the Spiders currently located on this Nest.
      */
     public List<Spider> spiders;

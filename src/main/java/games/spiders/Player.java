@@ -51,6 +51,11 @@ public class Player extends GameObject {
     public String name;
 
     /**
+     * The number of nests this player controls.
+     */
+    public int numberOfNestsControlled;
+
+    /**
      * This player's opponent in the game.
      */
     public Player opponent;

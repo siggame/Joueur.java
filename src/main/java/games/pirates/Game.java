@@ -151,6 +151,11 @@ public class Game extends BaseGame {
     public List<Tile> tiles;
 
     /**
+     * The amount of time (in nano-seconds) added after each player performs a turn.
+     */
+    public int timeAddedPerTurn;
+
+    /**
      * Every Unit in the game. Merchant units have targetPort set to a port.
      */
     public List<Unit> units;

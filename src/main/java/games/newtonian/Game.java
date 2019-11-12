@@ -26,11 +26,6 @@ import joueur.BaseGameObject;
  */
 public class Game extends BaseGame {
     /**
-     * The percent of max HP regained when a unit end their turn on a tile owned by their player.
-     */
-    public double RegenerateRate;
-
-    /**
      * The player whose turn it is currently. That player can send commands. Other players cannot.
      */
     public Player currentPlayer;
@@ -94,6 +89,11 @@ public class Game extends BaseGame {
      * The amount of victory points added when a refined ore is consumed by the generator.
      */
     public int refinedValue;
+
+    /**
+     * The percent of max HP regained when a unit end their turn on a tile owned by their player.
+     */
+    public double regenerateRate;
 
     /**
      * A unique identifier for the game instance that is being played.

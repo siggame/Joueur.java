@@ -31,7 +31,7 @@ public class Game extends BaseGame {
     public String fen;
 
     /**
-     * The list of [known] moves that have occured in the game, in Standard Algebriac Notation (SAN) format. The first element is the first move, with the last being the most recent.
+     * The list of [known] moves that have occurred in the game, in Standard Algebraic Notation (SAN) format. The first element is the first move, with the last being the most recent.
      */
     public List<String> history;
 

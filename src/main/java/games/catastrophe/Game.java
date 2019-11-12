@@ -101,6 +101,11 @@ public class Game extends BaseGame {
     public int shelterMaterials;
 
     /**
+     * The amount of food Players start with.
+     */
+    public int startingFood;
+
+    /**
      * The multiplier for the amount of energy regenerated when resting while starving.
      */
     public double starvingEnergyMult;
@@ -114,6 +119,11 @@ public class Game extends BaseGame {
      * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
      */
     public List<Tile> tiles;
+
+    /**
+     * The amount of time (in nano-seconds) added after each player performs a turn.
+     */
+    public int timeAddedPerTurn;
 
     /**
      * After a food tile is harvested, the number of turns before it can be harvested again.

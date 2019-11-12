@@ -76,7 +76,7 @@ public class Tile extends GameObject {
     public Tile tileWest;
 
     /**
-     * What type of Tile this is, either 'Water' or 'Land'.
+     * What type of Tile this is, either 'water' or 'land'.
      */
     public String type;
 
