@@ -86,7 +86,7 @@ public class AI extends BaseAI {
     public boolean runTurn() {
         // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // Put your game logic here for runTurn
-        // Go through all the units that you own.
+
 
         List<Tile> spawnWorkerTiles = new ArrayList<Tile>();
         List<Tile> spawnUnitTiles = new ArrayList<Tile>();
@@ -106,17 +106,25 @@ public class AI extends BaseAI {
         int numWorkers = 0;
         int numUnits = 0;
         for (Unit unit : this.player.units)
-            if (unit.title.equals("worker"))
+            if (unit.job.title.equals("worker"))
                 numWorkers++;
             else
                 numUnits++;
 
         if (numWorkers < 5)
-            spawnWorkerTiles[0].spawnWorker();
+            spawnWorkerTiles.get(0).spawnWorker();
 
         if (numUnits < 3)
-            spawnUnitTiles[0].spawnUnit("ghoul");
+            spawnUnitTiles.get(0).spawnUnit("ghoul");
 
+        Player enemy = null;
+        if (this.player == this.game.players.get(0))
+            enemy = this.game.players.get(1);
+        else
+            enemy = this.game.players.get(0);
+
+        // Go through all the units that you own.
+        Tile target = null;
         for (Unit unit : this.player.units)
         {
             // Only tries to do something if the unit actually exists.
@@ -126,7 +134,7 @@ public class AI extends BaseAI {
                 if (unit.job.title.equals("worker"))
                 {
                     //If the unit is a worker, go to mine and collect gold
-                    Tile target = null;
+                    target = null;
 
                     // Goes through all tiles in the game and finds a mine.
                     // Should only have four workers over at the mine.
@@ -161,7 +169,7 @@ public class AI extends BaseAI {
                         // Go through all game titles and find all adjacent spots to the river
                         for (Tile tile : game.tiles)
                         {
-                            boolean foundRiverSpot = False;
+                            boolean foundRiverSpot = false;
                             for (Tile spot : riverSpots)
                             {
                                 foundRiverSpot = tile.getNeighbors().contains(spot);
@@ -202,21 +210,21 @@ public class AI extends BaseAI {
                         // Checks whether the target is a mine or tower. Acts accordingly
                         if (!unit.acted)
                         {
-                            if (target.isMine) {
-                                unit.acted = True;
-                                unit.mine(tile);
+                            if (target.isGoldMine) {
+                                unit.acted = true;
+                                unit.mine(unit.tile);
                             }
                             else if (target.isTower) {
-                                unit.acted = True;
-                                unit.build(tile);
+                                unit.acted = true;
+                                unit.build("arrow");
                             }
                         }
                     }
                 }
-                else if (unit.UnitJob.title.equals("ghoul"))
+                else if (unit.job.title.equals("ghoul"))
                 {
                     // Finds enemy towers
-                    Tile target = null;
+                    target = null;
 
                     for (Tile tile : game.tiles)
                     {
@@ -233,18 +241,18 @@ public class AI extends BaseAI {
                                 if (!unit.acted)
                                 {
                                        unit.attack(target);
-                                       unit.acted = True;
+                                       unit.acted = true;
                                 }
                             }
                         }
                         else if (target != null)
                         {
-                            Tile target = null;
-                            for (Tile tile : game.tiles)
+                            target = null;
+                            for (Tile tileTarget : game.tiles)
                             {
-                                if (tile.isCastle && enemy.side.contains(tile) && tile.unit != null)
+                                if (tileTarget.isCastle && enemy.side.contains(tileTarget) && tileTarget.unit != null)
                                 {
-                                    target = tile;
+                                    target = tileTarget;
                                     // Moves towards our target until at the target or out of moves.
                                     while (unit.moves > 0 && findPath(unit.tile, target).size() > 1)
                                     {
@@ -255,7 +263,7 @@ public class AI extends BaseAI {
                                         if (!unit.acted)
                                         {
                                                 unit.attack(target);
-                                                unit.acted = True;
+                                                unit.acted = true;
                                         }
                                     }
                                 }
@@ -266,6 +274,7 @@ public class AI extends BaseAI {
                 }
             }
         }
+        return true;
         // <<-- /Creer-Merge: runTurn -->>
     }
 
