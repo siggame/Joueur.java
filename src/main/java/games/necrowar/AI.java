@@ -148,7 +148,7 @@ public class AI extends BaseAI {
                                     // Moves unit until there are no moves left for the worker or at the tile
                                     if (!unit.move(findPath(unit.tile, tile).get(0)))
                                     {
-                                        break;
+                                        unit.move(target);
                                     }
                                 }
                                 // Fish
@@ -169,7 +169,7 @@ public class AI extends BaseAI {
                         {
                             if (!unit.move(findPath(unit.tile, target).get(0)))
                             {
-                                break;
+                                unit.move(target);
                             }
                         }
                         // Checks whether the target is a mine or tower. Acts accordingly
@@ -201,13 +201,13 @@ public class AI extends BaseAI {
                             {
                                 if (!unit.move(findPath(unit.tile, target).get(0)))
                                 {
-                                    if (!unit.acted)
-                                    {
+                                    unit.move(target);
+                                }
+                                if (!unit.acted)
+                                {
                                        unit.attack(target);
                                        unit.acted = True;
-                                    }       
-                                    break;
-                                }
+                                }       
                             }
                         }
                     }
@@ -224,12 +224,12 @@ public class AI extends BaseAI {
                                 {
                                     if (!unit.move(findPath(unit.tile, target).get(0)))
                                     {
-                                        if (!unit.acted)
-                                        {
+                                        unit.move(target);
+                                    }
+                                    if (!unit.acted)
+                                    {
                                             unit.attack(target);
                                             unit.acted = True;
-                                        }       
-                                        break;
                                     }
                                 }
                             }
