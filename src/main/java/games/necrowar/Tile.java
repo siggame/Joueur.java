@@ -96,6 +96,11 @@ public class Tile extends GameObject {
     public int numZombies;
 
     /**
+     * Which player owns this tile, only applies to grass tiles for workers, NULL otherwise.
+     */
+    public Player owner;
+
+    /**
      * The Tile to the 'East' of this one (x+1, y). Null if out of bounds of the map.
      */
     public Tile tileEast;
@@ -119,11 +124,6 @@ public class Tile extends GameObject {
      * The Tower on this Tile if present, otherwise null.
      */
     public Tower tower;
-
-    /**
-     * The type of Tile this is ('normal', 'path', 'river', or 'spawn').
-     */
-    public String type;
 
     /**
      * The Unit on this Tile if present, otherwise null.

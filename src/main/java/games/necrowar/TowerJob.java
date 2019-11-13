@@ -56,7 +56,7 @@ public class TowerJob extends GameObject {
     public int range;
 
     /**
-     * The type title. 'arrow', 'aoe', 'ballista', or 'cleansing'.
+     * The type title. 'arrow', 'aoe', 'ballista', 'cleansing', or 'castle'.
      */
     public String title;
 
