@@ -88,26 +88,52 @@ public class AI extends BaseAI {
         // Put your game logic here for runTurn
         // Go through all the units that you own.
 
-        player.spawnWorker('worker');
-        player.spawnUnit('ghoul');
-        for (Unit unit : player.units)
+        List<Tile> spawnWorkerTiles = new ArrayList<Tile>();
+        List<Tile> spawnUnitTiles = new ArrayList<Tile>();
+        for (Tile tile : this.player.side)
         {
+            if (tile.owner == this.player)
+            {
+                if (tile.isWorkerSpawn)
+                    spawnWorkerTiles.add(tile);
+                else if (tile.isUnitSpawn)
+                    spawnUnitTiles.add(tile);
+            }
+        }
 
+        int gold = this.player.gold;
+        int mana = this.player.mana;
+        int numWorkers = 0;
+        int numUnits = 0;
+        for (Unit unit : this.player.units)
+            if (unit.title.equals("worker"))
+                numWorkers++;
+            else
+                numUnits++;
+
+        if (numWorkers < 5)
+            spawnWorkerTiles[0].spawnWorker();
+
+        if (numUnits < 3)
+            spawnUnitTiles[0].spawnUnit("ghoul");
+
+        for (Unit unit : this.player.units)
+        {
             // Only tries to do something if the unit actually exists.
             // if a unit does not have a tile, then they are dead.
             if (unit != null && unit.tile != null)
             {
-                if (unit.UnitJob.title.equals("worker"))
+                if (unit.job.title.equals("worker"))
                 {
                     //If the unit is a worker, go to mine and collect gold
                     Tile target = null;
 
                     // Goes through all tiles in the game and finds a mine.
                     // Should only have four workers over at the mine.
-                    for (Tile tile : game.tiles)
+                    for (Tile tile : this.game.tiles)
                     {
                         // If that mine is on my side, is a gold mine, and have no units on it
-                        if (tile.isGoldMine && player.side.contains(tile) && tile.unit == null)
+                        if (tile.isGoldMine && this.player.side.contains(tile) && tile.unit == null)
                         {
                             // Send it to that tile
                             target = tile;
@@ -121,28 +147,29 @@ public class AI extends BaseAI {
                     }
                     // Else, try fishing
                     if (target == null)
-                    {   
+                    {
                         // All river spots
-                        List<Tile> riverSpots = new ArrayList<Title>();
+                        List<Tile> riverSpots = new ArrayList<Tile>();
                         for (Tile tile : game.tiles)
                         {
                             // Gathers all river spots
                             if (tile.isRiver && player.side.contains(tile))
                             {
-                                riverSpots.add(tile)
+                                riverSpots.add(tile);
                             }
+                        }
                         // Go through all game titles and find all adjacent spots to the river
                         for (Tile tile : game.tiles)
                         {
-                            boolean foundRiverSpot = False
+                            boolean foundRiverSpot = False;
                             for (Tile spot : riverSpots)
                             {
-                                foundRiverSpot = tile.getNeighbors().contains(spot)
+                                foundRiverSpot = tile.getNeighbors().contains(spot);
                             }
                             // Only does anything if tile is adjacent to river
-                            if (foundRiverSpot && player.side.contains(tile)
+                            if (foundRiverSpot && player.side.contains(tile))
                             {
-                                
+
                                 while (unit.moves > 0 && !findPath(unit.tile, tile).isEmpty())
                                 {
                                     // Moves unit until there are no moves left for the worker or at the tile
@@ -154,9 +181,9 @@ public class AI extends BaseAI {
                                 // Fish
                                 if (!unit.acted)
                                 {
-                                    unit.fish(tile)
+                                    unit.fish(tile);
                                 }
-                                
+
 
                                 break;
                             }
@@ -186,7 +213,7 @@ public class AI extends BaseAI {
                         }
                     }
                 }
-                else if (unit.UnitJob.title.equals('ghoul'))
+                else if (unit.UnitJob.title.equals("ghoul"))
                 {
                     // Finds enemy towers
                     Tile target = null;
@@ -207,34 +234,35 @@ public class AI extends BaseAI {
                                 {
                                        unit.attack(target);
                                        unit.acted = True;
-                                }       
+                                }
                             }
                         }
-                    }
-                    else if (target != null)
-                    {
-                        Tile target = null;
-                        for (Tile tile : game.tiles)
+                        else if (target != null)
                         {
-                            if (tile.isCastle && enemy.side.contains(tile) && tile.unit != null)
+                            Tile target = null;
+                            for (Tile tile : game.tiles)
                             {
-                                target = tile;
-                                // Moves towards our target until at the target or out of moves.
-                                while (unit.moves > 0 && findPath(unit.tile, target).size() > 1)
+                                if (tile.isCastle && enemy.side.contains(tile) && tile.unit != null)
                                 {
-                                    if (!unit.move(findPath(unit.tile, target).get(0)))
+                                    target = tile;
+                                    // Moves towards our target until at the target or out of moves.
+                                    while (unit.moves > 0 && findPath(unit.tile, target).size() > 1)
                                     {
-                                        unit.move(target);
-                                    }
-                                    if (!unit.acted)
-                                    {
-                                            unit.attack(target);
-                                            unit.acted = True;
+                                        if (!unit.move(findPath(unit.tile, target).get(0)))
+                                        {
+                                            unit.move(target);
+                                        }
+                                        if (!unit.acted)
+                                        {
+                                                unit.attack(target);
+                                                unit.acted = True;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+
                 }
             }
         }
