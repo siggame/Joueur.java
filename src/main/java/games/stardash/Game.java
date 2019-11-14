@@ -190,6 +190,11 @@ public class Game extends BaseGame {
     // you can add additional field(s) here. None of them will be tracked or updated by the server.
     // <<-- /Creer-Merge: fields -->>
 
+    /**
+     * The hash of the game version we have locally. Used to compare to the game server's game version.
+     */
+    public final static String gameVersion = "0fa378e83ac567ebdf3e9805d3f130023f936e2740acda173d238b37f2b5d541";
+
 
     /**
      * Creates a new instance of a Game. Used during game initialization, do not call directly.

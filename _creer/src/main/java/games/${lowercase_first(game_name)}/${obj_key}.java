@@ -48,6 +48,13 @@ if (obj_key == "Game" and (attr_name == "gameObjects" or attr_name == "name")) o
 % endfor
 
 ${merge("    // ", "fields", "    // you can add additional field(s) here. None of them will be tracked or updated by the server.", optional=True)}
+% if obj_key == 'Game':
+
+    /**
+     * The hash of the game version we have locally. Used to compare to the game server's game version.
+     */
+    public final static String gameVersion = "${game_version}";
+% endif
 
 
     /**
