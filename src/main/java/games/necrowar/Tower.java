@@ -31,6 +31,11 @@ public class Tower extends GameObject {
     public boolean attacked;
 
     /**
+     * How many turns are left before it can fire again.
+     */
+    public int cooldown;
+
+    /**
      * How much remaining health this tower has.
      */
     public int health;
