@@ -65,19 +65,6 @@ public class AI extends BaseAI {
         super.start();
         // replace with your own start logic
 
-        // Print our starting stats
-        System.out.println("Gold: " + this.player.gold);
-        System.out.println("Mana: " + this.player.mana);
-        System.out.print("Units: ");
-        for (Unit unit : this.player.units) {
-            System.out.print(unit.job.title);
-        }
-        System.out.println("\nTowers: ");
-        for (Tower t : this.player.towers) {
-            System.out.print(t.job.title);
-        }
-        System.out.println("\nCastle Health: " + this.player.towers.get(0).health);
-
         // Set up variables to track stuff
         this.enemyCastle = this.player.opponent.towers.get(0);
         this.myCastle = this.player.towers.get(0);
@@ -122,21 +109,6 @@ public class AI extends BaseAI {
         super.ended(won, reason);
         // replace with your own end logic
 
-        // Print our final stats
-        System.out.println("Gold: " + this.player.gold);
-        System.out.println("Mana: " + this.player.mana);
-        System.out.print("Units: ");
-        for (Unit unit : this.player.units) {
-            System.out.print(unit.job.title);
-        }
-        System.out.println("\nTowers: ");
-        for (Tower t : this.player.towers) {
-            System.out.print(t.job.title);
-        }
-        if (this.player.towers.get(0).job.title == "castle")
-            System.out.println("\nCastle Health: " + this.player.towers.get(0).health);
-        else
-            System.out.println("No castle left :(");
         // <<-- /Creer-Merge: ended -->>
     }
 
