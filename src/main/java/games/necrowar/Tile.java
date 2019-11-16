@@ -219,7 +219,11 @@ public class Tile extends GameObject {
      */
     public boolean isPathable() {
         // <<-- Creer-Merge: is_pathable_builtin -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
-        return false; // DEVELOPER ADD LOGIC HERE
+        // DEVELOPER ADD LOGIC HERE
+        if (this.isPath && this.unit == null && !this.isTower)
+            return true;
+        return false;
+
         // <<-- /Creer-Merge: is_pathable_builtin -->>
     }
 
@@ -239,5 +243,8 @@ public class Tile extends GameObject {
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional method(s) here.
+    public boolean isPathableWorker() {
+        return !(this.isRiver || this.isUnitSpawn || this.unit != null);
+    }
     // <<-- /Creer-Merge: methods -->>
 }
