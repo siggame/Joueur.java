@@ -26,11 +26,6 @@ import joueur.BaseGameObject;
  */
 public class Game extends BaseGame {
     /**
-     * The percent of max HP regained when a unit end their turn on a tile owned by their player.
-     */
-    public double RegenerateRate;
-
-    /**
      * The player whose turn it is currently. That player can send commands. Other players cannot.
      */
     public Player currentPlayer;
@@ -96,6 +91,11 @@ public class Game extends BaseGame {
     public int refinedValue;
 
     /**
+     * The percent of max HP regained when a unit end their turn on a tile owned by their player.
+     */
+    public double regenerateRate;
+
+    /**
      * A unique identifier for the game instance that is being played.
      */
     public String session;
@@ -139,6 +139,11 @@ public class Game extends BaseGame {
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional field(s) here. None of them will be tracked or updated by the server.
     // <<-- /Creer-Merge: fields -->>
+
+    /**
+     * The hash of the game version we have locally. Used to compare to the game server's game version.
+     */
+    public final static String gameVersion = "7c19f909ee5faa0ac3faf4e989032b5a37ba94aeb5d6ae7654a15a2bb1401bbe";
 
 
     /**

@@ -5,6 +5,7 @@
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Field;
 import org.json.JSONObject;
 
 import joueur.BaseAI;
@@ -76,13 +77,17 @@ class JoueurJava {
         String gameName = (String) client.waitForEvent("named");
 
         BaseGame game = null;
+        String gameVersion = "";
         try {
             Class<?> gameClass = Class.forName("games." + client.lowercaseFirst(gameName) + ".Game");
             Constructor<?> gameConstructor = gameClass.getDeclaredConstructors()[0];
             gameConstructor.setAccessible(true);
             game = (BaseGame) gameConstructor.newInstance(new Object[0]);
+
+            Field gameVersionField = gameClass.getField("gameVersion");
+            gameVersion = (String) gameVersionField.get(null);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SecurityException
-                | IllegalArgumentException | InvocationTargetException e) {
+                | IllegalArgumentException | InvocationTargetException | NoSuchFieldException e) {
             client.handleError(e, ErrorCode.GAME_NOT_FOUND,
                     "Could not create Game via reflection for game '" + gameName + "'");
         }
@@ -122,6 +127,18 @@ class JoueurJava {
         client.send("play", playData);
 
         JSONObject lobbiedData = (JSONObject) client.waitForEvent("lobbied");
+
+        String serverGameVersion = lobbiedData.getString("gameVersion");
+        if (!gameVersion.equals(serverGameVersion)) {
+            System.out.println(
+                ANSIColorCoder.FG_YELLOW.apply()
+                + "WARNING: Game versions do not match."
+                + "\n-> Your local game version is:     " + serverGameVersion.substring(0, 8)
+                + "\n-> Game Server's game version is:  " + gameVersion.substring(0, 8)
+                + "\n\nVersion mismatch means that unexpected crashes may happen due to differing game structures!"
+                + ANSIColorCoder.reset()
+            );
+        }
 
         gameName = lobbiedData.getString("gameName");
         String gameSession = lobbiedData.getString("gameSession");

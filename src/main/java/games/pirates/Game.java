@@ -151,6 +151,11 @@ public class Game extends BaseGame {
     public List<Tile> tiles;
 
     /**
+     * The amount of time (in nano-seconds) added after each player performs a turn.
+     */
+    public int timeAddedPerTurn;
+
+    /**
      * Every Unit in the game. Merchant units have targetPort set to a port.
      */
     public List<Unit> units;
@@ -159,6 +164,11 @@ public class Game extends BaseGame {
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional field(s) here. None of them will be tracked or updated by the server.
     // <<-- /Creer-Merge: fields -->>
+
+    /**
+     * The hash of the game version we have locally. Used to compare to the game server's game version.
+     */
+    public final static String gameVersion = "d51fca49d06cb7164f9dbf9c3515ab0f9b5a17113a5946bddcc75aaba125967f";
 
 
     /**

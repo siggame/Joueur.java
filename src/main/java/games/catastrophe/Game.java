@@ -101,6 +101,11 @@ public class Game extends BaseGame {
     public int shelterMaterials;
 
     /**
+     * The amount of food Players start with.
+     */
+    public int startingFood;
+
+    /**
      * The multiplier for the amount of energy regenerated when resting while starving.
      */
     public double starvingEnergyMult;
@@ -114,6 +119,11 @@ public class Game extends BaseGame {
      * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
      */
     public List<Tile> tiles;
+
+    /**
+     * The amount of time (in nano-seconds) added after each player performs a turn.
+     */
+    public int timeAddedPerTurn;
 
     /**
      * After a food tile is harvested, the number of turns before it can be harvested again.
@@ -144,6 +154,11 @@ public class Game extends BaseGame {
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional field(s) here. None of them will be tracked or updated by the server.
     // <<-- /Creer-Merge: fields -->>
+
+    /**
+     * The hash of the game version we have locally. Used to compare to the game server's game version.
+     */
+    public final static String gameVersion = "ede84ab86376b00287c09558f05e8f2a61b92109d93aad9ebd3379ff4215fb53";
 
 
     /**

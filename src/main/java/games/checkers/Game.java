@@ -75,10 +75,20 @@ public class Game extends BaseGame {
      */
     public String session;
 
+    /**
+     * The amount of time (in nano-seconds) added after each player performs a turn.
+     */
+    public int timeAddedPerTurn;
+
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional field(s) here. None of them will be tracked or updated by the server.
     // <<-- /Creer-Merge: fields -->>
+
+    /**
+     * The hash of the game version we have locally. Used to compare to the game server's game version.
+     */
+    public final static String gameVersion = "49f1e5586cc4c62b6f74081e803d8edf9f54e8315f221c62c638f963cea8ab31";
 
 
     /**

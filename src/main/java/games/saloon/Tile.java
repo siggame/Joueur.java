@@ -26,7 +26,7 @@ import joueur.BaseGameObject;
  */
 public class Tile extends GameObject {
     /**
-     * The beer Bottle currently flying over this Tile.
+     * The beer Bottle currently flying over this Tile, null otherwise.
      */
     public Bottle bottle;
 
