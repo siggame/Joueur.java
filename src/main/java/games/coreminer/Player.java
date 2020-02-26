@@ -100,16 +100,6 @@ public class Player extends GameObject {
         this.units = new ArrayList<Unit>();
     }
 
-    /**
-     * Spawns a Miner Unit on this Player's Base Tile.
-     *
-     * @return True if successfully spawned, false otherwise.
-     */
-    public boolean spawnMiner() {
-        JSONObject args = new JSONObject();
-        return (boolean)this.runOnServer("spawnMiner", args);
-    }
-
 
     // <<-- Creer-Merge: methods -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional method(s) here.

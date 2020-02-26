@@ -103,7 +103,7 @@ public class Game extends BaseGame {
     /**
      * The hash of the game version we have locally. Used to compare to the game server's game version.
      */
-    public final static String gameVersion = "ebf8479aecc1663fdbdbd350b23ed190fc0b97b892200e752100f5509cb0d1a2";
+    public final static String gameVersion = "7c106e1dbcbba7626801ee73d719a2234967d6da0919b290713def4c6954cb84";
 
 
     /**

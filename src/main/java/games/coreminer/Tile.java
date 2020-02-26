@@ -91,6 +91,11 @@ public class Tile extends GameObject {
     public Tile tileWest;
 
     /**
+     * An array of the Units on this Tile.
+     */
+    public List<Unit> units;
+
+    /**
      * The x (horizontal) position of this Tile.
      */
     public int x;
@@ -111,6 +116,17 @@ public class Tile extends GameObject {
      */
     protected Tile() {
         super();
+        this.units = new ArrayList<Unit>();
+    }
+
+    /**
+     * Spawns a Miner Unit on this Tile - Must be on the surface on their side of the map.
+     *
+     * @return True if successfully spawned, false otherwise.
+     */
+    public boolean spawnMiner() {
+        JSONObject args = new JSONObject();
+        return (boolean)this.runOnServer("spawnMiner", args);
     }
 
     /**
