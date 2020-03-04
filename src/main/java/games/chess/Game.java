@@ -29,7 +29,7 @@ public class Game extends BaseGame {
     public String fen;
 
     /**
-     * The list of [known] moves that have occured in the game, in Standard Algebriac Notation (SAN) format. The first element is the first move, with the last being the most recent.
+     * The list of [known] moves that have occurred in the game, in Universal Chess Inferface (UCI) format. The first element is the first move, with the last element being the most recent.
      */
     public List<String> history;
 
@@ -45,6 +45,11 @@ public class Game extends BaseGame {
 
 
 
+
+    /**
+     * The hash of the game version we have locally. Used to compare to the game server's game version.
+     */
+    public final static String gameVersion = "cfa5f5c1685087ce2899229c04c26e39f231e897ecc8fe036b44bc22103ef801";
 
 
     /**
