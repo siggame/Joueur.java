@@ -89,10 +89,10 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Builds a support, shield, ladder, or bomb on Unit's tile, or an adjacent Tile.
+     * Builds a support, shield, or ladder on Unit's tile, or an adjacent Tile.
      *
      * @param   tile  The Tile to build on.
-     * @param   type  The structure to build (support, ladder, shield, or bomb).
+     * @param   type  The structure to build (support, ladder, or shield).
      * @return True if successfully built, False otherwise.
      */
     public boolean build(Tile tile, String type) {
@@ -106,7 +106,7 @@ public class Unit extends GameObject {
      * Dumps materials from cargo to an adjacent tile.
      *
      * @param   tile  The tile the materials will be dumped on.
-     * @param   material  The material the Unit will drop. 'dirt' or 'ore'.
+     * @param   material  The material the Unit will drop. 'dirt', 'ore', or 'bomb'.
      * @param   amount  The number of materials to drop. Amounts <= 0 will drop all the materials.
      * @return True if successfully dumped materials, false otherwise.
      */
