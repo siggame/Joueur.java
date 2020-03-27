@@ -51,6 +51,26 @@ public class Unit extends GameObject {
     public Job job;
 
     /**
+     * The maximum amount of cargo this Unit can carry.
+     */
+    public int maxCargoCapacity;
+
+    /**
+     * The maximum health of this Unit.
+     */
+    public int maxHealth;
+
+    /**
+     * The maximum mining power of this Unit.
+     */
+    public int maxMiningPower;
+
+    /**
+     * The maximum moves this Unit can have.
+     */
+    public int maxMoves;
+
+    /**
      * The remaining mining power this Unit has this turn.
      */
     public int miningPower;

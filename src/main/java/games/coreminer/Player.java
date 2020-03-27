@@ -31,6 +31,11 @@ public class Player extends GameObject {
     public Tile baseTile;
 
     /**
+     * The bombs stored in the Player's supply.
+     */
+    public int bombs;
+
+    /**
      * What type of client this is, e.g. 'Python', 'JavaScript', or some other language. For potential data mining purposes.
      */
     public String clientType;
@@ -44,6 +49,11 @@ public class Player extends GameObject {
      * If the player lost the game or not.
      */
     public boolean lost;
+
+    /**
+     * The amount of money this Player currently has.
+     */
+    public int money;
 
     /**
      * The name of the player.
@@ -64,6 +74,16 @@ public class Player extends GameObject {
      * The reason why the player won the game.
      */
     public String reasonWon;
+
+    /**
+     * The Tiles on this Player's side of the map.
+     */
+    public List<Tile> side;
+
+    /**
+     * The Tiles this Player may spawn Units on.
+     */
+    public List<Tile> spawnTiles;
 
     /**
      * The amount of time (in ns) remaining for this AI to send commands.
@@ -97,6 +117,8 @@ public class Player extends GameObject {
     protected Player() {
         super();
         this.hopperTiles = new ArrayList<Tile>();
+        this.side = new ArrayList<Tile>();
+        this.spawnTiles = new ArrayList<Tile>();
         this.units = new ArrayList<Unit>();
     }
 

@@ -46,6 +46,11 @@ public class Game extends BaseGame {
     public List<Job> jobs;
 
     /**
+     * The amount of building material required to build a ladder.
+     */
+    public int ladderCost;
+
+    /**
      * The number of Tiles in the map along the y (vertical) axis.
      */
     public int mapHeight;
@@ -76,6 +81,16 @@ public class Game extends BaseGame {
     public String session;
 
     /**
+     * The amount of building material required to shield a Tile.
+     */
+    public int shieldCost;
+
+    /**
+     * The amount of building material required to build a support.
+     */
+    public int supportCost;
+
+    /**
      * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
      */
     public List<Tile> tiles;
@@ -103,7 +118,7 @@ public class Game extends BaseGame {
     /**
      * The hash of the game version we have locally. Used to compare to the game server's game version.
      */
-    public final static String gameVersion = "4d15edfc10c5fd1f260c1dd405d853c00f3622e802551d1375a983ee73ec6f0c";
+    public final static String gameVersion = "8d537ee0d9bd5cd575dca2f2f08f184157cd9dce66a015e5598b3ee0e70e7ef6";
 
 
     /**

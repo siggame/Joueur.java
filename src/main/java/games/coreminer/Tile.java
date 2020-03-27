@@ -41,7 +41,7 @@ public class Tile extends GameObject {
     public boolean isFalling;
 
     /**
-     * Whether or not a hopper is placed on this Tile.
+     * Whether or not a hopper is on this Tile.
      */
     public boolean isHopper;
 
@@ -61,7 +61,7 @@ public class Tile extends GameObject {
     public int ore;
 
     /**
-     * The owner of this Tile, or null if owned by no-one. Only for bases and hoppers.
+     * The owner of this Tile, or undefined if owned by no-one. Only for bases and hoppers.
      */
     public Player owner;
 

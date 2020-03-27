@@ -26,44 +26,29 @@ import joueur.BaseGameObject;
  */
 public class Job extends GameObject {
     /**
-     * The amount of cargo capacity this Unit starts with.
+     * The amount of cargo capacity this Unit starts with per level.
      */
-    public int cargoCapacity;
+    public List<int> cargoCapacity;
 
     /**
-     * The amount of starting health this Job has.
+     * The cost of spawning a Unit with this Job.
      */
-    public int health;
+    public int cost;
 
     /**
-     * The maximum amount of cargo capacity this Unit can have.
+     * The amount of starting health this Job has per level.
      */
-    public int maxCargoCapacity;
+    public List<int> health;
 
     /**
-     * The maximum amount of health this Job can have.
+     * The amount of mining power this Unit has per turn per level.
      */
-    public int maxHealth;
+    public List<int> miningPower;
 
     /**
-     * The maximum amount of mining power this Unit can have.
+     * The number of moves this Job can make per turn per level.
      */
-    public int maxMiningPower;
-
-    /**
-     * The maximum number of moves this Job can have.
-     */
-    public int maxMoves;
-
-    /**
-     * The amount of mining power this Unit has per turn.
-     */
-    public int miningPower;
-
-    /**
-     * The number of moves this Job can make per turn.
-     */
-    public int moves;
+    public List<int> moves;
 
     /**
      * The Job title. 'miner' or 'bomb'.
@@ -81,6 +66,10 @@ public class Job extends GameObject {
      */
     protected Job() {
         super();
+        this.cargoCapacity = new ArrayList<int>();
+        this.health = new ArrayList<int>();
+        this.miningPower = new ArrayList<int>();
+        this.moves = new ArrayList<int>();
     }
 
 
