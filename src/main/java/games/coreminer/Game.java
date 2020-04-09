@@ -31,6 +31,11 @@ public class Game extends BaseGame {
     public int bombCost;
 
     /**
+     * The amount of cargo space taken up by a bomb.
+     */
+    public int bombSize;
+
+    /**
      * The price of buying building materials.
      */
     public int buildingMaterialCost;
@@ -128,7 +133,7 @@ public class Game extends BaseGame {
     /**
      * The hash of the game version we have locally. Used to compare to the game server's game version.
      */
-    public final static String gameVersion = "397e64cb9b2f8d76a04e0f32823456fad3d0dd8902b39c6f4d3bc3d636ec2bfd";
+    public final static String gameVersion = "6414fff3d6e5957603f07cc0e7e14897d16437e4af5bbc05940fdc81df44c032";
 
 
     /**
