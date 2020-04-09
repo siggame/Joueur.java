@@ -36,9 +36,19 @@ public class Player extends GameObject {
     public int bombs;
 
     /**
+     * The building material stored in the Player's supply.
+     */
+    public int buildingMaterials;
+
+    /**
      * What type of client this is, e.g. 'Python', 'JavaScript', or some other language. For potential data mining purposes.
      */
     public String clientType;
+
+    /**
+     * The dirt stored in the Player's supply.
+     */
+    public int dirt;
 
     /**
      * The Tiles this Player's hoppers are on.
@@ -120,6 +130,36 @@ public class Player extends GameObject {
         this.side = new ArrayList<Tile>();
         this.spawnTiles = new ArrayList<Tile>();
         this.units = new ArrayList<Unit>();
+    }
+
+    /**
+     * Purchases a resource and adds it to the Player's supply.
+     *
+     * @param   resource  The type of resource to buy.
+     * @param   amount  The amount of resource to buy.
+     * @return True if successfully purchased, false otherwise.
+     */
+    public boolean buy(String resource, int amount) {
+        JSONObject args = new JSONObject();
+        args.put("resource", Client.getInstance().gameManager.serializeSafe(resource));
+        args.put("amount", Client.getInstance().gameManager.serializeSafe(amount));
+        return (boolean)this.runOnServer("buy", args);
+    }
+
+    /**
+     * Transfers a resource from the Player's supply to a Unit.
+     *
+     * @param   unit  The Unit to transfer materials to.
+     * @param   resource  The type of resource to transfer.
+     * @param   amount  The amount of resource to transfer.
+     * @return True if successfully transfered, false otherwise.
+     */
+    public boolean transfer(Unit unit, String resource, int amount) {
+        JSONObject args = new JSONObject();
+        args.put("unit", Client.getInstance().gameManager.serializeSafe(unit));
+        args.put("resource", Client.getInstance().gameManager.serializeSafe(resource));
+        args.put("amount", Client.getInstance().gameManager.serializeSafe(amount));
+        return (boolean)this.runOnServer("transfer", args);
     }
 
 
