@@ -26,6 +26,16 @@ import joueur.BaseGameObject;
  */
 public class Game extends BaseGame {
     /**
+     * The price of buying a bomb.
+     */
+    public int bombCost;
+
+    /**
+     * The price of buying building materials.
+     */
+    public int buildingMaterialCost;
+
+    /**
      * The player whose turn it is currently. That player can send commands. Other players cannot.
      */
     public Player currentPlayer;
@@ -118,7 +128,7 @@ public class Game extends BaseGame {
     /**
      * The hash of the game version we have locally. Used to compare to the game server's game version.
      */
-    public final static String gameVersion = "7c7df3c25ba9e82d546825d64e398fc8c07b58e868e7501736a1637ce00e0681";
+    public final static String gameVersion = "397e64cb9b2f8d76a04e0f32823456fad3d0dd8902b39c6f4d3bc3d636ec2bfd";
 
 
     /**
