@@ -121,6 +121,26 @@ public class Game extends BaseGame {
     public List<Unit> units;
 
     /**
+     * The cost to upgrade a Unit's cargo capacity.
+     */
+    public int upgradeCargoCapacityCost;
+
+    /**
+     * The cost to upgrade a Unit's health.
+     */
+    public int upgradeHealthCost;
+
+    /**
+     * The cost to upgrade a Unit's mining power.
+     */
+    public int upgradeMiningPowerCost;
+
+    /**
+     * The cost to upgrade a Unit's movement speed.
+     */
+    public int upgradeMovesCost;
+
+    /**
      * The amount of victory points required to win.
      */
     public int victoryAmount;
@@ -133,7 +153,7 @@ public class Game extends BaseGame {
     /**
      * The hash of the game version we have locally. Used to compare to the game server's game version.
      */
-    public final static String gameVersion = "6414fff3d6e5957603f07cc0e7e14897d16437e4af5bbc05940fdc81df44c032";
+    public final static String gameVersion = "46abaae0c6f41ba8536de3714cb964013777223bc6d6753f838182f9673db93e";
 
 
     /**
