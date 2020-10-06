@@ -95,6 +95,11 @@ public class Unit extends GameObject {
      */
     public Tile tile;
 
+    /**
+     * The upgrade level of this unit. Starts at 0.
+     */
+    public int upgradeLevel;
+
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional field(s) here. None of them will be tracked or updated by the server.
@@ -123,7 +128,7 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Dumps materials from cargo to an adjacent tile.
+     * Dumps materials from cargo to an adjacent tile. If the tile is a base or hopper tile, materials are sold instead of placed.
      *
      * @param   tile  The tile the materials will be dumped on.
      * @param   material  The material the Unit will drop. 'dirt', 'ore', or 'bomb'.
@@ -165,14 +170,28 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Upgrade an attribute of this Unit. "health", "miningPower", "moves", or "capacity".
+     * Transfers a resource from the one Unit to another.
      *
-     * @param   attribute  The attribute of the Unit to be upgraded.
+     * @param   unit  The Unit to transfer materials to.
+     * @param   resource  The type of resource to transfer.
+     * @param   amount  The amount of resource to transfer.
+     * @return True if successfully transfered, false otherwise.
+     */
+    public boolean transfer(Unit unit, String resource, int amount) {
+        JSONObject args = new JSONObject();
+        args.put("unit", Client.getInstance().gameManager.serializeSafe(unit));
+        args.put("resource", Client.getInstance().gameManager.serializeSafe(resource));
+        args.put("amount", Client.getInstance().gameManager.serializeSafe(amount));
+        return (boolean)this.runOnServer("transfer", args);
+    }
+
+    /**
+     * Upgrade this Unit.
+     *
      * @return True if successfully upgraded, False otherwise.
      */
-    public boolean upgrade(String attribute) {
+    public boolean upgrade() {
         JSONObject args = new JSONObject();
-        args.put("attribute", Client.getInstance().gameManager.serializeSafe(attribute));
         return (boolean)this.runOnServer("upgrade", args);
     }
 

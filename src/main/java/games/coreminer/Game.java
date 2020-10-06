@@ -1,5 +1,5 @@
 /**
- * Mine resources to obtain more wealth than your opponent.
+ * Mine resources to obtain more value than your opponent.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,13 +22,13 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * Mine resources to obtain more wealth than your opponent.
+ * Mine resources to obtain more value than your opponent.
  */
 public class Game extends BaseGame {
     /**
-     * The price of buying a bomb.
+     * The monetary price of a bomb when bought or sold.
      */
-    public int bombCost;
+    public int bombPrice;
 
     /**
      * The amount of cargo space taken up by a bomb.
@@ -36,9 +36,9 @@ public class Game extends BaseGame {
     public int bombSize;
 
     /**
-     * The price of buying building materials.
+     * The monetary price of building materials when bought.
      */
-    public int buildingMaterialCost;
+    public int buildingMaterialPrice;
 
     /**
      * The player whose turn it is currently. That player can send commands. Other players cannot.
@@ -51,9 +51,9 @@ public class Game extends BaseGame {
     public int currentTurn;
 
     /**
-     * The amount of turns it takes to gain a free Bomb.
+     * The monetary price of dirt when bought or sold.
      */
-    public int freeBombInterval;
+    public int dirtPrice;
 
     /**
      * A list of all jobs.
@@ -81,7 +81,12 @@ public class Game extends BaseGame {
     public int maxTurns;
 
     /**
-     * The amount of victory points awarded when ore is deposited in the base.
+     * The amount of money awarded when ore is dumped in the base and sold.
+     */
+    public int orePrice;
+
+    /**
+     * The amount of victory points awarded when ore is dumped in the base and sold.
      */
     public int oreValue;
 
@@ -99,6 +104,11 @@ public class Game extends BaseGame {
      * The amount of building material required to shield a Tile.
      */
     public int shieldCost;
+
+    /**
+     * The monetary price of spawning a Miner.
+     */
+    public int spawnPrice;
 
     /**
      * The amount of building material required to build a support.
@@ -121,24 +131,9 @@ public class Game extends BaseGame {
     public List<Unit> units;
 
     /**
-     * The cost to upgrade a Unit's cargo capacity.
+     * The cost to upgrade a Unit at each level.
      */
-    public int upgradeCargoCapacityCost;
-
-    /**
-     * The cost to upgrade a Unit's health.
-     */
-    public int upgradeHealthCost;
-
-    /**
-     * The cost to upgrade a Unit's mining power.
-     */
-    public int upgradeMiningPowerCost;
-
-    /**
-     * The cost to upgrade a Unit's movement speed.
-     */
-    public int upgradeMovesCost;
+    public List<int> upgradePrice;
 
     /**
      * The amount of victory points required to win.
@@ -153,7 +148,7 @@ public class Game extends BaseGame {
     /**
      * The hash of the game version we have locally. Used to compare to the game server's game version.
      */
-    public final static String gameVersion = "46abaae0c6f41ba8536de3714cb964013777223bc6d6753f838182f9673db93e";
+    public final static String gameVersion = "230d41da5f9e95a58b66fbaa7d6d61f4853e459517e93b553d829607b0286082";
 
 
     /**
@@ -167,6 +162,7 @@ public class Game extends BaseGame {
         this.players = new ArrayList<Player>();
         this.tiles = new ArrayList<Tile>();
         this.units = new ArrayList<Unit>();
+        this.upgradePrice = new ArrayList<int>();
     }
 
     /**
