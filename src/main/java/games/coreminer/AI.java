@@ -32,6 +32,10 @@ public class AI extends BaseAI {
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
     // you can add additional fields here for your AI to use
+    public List<Tile> mineTiles = new ArrayList<Tile>();
+    public List<Tile> supportTiles = new ArrayList<Tile>();
+    public Tile lastMined = null;
+    public Tile tunnelX = null;
     // <<-- /Creer-Merge: fields -->>
 
 
@@ -51,7 +55,23 @@ public class AI extends BaseAI {
      */
     public void start() {
         // <<-- Creer-Merge: start -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
+
         super.start();
+        this.tunnelX = this.player.side[this.game.map_height + 1].x;
+
+        //create hard coded tunnels
+        for (Tile tile : this.player.side) {
+            //get tiles next to base on players side of the map
+            if (tile.x == this.tunnelX)
+                this.mineTiles.add(tile);
+            else if ((tile.y != 0) && (tile.y % 3 == 0))
+                this.mineTiles.add(tile);
+                if (tile.x % 2 == 0)
+                    this.supportTiles.add(tile);
+        }
+        //sort by y value 
+        Comparator<Tile> compareByY = (Tile o1, Tile o2) -> o1.y.compareTo(o2.y);
+        Collections.sort(mineTiles, compareByY);
         // <<-- /Creer-Merge: start -->>
     }
 
@@ -86,6 +106,106 @@ public class AI extends BaseAI {
     public boolean runTurn() {
         // <<-- Creer-Merge: runTurn -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
         // Put your game logic here for runTurn
+        // if player has no units, spawn miner at base 
+        if (this.player.units.size() == 0)
+            this.player.base_tile.spawn_miner();
+
+        //control each miner
+        for (Unit miner : this.player.units)
+        {
+            //only control miners
+            if (miner.job.title == "miner")
+            {
+                //if miner is stuck in a cave-in, mine itself out 
+                if (miner.tile.dirt + miner.tile.ore > 0)
+                    miner.mine(miner.tile, -1);
+                //if lacking building materials, go to base 
+                if (miner.tile.is_base == false && ((miner.dirt + miner,ore >= 0.5 * miner.max_cargo_capacity) || miner.building_materials <= 0))
+                {
+                    //move to single ladder tunnel 
+                    for (Tile tile : this.find_path(miner.tile, this.game.tiles[this.tunnelX + (miner.tile.y * this.game.map_width)]))
+                    {
+                        if (miner.moves == 0)
+                            break;
+                        miner.move(tile);
+                    }
+                    for (Tile tile : this.find_path(miner.tile, this.player.base_tile)
+                    {
+                        //if you need a ladder, build one
+                        if (miner.tile.tile_north == tile && miner.tile.is_ladder == false)
+                        {
+                            //only build ladder in single column upward
+                            if (miner.tile.x == self.tunnelX)
+                                miner.build(miner.tile, "ladder");
+                        }
+                        if (miner.moves == 0)
+                            break;
+                        miner.move(tile);
+                    }
+                }
+                //if miner is at base, drop off/buy materials if needed
+                if (miner.tile == this.player.base_tile)
+                {
+                    if (miner.dirt > 0)
+                        miner.dump(miner.tile, "dirt", 0);
+                    if (miner.ore > 0)
+                        miner.dump(miner.tile, "ore", 0);
+
+                    //if you need building materials for ladders
+                    if (miner.building_materials < self.game.ladder_cost * 3)
+                        //if you have enough money to buy three ladders worth of material
+                        if (this.player.money >= this.game.building_material_cost * this.game.ladder_cost * 3)
+                        {
+                            this.player.buy("buildingMaterials", this.game.ladder_cost * 3);
+                            this.player.transfer(miner, "buildingMaterials", this.game.ladder_cost * 3)
+                        }
+                    //if you need building materials for supports
+                    if (miner.building_materials < self.game.support_cost * 3)
+                        //if you have enough money to buy three supports worth of material
+                        if (this.player.money >= this.game.building_material_cost * this.game.support_cost * 3)
+                        {
+                            this.player.buy("buildingMaterials", this.game.support_cost * 3);
+                            this.player.transfer(miner, "buildingMaterials", this.game.support_cost * 3)
+                        }
+                }
+
+                //mine tunnels
+                List<Tile> path = new ArrayList<Tile>();
+                //if no path, find another 
+                for (Tile tile : this.mineTiles)
+                {
+                    if (tile.ore + tile.dirt > 0)
+                        path = this.find_path(miner.tile, tile);
+                    if (path.size() > 0)
+                        break;
+                }
+                for (Tile tile : path)
+                {
+                    if (miner.moves == 0)
+                        break;
+                    //mine anything in the way, build ladders down 
+                    if (tile.ore + tile.dirt > 0)
+                    {
+                        boolean buildLadder = false;
+                        if (tile == miner.tile.tile_south)
+                            buildLadder = true;
+                        miner.mine(tile, -1);
+                        if (buildLadder)
+                            miner.build(tile, "ladder");
+                    }
+                    //if space is open, move 
+                    if (tile.ore + tile.dirt <= 0)
+                    {
+                        miner.move(tile);
+                        //if tile is in supportTiles, build a suppot on it 
+                        if (this.supportTiles.contains(tile) && tile.is_support == false)
+                            //only build if you have enough materal for 2 more ladders 
+                            if (miner.building_materials >= ((this.game.ladder_cost * 2) + this.game.support_cost))
+                                miner.build(tile, "support");
+                    }
+                }
+            }      
+        }
         return true;
         // <<-- /Creer-Merge: runTurn -->>
     }
