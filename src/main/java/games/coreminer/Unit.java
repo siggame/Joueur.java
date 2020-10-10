@@ -128,6 +128,20 @@ public class Unit extends GameObject {
     }
 
     /**
+     * Purchase a resource from the player's base or hopper.
+     *
+     * @param   resource  The type of resource to buy.
+     * @param   amount  The amount of resource to buy.
+     * @return True if successfully purchased, false otherwise.
+     */
+    public boolean buy(String resource, int amount) {
+        JSONObject args = new JSONObject();
+        args.put("resource", Client.getInstance().gameManager.serializeSafe(resource));
+        args.put("amount", Client.getInstance().gameManager.serializeSafe(amount));
+        return (boolean)this.runOnServer("buy", args);
+    }
+
+    /**
      * Dumps materials from cargo to an adjacent tile. If the tile is a base or hopper tile, materials are sold instead of placed.
      *
      * @param   tile  The tile the materials will be dumped on.

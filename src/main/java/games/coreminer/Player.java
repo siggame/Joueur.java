@@ -76,11 +76,6 @@ public class Player extends GameObject {
     public List<Tile> side;
 
     /**
-     * The Tiles this Player may spawn Units on.
-     */
-    public List<Tile> spawnTiles;
-
-    /**
      * The amount of time (in ns) remaining for this AI to send commands.
      */
     public double timeRemaining;
@@ -113,7 +108,6 @@ public class Player extends GameObject {
         super();
         this.hopperTiles = new ArrayList<Tile>();
         this.side = new ArrayList<Tile>();
-        this.spawnTiles = new ArrayList<Tile>();
         this.units = new ArrayList<Unit>();
     }
 
