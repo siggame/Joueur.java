@@ -31,11 +31,6 @@ public class Job extends GameObject {
     public List<int> cargoCapacity;
 
     /**
-     * The cost of spawning a Unit with this Job.
-     */
-    public int cost;
-
-    /**
      * The amount of starting health this Job has per level.
      */
     public List<int> health;

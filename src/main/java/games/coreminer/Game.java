@@ -131,9 +131,9 @@ public class Game extends BaseGame {
     public List<Unit> units;
 
     /**
-     * The cost to upgrade a Unit at each level.
+     * The cost to upgrade a Unit.
      */
-    public List<int> upgradePrice;
+    public int upgradePrice;
 
     /**
      * The amount of victory points required to win.
@@ -148,7 +148,7 @@ public class Game extends BaseGame {
     /**
      * The hash of the game version we have locally. Used to compare to the game server's game version.
      */
-    public final static String gameVersion = "230d41da5f9e95a58b66fbaa7d6d61f4853e459517e93b553d829607b0286082";
+    public final static String gameVersion = "cf0da2dd981969e39b8de1dd6332be0ea8f725b9b62baa0cb102a1d12a7179bf";
 
 
     /**
@@ -162,7 +162,6 @@ public class Game extends BaseGame {
         this.players = new ArrayList<Player>();
         this.tiles = new ArrayList<Tile>();
         this.units = new ArrayList<Unit>();
-        this.upgradePrice = new ArrayList<int>();
     }
 
     /**
