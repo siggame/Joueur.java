@@ -48,7 +48,7 @@ public class WeatherStation extends Building {
     }
 
     /**
-     * Bribe the weathermen to intensity the next Forecast by 1 or -1
+     * Bribe the weathermen to intensity the next Forecast by 1 or -1.
      *
      * @param   negative  By default the intensity will be increased by 1, setting this to true decreases the intensity by 1.
      * @return True if the intensity was changed, false otherwise.

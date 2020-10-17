@@ -1,5 +1,5 @@
 /**
- * Collect of the most of the rarest mineral orbiting aroung the sun and outcompete your competetor.
+ * Collect of the most of the rarest mineral orbiting around the sun and out-compete your competitor.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,7 +22,7 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * Collect of the most of the rarest mineral orbiting aroung the sun and outcompete your competetor.
+ * Collect of the most of the rarest mineral orbiting around the sun and out-compete your competitor.
  */
 public class Game extends BaseGame {
     /**
@@ -56,7 +56,7 @@ public class Game extends BaseGame {
     public double genariumValue;
 
     /**
-     * A list of all jobs. first item is corvette, second is missileboat, third is martyr, fourth is transport, and fifth is miner.
+     * A list of all jobs. The first element is corvette, second is missileboat, third is martyr, fourth is transport, and fifth is miner.
      */
     public List<Job> jobs;
 

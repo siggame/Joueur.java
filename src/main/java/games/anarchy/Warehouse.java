@@ -1,5 +1,5 @@
 /**
- * A typical abandoned warehouse... that anarchists hang out in and can be bribed to burn down Buildings.
+ * A typical abandoned warehouse that anarchists hang out in and can be bribed to burn down Buildings.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,7 +22,7 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * A typical abandoned warehouse... that anarchists hang out in and can be bribed to burn down Buildings.
+ * A typical abandoned warehouse that anarchists hang out in and can be bribed to burn down Buildings.
  */
 public class Warehouse extends Building {
     /**
@@ -49,7 +49,7 @@ public class Warehouse extends Building {
     }
 
     /**
-     * Bribes the Warehouse to light a Building on fire. This adds this building's fireAdded to their fire, and then this building's exposure is increased based on the Manhatten distance between the two buildings.
+     * Bribes the Warehouse to light a Building on fire. This adds this building's fireAdded to their fire, and then this building's exposure is increased based on the Manhattan distance between the two buildings.
      *
      * @param   building  The Building you want to light on fire.
      * @return The exposure added to this Building's exposure. -1 is returned if there was an error.

@@ -64,7 +64,7 @@ public class BroodMother extends Spider {
      * Spawns a new Spiderling on the same Nest as this BroodMother, consuming an egg.
      *
      * @param   spiderlingType  The string name of the Spiderling class you want to Spawn. Must be 'Spitter', 'Weaver', or 'Cutter'.
-     * @return The newly spwaned Spiderling if successful. Null otherwise.
+     * @return The newly spawned Spiderling if successful. Null otherwise.
      */
     public Spiderling spawn(String spiderlingType) {
         JSONObject args = new JSONObject();
