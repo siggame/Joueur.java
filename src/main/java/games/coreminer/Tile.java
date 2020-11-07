@@ -26,17 +26,22 @@ import joueur.BaseGameObject;
  */
 public class Tile extends GameObject {
     /**
+     * An array of Bombs on this Tile.
+     */
+    public List<Bomb> bombs;
+
+    /**
      * The amount of dirt on this Tile.
      */
     public int dirt;
 
     /**
-     * Whether or not the tile is a base Tile.
+     * Whether or not the Tile is a base Tile.
      */
     public boolean isBase;
 
     /**
-     * Whether or not this tile is about to fall.
+     * Whether or not this Tile is about to fall after this turn.
      */
     public boolean isFalling;
 
@@ -54,6 +59,11 @@ public class Tile extends GameObject {
      * Whether or not a support is built on this Tile.
      */
     public boolean isSupport;
+
+    /**
+     * An array of the Miners on this Tile.
+     */
+    public List<Miner> miners;
 
     /**
      * The amount of ore on this Tile.
@@ -91,11 +101,6 @@ public class Tile extends GameObject {
     public Tile tileWest;
 
     /**
-     * An array of the Units on this Tile.
-     */
-    public List<Unit> units;
-
-    /**
      * The x (horizontal) position of this Tile.
      */
     public int x;
@@ -116,7 +121,8 @@ public class Tile extends GameObject {
      */
     protected Tile() {
         super();
-        this.units = new ArrayList<Unit>();
+        this.bombs = new ArrayList<Bomb>();
+        this.miners = new ArrayList<Miner>();
     }
 
     /**

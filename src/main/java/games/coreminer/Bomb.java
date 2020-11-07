@@ -1,5 +1,5 @@
 /**
- * Information about a Unit's job.
+ * A Bomb in the game.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,33 +22,18 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * Information about a Unit's job.
+ * A Bomb in the game.
  */
-public class Job extends GameObject {
+public class Bomb extends GameObject {
     /**
-     * The amount of cargo capacity this Unit starts with per level.
+     * The Tile this Bomb is on.
      */
-    public List<int> cargoCapacity;
+    public Tile tile;
 
     /**
-     * The amount of starting health this Job has per level.
+     * The number of turns before this Bomb explodes. One means it will explode after the current turn.
      */
-    public List<int> health;
-
-    /**
-     * The amount of mining power this Unit has per turn per level.
-     */
-    public List<int> miningPower;
-
-    /**
-     * The number of moves this Job can make per turn per level.
-     */
-    public List<int> moves;
-
-    /**
-     * The Job title. 'miner' or 'bomb'.
-     */
-    public String title;
+    public int timer;
 
 
     // <<-- Creer-Merge: fields -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
@@ -57,14 +42,10 @@ public class Job extends GameObject {
 
 
     /**
-     * Creates a new instance of a Job. Used during game initialization, do not call directly.
+     * Creates a new instance of a Bomb. Used during game initialization, do not call directly.
      */
-    protected Job() {
+    protected Bomb() {
         super();
-        this.cargoCapacity = new ArrayList<int>();
-        this.health = new ArrayList<int>();
-        this.miningPower = new ArrayList<int>();
-        this.moves = new ArrayList<int>();
     }
 
 
