@@ -31,6 +31,11 @@ public class Player extends GameObject {
     public Tile baseTile;
 
     /**
+     * Every Bomb owned by this Player.
+     */
+    public List<Bomb> bombs;
+
+    /**
      * What type of client this is, e.g. 'Python', 'JavaScript', or some other language. For potential data mining purposes.
      */
     public String clientType;
@@ -44,6 +49,11 @@ public class Player extends GameObject {
      * If the player lost the game or not.
      */
     public boolean lost;
+
+    /**
+     * Every Miner owned by this Player.
+     */
+    public List<Miner> miners;
 
     /**
      * The amount of money this Player currently has.
@@ -71,24 +81,9 @@ public class Player extends GameObject {
     public String reasonWon;
 
     /**
-     * The Tiles on this Player's side of the map.
-     */
-    public List<Tile> side;
-
-    /**
-     * The Tiles this Player may spawn Units on.
-     */
-    public List<Tile> spawnTiles;
-
-    /**
      * The amount of time (in ns) remaining for this AI to send commands.
      */
     public double timeRemaining;
-
-    /**
-     * Every Unit owned by this Player.
-     */
-    public List<Unit> units;
 
     /**
      * The amount of value (victory points) this Player has gained.
@@ -111,14 +106,13 @@ public class Player extends GameObject {
      */
     protected Player() {
         super();
+        this.bombs = new ArrayList<Bomb>();
         this.hopperTiles = new ArrayList<Tile>();
-        this.side = new ArrayList<Tile>();
-        this.spawnTiles = new ArrayList<Tile>();
-        this.units = new ArrayList<Unit>();
+        this.miners = new ArrayList<Miner>();
     }
 
     /**
-     * Spawns a Miner Unit on this Player's base tile.
+     * Spawns a Miner on this Player's base Tile.
      *
      * @return True if successfully spawned, false otherwise.
      */
