@@ -1,5 +1,5 @@
 /**
- * A unit in the game.
+ * A Miner in the game.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,81 +22,61 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * A unit in the game.
+ * A Miner in the game.
  */
-public class Unit extends GameObject {
+public class Miner extends GameObject {
     /**
-     * The number of bombs being carried by this Unit. (0 to job cargo capacity - other carried materials).
+     * The number of bombs being carried by this Miner.
      */
     public int bombs;
 
     /**
-     * The number of building materials carried by this Unit. (0 to job cargo capacity - other carried materials).
+     * The number of building materials carried by this Miner.
      */
     public int buildingMaterials;
 
     /**
-     * The amount of dirt carried by this Unit. (0 to job cargo capacity - other carried materials).
+     * The Upgrade this Miner is on.
+     */
+    public Upgrade currentUpgrade;
+
+    /**
+     * The amount of dirt carried by this Miner.
      */
     public int dirt;
 
     /**
-     * The remaining health of a Unit.
+     * The remaining health of this Miner.
      */
     public int health;
 
     /**
-     * The Job this Unit has.
-     */
-    public Job job;
-
-    /**
-     * The maximum amount of cargo this Unit can carry.
-     */
-    public int maxCargoCapacity;
-
-    /**
-     * The maximum health of this Unit.
-     */
-    public int maxHealth;
-
-    /**
-     * The maximum mining power of this Unit.
-     */
-    public int maxMiningPower;
-
-    /**
-     * The maximum moves this Unit can have.
-     */
-    public int maxMoves;
-
-    /**
-     * The remaining mining power this Unit has this turn.
+     * The remaining mining power this Miner has this turn.
      */
     public int miningPower;
 
     /**
-     * The number of moves this Unit has left this turn.
+     * The number of moves this Miner has left this turn.
      */
     public int moves;
 
     /**
-     * The amount of ore carried by this Unit. (0 to job capacity - other carried materials).
+     * The amount of ore carried by this Miner.
      */
     public int ore;
 
     /**
-     * The Player that owns and can control this Unit.
+     * The Player that owns and can control this Miner.
      */
     public Player owner;
 
     /**
-     * The Tile this Unit is on.
+     * The Tile this Miner is on.
      */
     public Tile tile;
 
     /**
-     * The upgrade level of this unit. Starts at 0.
+     * The upgrade level of this Miner. Starts at 0.
      */
     public int upgradeLevel;
 
@@ -107,14 +87,14 @@ public class Unit extends GameObject {
 
 
     /**
-     * Creates a new instance of a Unit. Used during game initialization, do not call directly.
+     * Creates a new instance of a Miner. Used during game initialization, do not call directly.
      */
-    protected Unit() {
+    protected Miner() {
         super();
     }
 
     /**
-     * Builds a support, shield, or ladder on Unit's tile, or an adjacent Tile.
+     * Builds a support, shield, or ladder on Miner's Tile, or an adjacent Tile.
      *
      * @param   tile  The Tile to build on.
      * @param   type  The structure to build (support, ladder, or shield).
@@ -128,10 +108,10 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Purchase a resource from the player's base or hopper.
+     * Purchase a resource from the Player's base or hopper.
      *
      * @param   resource  The type of resource to buy.
-     * @param   amount  The amount of resource to buy.
+     * @param   amount  The amount of resource to buy. Amounts <= 0 will buy all of that material Player can.
      * @return True if successfully purchased, false otherwise.
      */
     public boolean buy(String resource, int amount) {
@@ -142,11 +122,11 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Dumps materials from cargo to an adjacent tile. If the tile is a base or hopper tile, materials are sold instead of placed.
+     * Dumps materials from cargo to an adjacent Tile. If the Tile is a base or a hopper Tile, materials are sold instead of placed.
      *
-     * @param   tile  The tile the materials will be dumped on.
-     * @param   material  The material the Unit will drop. 'dirt', 'ore', or 'bomb'.
-     * @param   amount  The number of materials to drop. Amounts <= 0 will drop all the materials.
+     * @param   tile  The Tile the materials will be dumped on.
+     * @param   material  The material the Miner will drop. 'dirt', 'ore', or 'bomb'.
+     * @param   amount  The number of materials to drop. Amounts <= 0 will drop all of the material.
      * @return True if successfully dumped materials, false otherwise.
      */
     public boolean dump(Tile tile, String material, int amount) {
@@ -158,10 +138,10 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Mines the Tile the Unit is on or an adjacent tile.
+     * Mines the Tile the Miner is on or an adjacent Tile.
      *
      * @param   tile  The Tile the materials will be mined from.
-     * @param   amount  The amount of material to mine up. Amounts <= 0 will mine all the materials that the Unit can.
+     * @param   amount  The amount of material to mine up. Amounts <= 0 will mine all the materials that the Miner can.
      * @return True if successfully mined, false otherwise.
      */
     public boolean mine(Tile tile, int amount) {
@@ -172,9 +152,9 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Moves this Unit from its current Tile to an adjacent Tile.
+     * Moves this Miner from its current Tile to an adjacent Tile.
      *
-     * @param   tile  The Tile this Unit should move to.
+     * @param   tile  The Tile this Miner should move to.
      * @return True if it moved, false otherwise.
      */
     public boolean move(Tile tile) {
@@ -184,23 +164,23 @@ public class Unit extends GameObject {
     }
 
     /**
-     * Transfers a resource from the one Unit to another.
+     * Transfers a resource from the one Miner to another.
      *
-     * @param   unit  The Unit to transfer materials to.
+     * @param   miner  The Miner to transfer materials to.
      * @param   resource  The type of resource to transfer.
-     * @param   amount  The amount of resource to transfer.
-     * @return True if successfully transfered, false otherwise.
+     * @param   amount  The amount of resource to transfer. Amounts <= 0 will transfer all the of the material.
+     * @return True if successfully transferred, false otherwise.
      */
-    public boolean transfer(Unit unit, String resource, int amount) {
+    public boolean transfer(Miner miner, String resource, int amount) {
         JSONObject args = new JSONObject();
-        args.put("unit", Client.getInstance().gameManager.serializeSafe(unit));
+        args.put("miner", Client.getInstance().gameManager.serializeSafe(miner));
         args.put("resource", Client.getInstance().gameManager.serializeSafe(resource));
         args.put("amount", Client.getInstance().gameManager.serializeSafe(amount));
         return (boolean)this.runOnServer("transfer", args);
     }
 
     /**
-     * Upgrade this Unit.
+     * Upgrade this Miner by installing an upgrade module.
      *
      * @return True if successfully upgraded, False otherwise.
      */

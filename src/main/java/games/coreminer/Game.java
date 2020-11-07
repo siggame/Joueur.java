@@ -31,9 +31,14 @@ public class Game extends BaseGame {
     public int bombPrice;
 
     /**
-     * The amount of cargo space taken up by a bomb.
+     * The amount of cargo space taken up by a Bomb.
      */
     public int bombSize;
+
+    /**
+     * Every Bomb in the game.
+     */
+    public List<Bomb> bombs;
 
     /**
      * The monetary price of building materials when bought.
@@ -56,14 +61,34 @@ public class Game extends BaseGame {
     public int dirtPrice;
 
     /**
-     * A list of all jobs.
+     * The amount of damage taken per Tile fallen.
      */
-    public List<Job> jobs;
+    public int fallDamage;
+
+    /**
+     * The amount of extra damage taken for falling while carrying a large amount of cargo.
+     */
+    public int fallWeightDamage;
 
     /**
      * The amount of building material required to build a ladder.
      */
     public int ladderCost;
+
+    /**
+     * The amount of mining power needed to remove a ladder from a Tile.
+     */
+    public int ladderHealth;
+
+    /**
+     * The amount deemed as a large amount of cargo.
+     */
+    public int largeCargoSize;
+
+    /**
+     * The amount deemed as a large amount of material.
+     */
+    public int largeMaterialSize;
 
     /**
      * The number of Tiles in the map along the y (vertical) axis.
@@ -76,9 +101,24 @@ public class Game extends BaseGame {
     public int mapWidth;
 
     /**
+     * The maximum amount of shielding possible on a Tile.
+     */
+    public int maxShielding;
+
+    /**
      * The maximum number of turns before the game will automatically end.
      */
     public int maxTurns;
+
+    /**
+     * The highest upgrade level allowed on a Miner.
+     */
+    public int maxUpgradeLevel;
+
+    /**
+     * Every Miner in the game.
+     */
+    public List<Miner> miners;
 
     /**
      * The amount of money awarded when ore is dumped in the base and sold.
@@ -86,7 +126,7 @@ public class Game extends BaseGame {
     public int orePrice;
 
     /**
-     * The amount of victory points awarded when ore is dumped in the base and sold.
+     * The amount of value awarded when ore is dumped in the base and sold.
      */
     public int oreValue;
 
@@ -106,14 +146,34 @@ public class Game extends BaseGame {
     public int shieldCost;
 
     /**
+     * The amount of mining power needed to remove one unit of shielding off a Tile.
+     */
+    public int shieldHealth;
+
+    /**
      * The monetary price of spawning a Miner.
      */
     public int spawnPrice;
 
     /**
+     * The amount of damage taken when suffocating inside a filled Tile.
+     */
+    public int suffocationDamage;
+
+    /**
+     * The amount of extra damage taken for suffocating under a large amount of material.
+     */
+    public int suffocationWeightDamage;
+
+    /**
      * The amount of building material required to build a support.
      */
     public int supportCost;
+
+    /**
+     * The amount of mining power needed to remove a support from a Tile.
+     */
+    public int supportHealth;
 
     /**
      * All the tiles in the map, stored in Row-major order. Use `x + y * mapWidth` to access the correct index.
@@ -126,17 +186,17 @@ public class Game extends BaseGame {
     public int timeAddedPerTurn;
 
     /**
-     * Every Unit in the game.
-     */
-    public List<Unit> units;
-
-    /**
-     * The cost to upgrade a Unit.
+     * The cost to upgrade a Miner.
      */
     public int upgradePrice;
 
     /**
-     * The amount of victory points required to win.
+     * Every Upgrade for a Miner in the game.
+     */
+    public List<Upgrade> upgrades;
+
+    /**
+     * The amount of victory points (value) required to win.
      */
     public int victoryAmount;
 
@@ -148,7 +208,7 @@ public class Game extends BaseGame {
     /**
      * The hash of the game version we have locally. Used to compare to the game server's game version.
      */
-    public final static String gameVersion = "d9d8a113b95637751dbb349edb0a873d53ebb6df7c375956772b72fba4dff9f3";
+    public final static String gameVersion = "a4592bb5acb0415146605769f439a09baf3768f41cdb3c7ad9dc971f42c4d96e";
 
 
     /**
@@ -158,10 +218,11 @@ public class Game extends BaseGame {
         super();
         this.name = "Coreminer";
 
-        this.jobs = new ArrayList<Job>();
+        this.bombs = new ArrayList<Bomb>();
+        this.miners = new ArrayList<Miner>();
         this.players = new ArrayList<Player>();
         this.tiles = new ArrayList<Tile>();
-        this.units = new ArrayList<Unit>();
+        this.upgrades = new ArrayList<Upgrade>();
     }
 
     /**
