@@ -183,7 +183,7 @@ public class Game extends BaseGame {
     /**
      * The amount of time (in nano-seconds) added after each player performs a turn.
      */
-    public int timeAddedPerTurn;
+    public double timeAddedPerTurn;
 
     /**
      * The cost to upgrade a Miner.
@@ -208,7 +208,7 @@ public class Game extends BaseGame {
     /**
      * The hash of the game version we have locally. Used to compare to the game server's game version.
      */
-    public final static String gameVersion = "a4592bb5acb0415146605769f439a09baf3768f41cdb3c7ad9dc971f42c4d96e";
+    public final static String gameVersion = "b559778acd8e4c689b8d028ca6cc154714ce79c39b09cd6d171b50faf88ef747";
 
 
     /**
