@@ -1,5 +1,5 @@
 /**
- * There's an infestation of enemy spiders challenging your queen broodmother spider! Protect her and attack the other broodmother in this turn based, node based, game.
+ * There's an infestation of enemy spiders challenging your queen BroodMother spider! Protect her and attack the other BroodMother in this turn based, node based, game.
  */
 
 // DO NOT MODIFY THIS FILE
@@ -22,7 +22,7 @@ import joueur.BaseGameObject;
 // <<-- /Creer-Merge: imports -->>
 
 /**
- * There's an infestation of enemy spiders challenging your queen broodmother spider! Protect her and attack the other broodmother in this turn based, node based, game.
+ * There's an infestation of enemy spiders challenging your queen BroodMother spider! Protect her and attack the other BroodMother in this turn based, node based, game.
  */
 public class Game extends BaseGame {
     /**

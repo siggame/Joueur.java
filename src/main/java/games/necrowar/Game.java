@@ -26,16 +26,6 @@ import joueur.BaseGameObject;
  */
 public class Game extends BaseGame {
     /**
-     * A list of every tower type / job.
-     */
-    public List<TowerJob> TowerJobs;
-
-    /**
-     * A list of every unit type / job.
-     */
-    public List<UnitJob> UnitJobs;
-
-    /**
      * The player whose turn it is currently. That player can send commands. Other players cannot.
      */
     public Player currentPlayer;
@@ -101,9 +91,19 @@ public class Game extends BaseGame {
     public int timeAddedPerTurn;
 
     /**
+     * A list of every tower type / job.
+     */
+    public List<TowerJob> towerJobs;
+
+    /**
      * Every Tower in the game.
      */
     public List<Tower> towers;
+
+    /**
+     * A list of every unit type / job.
+     */
+    public List<UnitJob> unitJobs;
 
     /**
      * Every Unit in the game.
@@ -115,6 +115,11 @@ public class Game extends BaseGame {
     // you can add additional field(s) here. None of them will be tracked or updated by the server.
     // <<-- /Creer-Merge: fields -->>
 
+    /**
+     * The hash of the game version we have locally. Used to compare to the game server's game version.
+     */
+    public final static String gameVersion = "935f0e64ba290cdce31688a40bd90d1eb5375f36aeebd67482238fc0da25ef86";
+
 
     /**
      * Creates a new instance of a Game. Used during game initialization, do not call directly.
@@ -123,11 +128,11 @@ public class Game extends BaseGame {
         super();
         this.name = "Necrowar";
 
-        this.TowerJobs = new ArrayList<TowerJob>();
-        this.UnitJobs = new ArrayList<UnitJob>();
         this.players = new ArrayList<Player>();
         this.tiles = new ArrayList<Tile>();
+        this.towerJobs = new ArrayList<TowerJob>();
         this.towers = new ArrayList<Tower>();
+        this.unitJobs = new ArrayList<UnitJob>();
         this.units = new ArrayList<Unit>();
     }
 

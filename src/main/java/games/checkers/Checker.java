@@ -73,7 +73,7 @@ public class Checker extends GameObject {
      *
      * @param   x  The x coordinate to move to.
      * @param   y  The y coordinate to move to.
-     * @return Returns the same checker that moved if the move was successful. null otherwise.
+     * @return Returns the same checker that moved if the move was successful. Otherwise null.
      */
     public Checker move(int x, int y) {
         JSONObject args = new JSONObject();

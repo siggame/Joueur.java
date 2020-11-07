@@ -81,7 +81,7 @@ public class AI extends BaseAI {
     /**
      * This is called every time it is this AI.player's turn to make a move.
      *
-     * @return A string in Standard Algebraic Notation (SAN) for the move you want to make. If the move is invalid or not properly formatted you will lose the game.
+     * @return A string in Universal Chess Interface (UCI) or Standard Algebraic Notation (SAN) formatting for the move you want to make. If the move is invalid or not properly formatted you will lose the game.
      */
     public String makeMove() {
         // <<-- Creer-Merge: makeMove -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.

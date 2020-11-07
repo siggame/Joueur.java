@@ -89,7 +89,7 @@ public class Job extends GameObject {
     }
 
     /**
-     * Recruits a Beaver of this Job to a lodge
+     * Recruits a Beaver of this Job to a lodge.
      *
      * @param   tile  The Tile that is a lodge owned by you that you wish to spawn the Beaver of this Job on.
      * @return The recruited Beaver if successful, null otherwise.

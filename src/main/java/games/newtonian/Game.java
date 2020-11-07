@@ -41,7 +41,7 @@ public class Game extends BaseGame {
     public int internCap;
 
     /**
-     * A list of all jobs. first item is intern, second is physicists, and third is manager.
+     * A list of all jobs. The first element is intern, second is physicists, and third is manager.
      */
     public List<Job> jobs;
 
